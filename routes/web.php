@@ -1,6 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\GoldController;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +25,70 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(["middleware" => "admin"], function () {
+
+    Route::get('/', [HomeController::class, 'index'])->name('homepage');
+
+});
+
+Route::get('login', [AdminController::class, 'loginPage'])->name('login.page');
+Route::post('login', [AdminController::class, 'login'])->name('login');
+Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+
+
+Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'], function () {
+
+    // User start //
+    Route::get('/users', [UserController::class, 'index'])->name('user');
+    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/users/{id}/update', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/users/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
+    // User end //
+
+    // Customer start //
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customer');
+    Route::get('/customers/create', [CustomerController::class, 'create'])->name('customer.create');
+    Route::post('/customers/store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('/customers/{id}/update', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customers/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+    // Customer end //
+
+     // Category start //
+     Route::get('/category', [CategoryController::class, 'index'])->name('category');
+     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+     Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+     Route::put('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+     Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
+     // Category end //
+
+     // Category start //
+     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
+     Route::get('/setting/create', [SettingController::class, 'create'])->name('setting.create');
+     Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
+     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
+     Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
+     Route::delete('/setting/{id}/delete', [SettingController::class, 'delete'])->name('setting.delete');
+     // Category end //
+
+     // Category start //
+     Route::get('/product', [ProductController::class, 'index'])->name('product');
+     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+     Route::put('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
+     Route::delete('/product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete');
+     // Category end //
+
+     // Gold start //
+     Route::get('/gold', [GoldController::class, 'index'])->name('gold');
+     Route::get('/gold/create', [GoldController::class, 'create'])->name('gold.create');
+     Route::post('/gold/store', [GoldController::class, 'store'])->name('gold.store');
+     Route::get('/gold/{id}/edit', [GoldController::class, 'edit'])->name('gold.edit');
+     Route::put('/gold/{id}/update', [GoldController::class, 'update'])->name('gold.update');
+     Route::delete('/gold/{id}/delete', [GoldController::class, 'delete'])->name('gold.delete');
+     // Gold end //
 });
