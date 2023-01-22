@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\GoldPrice;
+use App\Models\Pos;
+
 
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -16,6 +18,15 @@ use Illuminate\Support\Facades\Crypt;
                 $goldPrice = "";
             }
             return $goldPrice;
+        }
+    }
+
+    if(!function_exists('pos_count')){
+        function pos_count(){
+            $pos = Pos::all();
+            $posCount = count($pos);
+           
+            return $posCount;
         }
     }
 

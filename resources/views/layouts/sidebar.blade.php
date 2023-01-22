@@ -9,7 +9,7 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-heading">Pages</li>
+        {{-- <li class="nav-heading">Pages</li> --}}
         {{-- <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('category') || request()->routeIs('category.create') || request()->routeIs('category.edit') || request()->routeIs('brand') || request()->routeIs('brand.edit') || request()->routeIs('brand.create') || request()->routeIs('product') || request()->routeIs('product.edit') || request()->routeIs('product.show') || request()->routeIs('product.create') ? '' : 'collapsed' }}"
                 data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -66,8 +66,15 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('category') || request()->routeIs('category.edit') ? '' : 'collapsed' }}"
                 href="{{ route('category') }}">
-                <i class="bi bi-receipt"></i>
+                <i class="bi bi-c-circle"></i>
                 <span>Categories</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('pos') || request()->routeIs('pos.edit') ? '' : 'collapsed' }}"
+                href="{{ route('pos') }}">
+                <i class="bi bi-receipt"></i>
+                <span>Pos</span>
             </a>
         </li>
         <li class="nav-item">

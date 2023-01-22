@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\GoldController;
+use App\Http\Controllers\Dashboard\PosController;
 
 
 
@@ -91,4 +92,16 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::put('/gold/{id}/update', [GoldController::class, 'update'])->name('gold.update');
      Route::delete('/gold/{id}/delete', [GoldController::class, 'delete'])->name('gold.delete');
      // Gold end //
+
+     // Pos start //
+     Route::get('/pos', [PosController::class, 'index'])->name('pos');
+     Route::get('/pos/create', [PosController::class, 'create'])->name('pos.create');
+     Route::post('/pos/store', [PosController::class, 'store'])->name('pos.store');
+     Route::get('/pos/{id}/edit', [PosController::class, 'edit'])->name('pos.edit');
+     Route::put('/pos/{id}/update', [PosController::class, 'update'])->name('pos.update');
+     Route::delete('/pos/{id}/delete', [PosController::class, 'delete'])->name('pos.delete');
+     Route::get('/pos/{id}/get-customer', [PosController::class, 'getCustomer'])->name('get-customer');
+     Route::get('/pos/{id}/get-product', [PosController::class, 'getProduct'])->name('get-product');
+     Route::get('/pos/{id}/voucher', [PosController::class, 'voucher'])->name('pos.voucher');
+     // Pos end //
 });
