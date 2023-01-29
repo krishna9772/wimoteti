@@ -47,6 +47,7 @@ class ProductController extends Controller
             "ad_gold_price" => "required",
             "total_price" => "required",
             "service_charges" => "required",
+            "net_weight" => "required",
         ]);
 
         if($validator->fails()){
@@ -80,6 +81,7 @@ class ProductController extends Controller
         $product->ad_gold_quantity_y = $request->ad_gold_quantity_y;
         $product->ad_gold_price = $request->ad_gold_price;
         $product->service_charges = $request->service_charges;
+        $product->net_weight = $request->net_weight;
         $product->total_price = $request->total_price;
         $product->created_by = $user_id;
         $product->updated_by = $user_id;
@@ -106,6 +108,7 @@ class ProductController extends Controller
             "ad_gold_price" => "required",
             "total_price" => "required",
             "service_charges" => "required",
+            "net_weight" => "required",
         ]);
 
         if($validator->fails()){
@@ -140,6 +143,7 @@ class ProductController extends Controller
                 'ad_gold_quantity_y' => $request->ad_gold_quantity_y,
                 'ad_gold_price' => $request->ad_gold_price,
                 'service_charges' => $request->service_charges,
+                'net_weight' => $request->net_weight,
                 'total_price' => $request->total_price,
                 'updated_by' => $user_id,
         ]);

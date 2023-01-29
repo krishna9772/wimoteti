@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Pos')
+
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
         <div class="pagetitle">
@@ -23,7 +24,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Pos List </h5>
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover datatable" id="productTable">
+                            <table class="table table-striped table-hover datatable" id="posTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -51,24 +52,31 @@
                     
                                             
                                             <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="print-btn">
+                                                <div class="">
+                                                    {{-- <div class="print-btn"> --}}
                                                         <a href="{{ route('pos.voucher', ['id' => $item->id]) }}"
-                                                            class="px-2 btn btn-primary">
-                                                            {{-- <i class="bi bi-pencil-square"></i> --}}
+                                                            class="px-2 btn btn-outline-info btn-sm">
+                                                            <i class="bi bi-printer"></i>
                                                             <span style="padding-left: 4px">Print</span>
                                                         </a>
-                                                    </div>
-                                                    {{-- <form action="{{ route('product.delete', ['id' => $product->id]) }}"
+                                                    {{-- </div> --}}
+                                                    {{-- <div class="btn btn-outline-info btn-sm"> --}}
+                                                        <a href="{{ route('pos.edit', ['id' => $item->id]) }}"
+                                                            class="btn btn-outline-primary btn-sm px-2">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            <span style="padding-left: 4px">Edit</span>
+                                                        </a>
+                                                    {{-- </div> --}}
+                                                    <form action="{{ route('pos.delete', ['id' => $item->id]) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('delete')
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit" class="delete-btn mx-2  delete">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm  mx-2  delete">
                                                             <i class="bi bi-trash"></i>
                                                             <span style="padding-left: 4px">Delete</span>
                                                         </button>
-                                                    </form> --}}
+                                                    </form>
                                                 </div>
                                             </td>
                                             <td>{{ \Carbon\Carbon::create($item->created_at)->toFormattedDateString() }}</td>
@@ -91,7 +99,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript">
         $(function() {
-            $('#productTable').on('click', 'button.delete', function(e) {
+            $('#posTable').on('click', 'button.delete', function(e) {
                 // console.log(e);
                 e.preventDefault();
                 Swal.fire({

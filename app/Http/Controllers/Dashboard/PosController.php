@@ -42,7 +42,7 @@ class PosController extends Controller
 
 
     public function store(Request $request){
-        // return $request->code;
+        // return $request;
         
         $validator = Validator::make($request->all(),[
             "name" => "required",
@@ -110,12 +110,119 @@ class PosController extends Controller
             $posItem->ad_gold_quantity_y = $product->ad_gold_quantity_y;
             $posItem->ad_gold_price = $product->ad_gold_price;
             $posItem->service_charges = $product->service_charges;
-            $posItem->total_price = $request->total[$num];
+            $posItem->net_weight = $product->net_weight;
+            $posItem->total_price = $request->price[$num];
             $posItem->save();
             $num++;
         }
 
         return redirect()->route('pos')->with("pos-create","Pos has been created successfully!");
+    }
+
+
+    public function edit($id)
+    {
+        $pos = Pos::with("positem")->with('customer')->find($id);
+        $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
+        $products = Product::select('code','id')->where('status',1)->orderBy('id', 'desc')->get();
+        // return $pos;
+        
+
+        return view('dashboard.pos.edit', compact('pos','customers','products'));
+
+    }
+
+
+    public function update(Request $request, $id){
+
+        $validator = Validator::make($request->all(),[
+            "name" => "required",
+            'ph_no' => 'required',
+            "address" => "required",
+            "code" => "required",
+            "quantity" => "required",
+            "price" => "required",
+            "netAmount" => "required",
+            "paid_status" => "required",
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["status"=>422,"message"=>$validator->errors()]);
+        };
+
+       
+        $pp = Pos::select('voucher_no')->orderBy('created_at', 'desc')->first();
+       
+        
+        if(isset($pp)){
+            $num = $pp->voucher_no + 1;
+            $str_length = 8;
+            $v_no = substr("00000000{$num}", -$str_length);
+        }else{
+            $num = 1;
+            $str_length = 8;
+            $v_no = substr("00000000{$num}", -$str_length);
+        }
+
+        $old_pos_item = PosItem::select('id')->where('pos_id',$id)->get();
+        // return $old_pos_item[0]->id;
+        foreach($old_pos_item as $o_p_item){
+            PosItem::where("id",$o_p_item->id)->delete();
+        }
+        
+        $user_id = Auth::user()->id;
+        $pos = Pos::find($id)->first();
+        $pos->c_id = $request->name;
+        $pos->voucher_no = $v_no;
+        $pos->total_price = $request->netAmount;
+        $pos->discount = $request->discount;
+        $pos->payment_status = $request->paid_status;
+        $pos->updated_by = $user_id;
+        $pos->update();
+
+
+        $product_id = $request->code;
+        // return $product_id;
+        $quantity = $request->quantity;
+        // $qtyCount = count($quantity);
+        $posProduct = Product::with('getCategory')->whereIn('id',$product_id)->get();
+        $num = 0;
+      
+        // PosItem::whereIn("product_id",$product_id)->delete();
+        foreach($posProduct as $product){
+            
+            $posItem = new PosItem();
+            $posItem->pos_id = $pos->id;
+            $posItem->product_id = $product->id;
+            $posItem->type = $product->getCategory->name;
+            $posItem->code = $product->code;
+            $posItem->image = $product->image;
+            $posItem->gem_type = $product->gem_type;
+            $posItem->quantity = $quantity[$num];
+            $posItem->weight = $product->weight;
+            $posItem->price = $product->price;
+            $posItem->gold_quantity_p = $product->gold_quantity_p;
+            $posItem->gold_quantity_y = $product->gold_quantity_y;
+            $posItem->gold_price = $product->gold_price;
+            $posItem->ad_gold_quantity_p = $product->ad_gold_quantity_p;
+            $posItem->ad_gold_quantity_y = $product->ad_gold_quantity_y;
+            $posItem->ad_gold_price = $product->ad_gold_price;
+            $posItem->service_charges = $product->service_charges;
+            $posItem->net_weight = $product->net_weight;
+            $posItem->total_price = $request->price[$num];
+            $posItem->save();
+            $num++;
+        }
+
+        return redirect()->route('pos')->with("pos-update","Pos has been updated successfully!");
+    }
+
+
+    public function delete($id)
+    {   
+        // return $id;
+        Pos::find($id)->update(['status' => 0]);
+        return redirect()->route('pos')->with("pos-delete","Pos has been deleted successfully!");
     }
 
     public function getCustomer($id){
@@ -139,6 +246,7 @@ class PosController extends Controller
         );
         return response()->json($id);
     }
+    
 
     public function voucher($id){
 

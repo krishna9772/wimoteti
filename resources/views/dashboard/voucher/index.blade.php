@@ -75,7 +75,7 @@
    
     <div id="divCon">
         
-        <div style=" padding-top:20px;padding:0px 10px ;background-color:rgb(245, 199, 207);width:100%;">
+        <div style="padding: 20px ;background-color:rgb(245, 199, 207);">
 
 
         
@@ -128,13 +128,13 @@
         <table style=" width: 100%;
         border-collapse: collapse;">
             <tr >
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">No</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Product Code</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Gem Type</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Gold Weight</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Quantity</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Net Weight</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">Amount</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">No</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Product Code</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Gem Type</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Gold Weight</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Quantity</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Net Weight</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Amount</th>
             </tr>
             @php $no = 1; @endphp
            @foreach ($pos->positem as $item)
@@ -144,14 +144,16 @@
                 <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->gem_type}}</td>
                 <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->gold_quantity_p}}.{{$item->gold_quantity_y}}</td>
                 <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->quantity}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->net_weight}}</td>
                 <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->price}}</td>
             </tr>
            @endforeach
            
             <tr>
                 <td colspan="3" style="border : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                 -> မည်သည့်လက်ဝတ်ရတနာထည်များကိုမဆိုလဲလှယ်/ရောင်းလိုပါက <br> [ လဲ(၅%) ၊ (၁၀%) ] ပြန်လည်လက်ခံယူပါသည်။ 
+                 -> မည်သည့်လက်ဝတ်ရတနာထည်များကိုမဆို<br>
+                 လဲလှယ်/ရောင်းလိုပါက  [ လဲ(၅%) ၊ (၁၀%) ]<br>
+                  ပြန်လည်လက်ခံယူပါသည်။ 
                 </td>
                 <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);height: 50px;" colspan="2">
                     <div style="border: 2px solid white;padding:13px 0px;">
@@ -162,7 +164,8 @@
             </tr>
             <tr>
                 <td colspan="3" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                   -> ရောင်း/လဲဲလိုပါက ဘောက်ချာနှင့်တကွယူဆောင်လာပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။
+                   -> ရောင်း/လဲဲလိုပါက ဘောက်ချာနှင့်တကွ<br>
+                   ယူဆောင်လာပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။
                 </td>
                 <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;" colspan="2">
                     
@@ -174,8 +177,10 @@
             </tr>
             <tr>
                 <td colspan="3" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                   -> ဘောက်ချာမပါပါကပြန်လည်ဝယ်ယူ/လဲဲလှယ်ပေးမည်မဟုတ်ပါ။ <br>
-                   ->တစ်ပတ်အတွင်းအခမဲ့လဲလှယ်ပေးသည်။(အော်ဒါအပ်ထည်မပါဝင်ပါ)။
+                   -> ဘောက်ချာမပါပါကပြန်လည်ဝယ်ယူ/<br>
+                   လဲဲလှယ်ပေးမည်မဟုတ်ပါ။ <br>
+                   ->တစ်ပတ်အတွင်းအခမဲ့လဲလှယ်ပေးသည်။<br>
+                   (အော်ဒါအပ်ထည်မပါဝင်ပါ)။
                 </td>
                 <td colspan="4" style="text-align:justify;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
                     * စိန် နှင့်ရတနာ အထည်များ ကို စံ ၁၃ ပဲရည် <br>

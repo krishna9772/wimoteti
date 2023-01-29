@@ -16,6 +16,7 @@ class Pos extends Model
         'payment_status',
         'created_by',
         'updated_by',
+        'status',
     ];
 
     public function customer(){

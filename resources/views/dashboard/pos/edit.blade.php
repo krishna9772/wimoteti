@@ -12,11 +12,12 @@
     </div>
 
     <section class="section">
-        <form action="{{route('pos.store')}}" method="POST">
+        <form action="{{route('pos.update',$pos->id)}}" method="POST">
         @csrf
+        @method("PUT")
         <div class="row">
             @php 
-                $date = \Carbon\Carbon::now()->format('y-m-d');
+                $date = $pos->created_at->format('y-m-d');
                 $datetime = strtotime($date);
                 $datenow = date('Y-m-d',$datetime);
             @endphp
@@ -26,7 +27,7 @@
                 <select class="form-select" aria-label="Default select example" name="name" id="customer_name">
                     <option value="0"></option>
                     @foreach ($customers as $customer)
-                        <option name="name" value="{{ $customer->id }}">{{ $customer->name }}
+                        <option name="name" value="{{$customer->id}}" @if($customer->id  == $pos->customer->id) selected @endif>{{ $customer->name }}
                         </option>
                     @endforeach
                 </select>
@@ -36,7 +37,7 @@
                 <label for="ph_no" style="font-weight: 700" class="mb-2">Phone Number:</label>
                 <input type="text" name="ph_no" id="ph_no"
                     class="@error('ph_no') is-invalid @enderror form-control py-1" required
-                    value="{{ old('ph_no') }}">
+                    value="{{ old('ph_no',$pos->customer->ph_no) }}">
                 @error('ph_no')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -60,7 +61,7 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <label for="address" style="font-weight: 700" class="mb-2">Enter Customer Address:</label>
-                <textarea name="address" id="address" cols="30" rows="4" class="@error('address') is-invalid @enderror form-control" required></textarea>
+                <textarea name="address" id="address" cols="30" rows="4" class="@error('address') is-invalid @enderror form-control"  required>{{ $pos->customer->address}}</textarea>
                 @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -86,52 +87,55 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
-                        <tr id="row_1">
-                            <th scope="row" id="num">1</th>
+                        @php $no = 1 ;@endphp
+                        @foreach($pos->positem as $positem)
+                        <tr id="row_{{$no}}">
+                            <th scope="row" id="num">{{$no}}</th>
                             <td>
-                                <select class="form-select product"  name="code[]"  data-row-id="row_1" id="product_1" onchange="getProductData(1)" required>
+                                <select class="form-select product"  name="code[]"  data-row-id="row_{{$no}}" id="product_{{$no}}" onchange="getProductData({{$no}})" required>
                                     <option value=""></option>
                                     @foreach ($products as $product)
-                                        <option  value="{{ $product->id }}">{{ $product->code }}
+                                        <option  value="{{$product->id}}" @if($product->id  == $positem->product_id) selected @endif>{{ $product->code }}
                                         </option>
                                     @endforeach
                                 </select>
                             </td>
                             <td>
-                                <input type="number" name="quantity[]" id="quantity_1"
-                                class="form-control py-1" required value="1" onkeyup="getTotal(1)">
+                                <input type="number" name="quantity[]" id="quantity_{{$no}}"
+                                class="form-control py-1" required value="{{$positem->quantity}}" onkeyup="getTotal({{$no}})">
                             </td>
                             <td>
-                                <input type="text" name="price[]" id="price_1"
-                                class="form-control py-1"  required>
+                                <input type="text" name="price[]" id="price_{{$no}}"
+                                class="form-control py-1" value="{{$positem->total_price}}" required>
                             </td>
                             <td>
-                                <input type="text" name="total[]" id="amount_1"
-                                class="form-control py-1" required>
+                                <input type="text" name="total[]" id="amount_{{$no}}"
+                                class="form-control py-1"  value="{{$positem->total_price * $positem->quantity}}" required>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-dark" onclick="removeRow('1')">x</button>
+                                <button type="button" class="btn btn-outline-dark" onclick="removeRow({{$no}})">x</button>
                             </td>
                         </tr>
+                        @php $no++;@endphp
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="d-flex align-items-center ">
-                    <button type="submit" class="btn btn-primary me-3">Create Pos</button>
+                    <button type="submit" class="btn btn-primary me-3">Update Pos</button>
                     <button class="btn btn-primary">Back</button>
                 </div>
                 <div class="d-flex align-items-center ">
                     <label for="discount" class="text-nowrap form-label mb-0">Discount</label>
-                    <input type="text" name="discount" id="discount" class="form-control ms-3" onkeyup="getTotal()">
+                    <input type="text" name="discount" id="discount" class="form-control ms-3" onkeyup="getTotal()" value="{{$pos->discount}}">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">
                 <div class="d-flex align-items-center ">
                     <label for="netAmount" class="text-nowrap form-label mb-0">Net Amount</label>
-                    <input type="text" name="netAmount" id="netAmount" class="form-control ms-3" style="width: 230px !important;">
+                    <input type="text" name="netAmount" id="netAmount" class="form-control ms-3" style="width: 230px !important;" value="{{$pos->total_price}}">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">
@@ -139,8 +143,8 @@
                     <label for="netAmount" class="text-nowrap form-label">Paid Status</label>
                     <select class="form-select ms-3"  name="paid_status" id="paid_status" style="width: 230px !important;" required>
                         <option value="">-- Select --</option>
-                        <option  value="paid">Paid</option>
-                        <option  value="unpaid">Unpaid</option>
+                        <option  value="paid" @if($pos->payment_status == 'paid') selected @endif>Paid</option>
+                        <option  value="unpaid" @if($pos->payment_status == 'unpaid') selected @endif>Unpaid</option>
                     </select>
                 </div>
             </div>
@@ -228,23 +232,30 @@
    
     });
 
-function removeRow(tr_id){
+    function removeRow(tr_id)
+  {
+    // console.log(tr_id);
     var count_table_tbody_tr = $("#product_info_table tbody tr").length;
     if(count_table_tbody_tr > 1){
         $("#product_info_table tbody tr#row_"+tr_id).remove();
         getTotal();
     }
-};
+   
+    // subAmount();
+  };
 
 
 //Get Product Data
 function getProductData(row_id)
   {
-    var product_id = $("#product_"+row_id).val();    
+    
+    var product_id = $("#product_"+row_id).val();   
+    console.log(product_id); 
     if(product_id == "") {
       $("#quantity_"+row_id).val("1");
       $("#price_"+row_id).val("");          
       $("#amount_"+row_id).val("");  
+      
 
     } else {
         $.ajax({
@@ -253,6 +264,7 @@ function getProductData(row_id)
             dataType: 'json',
             success: function(data) {
                 
+                console.log(data);
                 $("#price_"+row_id).val(data.price);
                 var quantity = Number($("#quantity_"+row_id).val());
                 var price = data.price;

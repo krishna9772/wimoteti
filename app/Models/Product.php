@@ -24,6 +24,7 @@ class Product extends Model
         'ad_gold_price',
         'total_price',
         'service_charges',
+        'net_weight',
         'created_by',
         'status',
         'updated_by',
