@@ -79,12 +79,12 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
+        {{-- <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div><!-- End Search Bar --> --}}
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -113,7 +113,7 @@
 
 
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -252,7 +252,7 @@
 
                     </ul><!-- End Messages Dropdown Items -->
 
-                </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -273,12 +273,12 @@
                             <hr class="dropdown-divider">
                         </li>
 
-                        <li>
+                        {{-- <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <hr class="dropdown-divider">
                         </li>

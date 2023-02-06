@@ -131,7 +131,7 @@
                     </div><!-- End Customers Card -->
 
                     <!-- Reports -->
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="card">
 
                             <div class="filter">
@@ -665,7 +665,7 @@
                     </div>
                 </div><!-- End News & Updates -->
 
-            </div><!-- End Right side columns -->
+            </div><!-- End Right side columns --> --}}
 
         </div>
     </section>
