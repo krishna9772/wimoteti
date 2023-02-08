@@ -23,6 +23,7 @@
             
             <div class="col-md-4">
                 <label for="name" style="font-weight: 700" class="mb-2">Enter Customer Name:</label>
+               <div class="d-flex">
                 <select class="form-select" aria-label="Default select example" name="name" id="customer_name">
                     <option value="0"></option>
                     @foreach ($customers as $customer)
@@ -30,7 +31,13 @@
                         </option>
                     @endforeach
                 </select>
+                <button class="btn btn-outline-primary btn-sm ms-2" type="button" 
+                    data-bs-toggle="modal" data-bs-target="#addCustomer">
+                    <span class="px-1 py-0">+</span>
+                </button>
+               </div>
             </div>
+
 
             <div class="col-md-4">
                 <label for="ph_no" style="font-weight: 700" class="mb-2">Phone Number:</label>
@@ -148,6 +155,28 @@
     </form>
        
 
+    <!-- Add Customer Modal -->
+        <div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="addCustomerLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addCustomerLabel">Add Customer Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <input type="text" name="name" class="form-control py-1 my-2" placeholder = "Name" required>
+                            <input type="text" name="ph_no" class="form-control py-1 my-2" placeholder = "Phone Number " required>
+                            <input type="text" name="address" class="form-control py-1 my-2" placeholder = "Address" required>  
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 @endsection
