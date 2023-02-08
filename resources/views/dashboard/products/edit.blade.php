@@ -24,6 +24,7 @@
                             @csrf
                             @method('put')
                             <div class="row">
+                                <input type="hidden" name="" id="today_g_price" value="{{gold_price()}}">
                                 <div class="col-md-12 mb-3">
                                     <label for="image" style="font-weight: 700">Image:</label><br>
                                     <label for="image">
@@ -31,7 +32,7 @@
                                             class="rounded shadow-sm p-1"
                                             style="transition: 0.4s; height: 100px; width: 100px" />
                                     </label>
-                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" />
+                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" onchange="previewImageFile(this);" />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
@@ -78,7 +79,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label for="weight" style="font-weight: 700">Gem weight:</label>
                                 <input type="text" name="weight" id="weight"
                                     class="@error('weight') is-invalid @enderror form-control py-1" required
@@ -88,6 +89,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="weight_type" style="font-weight: 700"></label>
+                                <select class="form-select" onchange="calculation()" name="weight_type" id="weight_type" name="weight_type">
+                                    <option  name="weight_type" value=1   {{ old("weight_type",$product->weight_type) == 1 ? "selected" : "" }} >Carat</option>
+                                    <option  name="weight_type" value=2  {{ old("weight_type",$product->weight_type) == 2 ? "selected" : "" }}>Ratti</option>
+                                </select>    
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="price" style="font-weight: 700">Gem price:</label>
@@ -200,9 +208,52 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
+
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function(){
+    $("#quantity,#price,#weight,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
+        calculation();
+     });
+    });
+    function calculation(){
+    var today_g_price = Number($("#today_g_price").val());
+     var quantity = Number($("#quantity").val());
+     var service_charges = Number($("#service_charges").val());
+     var ad_gold_price = Number($("#ad_gold_price").val());
+     var gold_price = Number($("#gold_price").val());
+     var price = Number($("#price").val());
+      var weight = Number($("#weight").val());
+     var gold_quantity_p = Number($("#gold_quantity_p").val());
+     var gold_quantity_y = Number($("#gold_quantity_y").val());
+     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
+     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
+     var gold_price_total =  (gold_quantity_y/8 + gold_quantity_p)/16  * today_g_price;
+     var ad_gold_price_total =  (ad_gold_quantity_y/8 + ad_gold_quantity_p)/16  * today_g_price;
+     var weight_type = $("#weight_type").val();
+     var total_gem_price = weight_type == 1?  (price * weight) :   (price * weight) * 1.1;
+    
+     var total =total_gem_price +
+     gold_price_total + ad_gold_price_total;
+     console.log(total_gem_price);
+     console.log(gold_price_total);
+     console.log(ad_gold_price_total);
+     total = total + ( (service_charges / 100) * total);
+        $("#total_price").val(Math.round(total));
+        $("#gold_price").val(Math.round(gold_price_total));
+        $("#ad_gold_price").val(Math.round(ad_gold_price_total));
+    }
+    function previewImageFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+        if(file){
+         $("#blah").attr("src",  URL.createObjectURL(file) );
+        }
+    }
+</script>
 
 @endsection

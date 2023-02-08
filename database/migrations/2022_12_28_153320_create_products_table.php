@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gem_type')->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('weight')->nullable();
+            $table->integer('weight_type')->nullable();
             $table->integer('price')->nullable();
             $table->string('gold_quantity');
             $table->integer('gold_price');

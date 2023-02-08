@@ -15,6 +15,7 @@ class Product extends Model
         'gem_type',
         'quantity',
         'weight',
+        'weight_type',
         'price',
         'gold_quantity_p',
         'gold_quantity_y',
@@ -29,7 +30,8 @@ class Product extends Model
         'updated_by',
     ];
 
-    public function getCategory(){
+    public function getCategory()
+    {
         return $this->belongsTo(Category::class, "type", "id");
     }
 }
