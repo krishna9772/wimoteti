@@ -31,7 +31,7 @@
                                             class="rounded shadow-sm p-1"
                                             style="transition: 0.4s; height: 100px; width: 100px" />
                                     </label>
-                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" />
+                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" required onchange="previewImageFile(this);"  />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
@@ -76,7 +76,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="weight" style="font-weight: 700">Gem weight:</label>
                                     <input type="text" name="weight" id="weight"
                                         class="@error('weight') is-invalid @enderror form-control py-1" required
@@ -87,6 +87,14 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="weight_type" style="font-weight: 700"></label>
+                                    <select class="form-select" onchange="calculation()" name="weight_type" id="weight_type" name="weight_type">
+                                        <option  name="weight_type" value=1>Carat</option>
+                                        <option  name="weight_type" value=2>Ratti</option>
+                                    </select>    
+                                </div>
+                            
                                 <div class="col-md-6 mb-3">
                                     <label for="price" style="font-weight: 700">Gem price:</label>
                                     <input type="text" name="price" id="price"
@@ -134,7 +142,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="ad_gold_quantity_p" style="font-weight: 700">AD Gold Quantity(P):</label>
                                     <input type="text" name="ad_gold_quantity_p" id="ad_gold_quantity_p"
-                                        class="@error('ad_gold_quantity_p') is-invalid @enderror form-control py-1" required
+                                        class="@error('ad_gold_quantity_p') is-invalid @enderror form-control py-1" 
                                         value="{{ old('ad_gold_quantity_p') }}">
                                     @error('ad_gold_quantity_p')
                                         <span class="invalid-feedback" role="alert">
@@ -145,7 +153,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="ad_gold_quantity_y" style="font-weight: 700">AD Gold Quantity(Y):</label>
                                     <input type="text" name="ad_gold_quantity_y" id="ad_gold_quantity_y"
-                                        class="@error('ad_gold_quantity_y') is-invalid @enderror form-control py-1" required
+                                        class="@error('ad_gold_quantity_y') is-invalid @enderror form-control py-1" 
                                         value="{{ old('ad_gold_quantity_y') }}">
                                     @error('ad_gold_quantity_y')
                                         <span class="invalid-feedback" role="alert">
@@ -164,19 +172,8 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="net_weight" style="font-weight: 700">Net Weight:</label>
-                                    <input type="text" name="net_weight" id="net_weight"
-                                        class="@error('net_weight') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('net_weight') }}">
-                                    @error('net_weight')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="service_charges" style="font-weight: 700">Service Charges:</label>
+                                <div class="col-md-6 mb-3">
+                                    <label for="service_charges" style="font-weight: 700">Service Charges (%):</label>
                                     <input type="text" name="service_charges" id="service_charges"
                                         class="@error('service_charges') is-invalid @enderror form-control py-1" required
                                         value="{{ old('service_charges') }}">
@@ -192,6 +189,17 @@
                                         class="@error('total_price') is-invalid @enderror form-control py-1" required
                                         value="{{ old('total_price') }}">
                                     @error('total_price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="product_qty" style="font-weight: 700">Product Quantity:</label>
+                                    <input type="number" name="product_qty" id="product_qty"  min="1" max="10" value="1"
+                                        class="@error('product_qty') is-invalid @enderror form-control py-1" required
+                                        value="{{ old('product_qty') }}">
+                                    @error('product_qty')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -220,187 +228,39 @@
 @section('script')
 <script>
     $(document).ready(function(){
-    $("#quantity").keyup(function(){
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-
+    $("#quantity,#price,#weight,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
+        calculation();
      });
-    //  $("#weight").keyup(function(){
-    //  var weight = Number($("#weight").val());
-    //  $("#total_price").val(weight);
-    //  });
-     $("#price").keyup(function(){
-     var price = Number($("#price").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-    
-     });
-     $("#gold_quantity_p").keyup(function(){
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-     });
-
-     $("#gold_quantity_y").keyup(function(){
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-     });
-
-    //  $("#gold_price").keyup(function(){
-    //  var gold_price = Number($("#gold_price").val());
-    //  var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-    //  var gold_quantity_p = Number($("#gold_quantity_p").val());
-    //  var gold_quantity_y = Number($("#gold_quantity_y").val());
-    //     var total = (weight * price) + (gold_quantity_p + gold_quantity_y * 0.1) * gold_price;
-    //     $("#total_price").val(total);
-    //  });
-
-
-     $("#ad_gold_quantity_p").keyup(function(){
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-    //  var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-     });
-     
-     $("#ad_gold_quantity_y").keyup(function(){
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-     var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-    //  var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-    var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-     });
-
-    //  $("#ad_gold_price").keyup(function(){
-    //  var ad_gold_price = Number($("#ad_gold_price").val());
-    //  var gold_price = Number($("#gold_price").val());
-    //  var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-    //  var gold_quantity_p = Number($("#gold_quantity_p").val());
-    //  var gold_quantity_y = Number($("#gold_quantity_y").val());
-    //  var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-    //  var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-    //  var total = (weight * price) + (gold_quantity_p + gold_quantity_y * 0.1) * gold_price +
-    //  (ad_gold_quantity_p + ad_gold_quantity_y * 0.1) * ad_gold_price;
-    // $("#total_price").val(total);
-    //  });
-    
-     
-     $("#service_charges").keyup(function(){
-     var service_charges = Number($("#service_charges").val());
-     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
-    //  var service_charges = Number($("#service_charges").val());
-     var ad_gold_price = Number($("#ad_gold_price").val());
-     var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-    //  var weight = Number($("#weight").val());
-     var gold_quantity_p = Number($("#gold_quantity_p").val());
-     var gold_quantity_y = Number($("#gold_quantity_y").val());
-     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
-     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total = (gold_quantity_p/16 * today_g_price) + (gold_quantity_y/8 * today_g_price);
-     var ad_gold_price_total = (ad_gold_quantity_p/16 * today_g_price) + (ad_gold_quantity_y/8 * today_g_price);
-     var total = (quantity * price) +
-     gold_price_total + ad_gold_price_total + service_charges;
-        $("#total_price").val(total);
-        $("#gold_price").val(gold_price_total);
-        $("#ad_gold_price").val(ad_gold_price_total);
-     
-     });
-   
     });
+    function calculation(){
+    var today_g_price = Number($("#today_g_price").val());
+     var quantity = Number($("#quantity").val());
+     var service_charges = Number($("#service_charges").val());
+     var ad_gold_price = Number($("#ad_gold_price").val());
+     var gold_price = Number($("#gold_price").val());
+     var price = Number($("#price").val());
+      var weight = Number($("#weight").val());
+     var gold_quantity_p = Number($("#gold_quantity_p").val());
+     var gold_quantity_y = Number($("#gold_quantity_y").val());
+     var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
+     var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
+     var gold_price_total =  (gold_quantity_y/8 + gold_quantity_p)/16  * today_g_price;
+     var ad_gold_price_total =  (ad_gold_quantity_y/8 + ad_gold_quantity_p)/16  * today_g_price;
+     var weight_type = $("#weight_type").val();
+     var total_gem_price = weight_type == 1?  (price * weight) :   (price * weight) * 1.1;
+     var total =total_gem_price +
+     gold_price_total + ad_gold_price_total;
+     total = total + ( (service_charges / 100) * total);
+        $("#total_price").val(Math.round(total));
+        $("#gold_price").val(Math.round(gold_price_total));
+        $("#ad_gold_price").val(Math.round(ad_gold_price_total));
+    }
+    function previewImageFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+        if(file){
+         $("#blah").attr("src",  URL.createObjectURL(file) );
+        }
+    }
 </script>
+
 @endsection
