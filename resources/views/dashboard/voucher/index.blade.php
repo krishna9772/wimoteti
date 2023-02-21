@@ -47,22 +47,6 @@
         color: white;
         }
 
-       
-
-        /* table {
-        width: 100%;
-        border-collapse: collapse;
-        } */
-
-
-        /* th,td{
-            height: 50px;
-        } */
-
-       
-
-        
-
     </style>
     
 </head>
@@ -90,6 +74,9 @@
             </tr>
             <tr>
                 <td>
+                    @if($pos->payment_status == "paid")
+                    <span style="border:3px solid rgb(55, 55, 110);padding:15px 30px;font-size:25px;font-weight:bold;color:rgb(55, 55, 110);float: left;opacity:0;">PAID</span>
+                    @endif
                     <span style="font-size: 4rem;vertical-align: middle;
                     border:3px solid rgb(161, 82, 82);
                     padding:0px 5px;font-weight:700;margin-right:20px;color:rgb(161, 82, 82);">V</span>
@@ -98,7 +85,10 @@
                     <span style="font-size: 4rem;vertical-align: middle;
                     border:3px solid rgb(161, 82, 82);
                     padding:0px 5px;font-weight:700;margin-left:20px;color:rgb(161, 82, 82);">V</span>
-                </td>
+                   @if($pos->payment_status == "paid")
+                   <span style="border:3px solid rgb(55, 55, 110);padding:15px 30px;font-size:25px;font-weight:bold;color:rgb(55, 55, 110);float: right;">PAID</span>
+                   @endif
+                </td>     
             </tr>
             <tr>
                 <td>
@@ -128,74 +118,126 @@
         <table style=" width: 100%;
         border-collapse: collapse;">
             <tr >
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">No</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Product Code</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Gem Type</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Gold Weight</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Quantity</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Net Weight</th>
-                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;">Amount</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:7%;">No</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:19%;">Product Code</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Gem Type</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Gold Weight</th>
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:20%;">Quantity</th>
+                {{-- <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:15%;">Net Weight</th> --}}
+                <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Amount</th>
             </tr>
-            @php $no = 1; @endphp
-           @foreach ($pos->positem as $item)
+            @php 
+                $no = 1;
+                $count = count($pos->positem);
+               
+            @endphp
+
+           @for ($x = 0; $x < $count; $x++)
            <tr style="text-align: center;">
                 <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$no++}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->code}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->gem_type}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->gold_quantity_p}}.{{$item->gold_quantity_y}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->quantity}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->net_weight}}</td>
-                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$item->price}}</td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$pos->positem[$x]->code}}</td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$pos->positem[$x]->gem_type}}</td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$pos->positem[$x]->gold_quantity_p}}.{{$pos->positem[$x]->gold_quantity_y}}</td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$pos->positem[$x]->quantity}}</td>
+                {{-- <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{$pos->positem[$x]->net_weight}}</td> --}}
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">{{number_format($pos->positem[$x]->total_price)}}</td>
             </tr>
-           @endforeach
+           @endfor
+           @for ($y = $count ; $y <= 9; $y++)
+           <tr style="text-align: center;">
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+                {{-- <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td> --}}
+                <td style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;"></td>
+            </tr>
+           @endfor
            
-            <tr>
-                <td colspan="3" style="border : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                 -> မည်သည့်လက်ဝတ်ရတနာထည်များကိုမဆို<br>
-                 လဲလှယ်/ရောင်းလိုပါက  [ လဲ(၅%) ၊ (၁၀%) ]<br>
-                  ပြန်လည်လက်ခံယူပါသည်။ 
+
+           <tr>
+                <td colspan="4" style="border : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <li style="padding: 0px 20px;">
+                        မည်သည့်လက်ဝတ်ရတနာထည်များကိုမဆိုလဲလှယ်/
+                        ရောင်းလိုပါက လဲ(၅%) ၊ (၁၀%)
+                        ပြန်လည်လက်ခံယူပါသည်။ 
+                    </li>
                 </td>
-                <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);height: 50px;" colspan="2">
+                <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);height: 50px;">
                     <div style="border: 2px solid white;padding:13px 0px;">
                         Discount Amount
                     </div>
                 </td>
-                <td colspan="2" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;text-align:center;">@if($pos->discount == null)0 Ks @else {{$pos->discount}} @endif</td>
+                <td colspan="1" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;text-align:center;">@if($pos->discount == null)0 Ks @else {{number_format($pos->discount)}} @endif</td>
             </tr>
             <tr>
-                <td colspan="3" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                   -> ရောင်း/လဲဲလိုပါက ဘောက်ချာနှင့်တကွ<br>
-                   ယူဆောင်လာပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။
-                </td>
-                <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;" colspan="2">
+                <td colspan="4" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <li style="padding: 0px 20px;">
+                        ဘောက်ချာ၌ပြင်ရာ၊ဖျက်ရာပါပါက
+                        နောက်တစ်ရွက်တောင်းယူပါ။
+                    </li>
+                 </td>
+                 <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;">
                     
                     <div style="border: 2px solid white;padding:13px 0px;color:white;">
                         Total Amount
                     </div>
                 </td>
-                <td  colspan="2" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px; text-align:center;">{{$pos->total_price}} Ks</td>
+                <td  colspan="1" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px; text-align:center;">{{number_format($pos->total_price)}} Ks</td>
+            </tr>
+        
+            <tr>
+                <td colspan="4" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <li style="padding: 0px 20px;">
+                        ရောင်း/လဲဲလိုပါက ဘောက်ချာနှင့်တကွ
+                        ယူဆောင်လာပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။
+                    </li>
+                </td>
+                <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);height: 50px;">
+                    <div style="border: 2px solid white;padding:13px 0px;">
+                        Advance
+                    </div>
+                </td>
+                <td colspan="1" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;text-align:center;">@if($pos->advance == null)0 Ks @else {{number_format($pos->advance)}} Ks @endif</td>
             </tr>
             <tr>
-                <td colspan="3" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                   -> ဘောက်ချာမပါပါကပြန်လည်ဝယ်ယူ/<br>
-                   လဲဲလှယ်ပေးမည်မဟုတ်ပါ။ <br>
-                   ->တစ်ပတ်အတွင်းအခမဲ့လဲလှယ်ပေးသည်။<br>
-                   (အော်ဒါအပ်ထည်မပါဝင်ပါ)။
+                <td colspan="4" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <li style="padding: 0px 20px;">
+                        ဘောက်ချာမပါပါကပြန်လည်ဝယ်ယူ/
+                        လဲဲလှယ်ပေးမည်မဟုတ်ပါ။
+                      </li>
                 </td>
-                <td colspan="4" style="text-align:justify;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                    * စိန် နှင့်ရတနာ အထည်များ ကို စံ ၁၃ ပဲရည် <br>
-                     အသုံးပြု၍ သေသပ်သောလက်ရာ ၊ မှန်ကန်သော <br> စျေးနှုန်းတို့ဖြင့် ရောင်းချပေးလျှက်ရှိပါသည်။ *
+                <td style="text-align:center;color:white;background-color: rgb(161, 82, 82); border: 3px solid rgb(161, 82, 82);height: 50px;">
+                    <div style="border: 2px solid white;padding:13px 0px;">
+                        Balance
+                    </div>
                 </td>
+                <td colspan="1" style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;text-align:center;">@if($pos->balance == null)0 Ks @else {{number_format($pos->balance)}} Ks @endif</td>
             </tr>
 
             <tr>
-                <td colspan="3" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                    ငွေလက်ခံသူ လက်မှတ် - {{$created_by->name}}
+                <td colspan="4" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <li style="padding: 0px 20px;">
+                        တစ်ပတ်အတွင်းအခမဲ့လဲလှယ်ပေးသည်။
+                        (အော်ဒါအပ်ထည်မပါဝင်ပါ)။
+                      </li>
                 </td>
-                <td colspan="4" style="font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
-                    * ဝယ်ယူအားပေးမှုကို ကျေးဇူးတင်ပါသည်။ *
+                <td colspan="3" style="text-align:justify;font-weight:bold;color:rgb(161, 82, 82);height: 50px;text-align:center;">
+                    <span style="padding: 0px 30px;"> * စိန် နှင့်ရတနာ အထည်များ ကို စံ ၁၃ ပဲရည်
+                     အသုံးပြု၍ သေသပ်သောလက်ရာ ၊ မှန်ကန်သော စျေးနှုန်းတို့ဖြင့် ရောင်းချပေးလျှက်ရှိပါသည်။ *</span>
+                 </td>
+            </tr>
+            
+            <tr>
+                <td colspan="4" style="border-style : none!important;font-weight:bold;color:rgb(161, 82, 82);height: 50px;">
+                    <span style="padding: 0px 20px;">ငွေလက်ခံသူ လက်မှတ် &nbsp;&nbsp;..................................</span>
+                </td>
+                <td colspan="3" style="font-weight:bold;color:rgb(161, 82, 82);height: 50px;text-align:end;">
+                    <span style="padding: 0px 20px;">* ဝယ်ယူအားပေးမှုကို ကျေးဇူးတင်ပါသည်။ *</span>
                 </td>
             </tr>
+
         </table>
     </div>
 

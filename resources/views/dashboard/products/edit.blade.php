@@ -174,7 +174,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-4 mb-3">
+                            {{-- <div class="col-md-4 mb-3">
                                 <label for="net_weight" style="font-weight: 700">Net Weight:</label>
                                 <input type="text" name="net_weight" id="net_weight"
                                     class="@error('net_weight') is-invalid @enderror form-control py-1" required
@@ -184,7 +184,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="col-md-4 mb-3">
                                 <label for="service_charges" style="font-weight: 700">Service Charges:</label>
                                 <input type="text" name="service_charges" id="service_charges"

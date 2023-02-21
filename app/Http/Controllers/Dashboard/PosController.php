@@ -80,6 +80,9 @@ class PosController extends Controller
         $pos->total_price = $request->netAmount;
         $pos->discount = $request->discount;
         $pos->payment_status = $request->paid_status;
+        $pos->description = $request->description;
+        $pos->advance = $request->advance;
+        $pos->balance = ($request->netAmount)-($request->advance);
         $pos->created_by = $user_id;
         $pos->updated_by = $user_id;
         $pos->save();
@@ -110,8 +113,7 @@ class PosController extends Controller
             $posItem->ad_gold_quantity_y = $product->ad_gold_quantity_y;
             $posItem->ad_gold_price = $product->ad_gold_price;
             $posItem->service_charges = $product->service_charges;
-            $posItem->net_weight = $product->net_weight;
-            $posItem->total_price = $request->price[$num];
+            $posItem->total_price = $product->total_price;
             $posItem->save();
             $num++;
         }
@@ -135,6 +137,8 @@ class PosController extends Controller
 
     public function update(Request $request, $id){
 
+        // return $request;
+
         $validator = Validator::make($request->all(),[
             "name" => "required",
             'ph_no' => 'required',
@@ -150,22 +154,7 @@ class PosController extends Controller
             return response()->json(["status"=>422,"message"=>$validator->errors()]);
         };
 
-       
-        $pp = Pos::select('voucher_no')->orderBy('created_at', 'desc')->first();
-       
-        
-        if(isset($pp)){
-            $num = $pp->voucher_no + 1;
-            $str_length = 8;
-            $v_no = substr("00000000{$num}", -$str_length);
-        }else{
-            $num = 1;
-            $str_length = 8;
-            $v_no = substr("00000000{$num}", -$str_length);
-        }
-
         $old_pos_item = PosItem::select('id')->where('pos_id',$id)->get();
-        // return $old_pos_item[0]->id;
         foreach($old_pos_item as $o_p_item){
             PosItem::where("id",$o_p_item->id)->delete();
         }
@@ -173,22 +162,21 @@ class PosController extends Controller
         $user_id = Auth::user()->id;
         $pos = Pos::find($id)->first();
         $pos->c_id = $request->name;
-        $pos->voucher_no = $v_no;
         $pos->total_price = $request->netAmount;
         $pos->discount = $request->discount;
         $pos->payment_status = $request->paid_status;
+        $pos->description = $request->description;
+        $pos->advance = $request->advance;
+        $pos->balance = ($request->netAmount)-($request->advance);
         $pos->updated_by = $user_id;
         $pos->update();
 
 
         $product_id = $request->code;
-        // return $product_id;
         $quantity = $request->quantity;
-        // $qtyCount = count($quantity);
         $posProduct = Product::with('getCategory')->whereIn('id',$product_id)->get();
         $num = 0;
       
-        // PosItem::whereIn("product_id",$product_id)->delete();
         foreach($posProduct as $product){
             
             $posItem = new PosItem();
@@ -208,8 +196,7 @@ class PosController extends Controller
             $posItem->ad_gold_quantity_y = $product->ad_gold_quantity_y;
             $posItem->ad_gold_price = $product->ad_gold_price;
             $posItem->service_charges = $product->service_charges;
-            $posItem->net_weight = $product->net_weight;
-            $posItem->total_price = $request->price[$num];
+            $posItem->total_price = $product->total_price;
             $posItem->save();
             $num++;
         }
@@ -236,6 +223,19 @@ class PosController extends Controller
         );
     }
 
+    public function getcreatedCustomer(){
+        $customer = Customer::where('status',1)->orderBy("created_at","desc")->first();
+        return response()->json(
+
+            [   
+                "id" => $customer->id,
+                "name" => $customer->name,
+                "ph_no" => $customer->ph_no,
+                "address" => $customer->address,
+            ]
+        );
+    }
+
     public function getProduct($id){
 
         $product = Product::where('id',$id)->first();
@@ -244,7 +244,7 @@ class PosController extends Controller
                 "price" => $product->total_price,
             ]
         );
-        return response()->json($id);
+        // return response()->json($id);
     }
     
 

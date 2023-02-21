@@ -125,7 +125,7 @@
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="d-flex align-items-center ">
                     <button type="submit" class="btn btn-primary me-3">Update Pos</button>
-                    <button class="btn btn-primary">Back</button>
+                    <a href="{{ route('pos') }}" class="btn btn-primary">Back</a>
                 </div>
                 <div class="d-flex align-items-center ">
                     <label for="discount" class="text-nowrap form-label mb-0">Discount</label>
@@ -134,8 +134,14 @@
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">
                 <div class="d-flex align-items-center ">
-                    <label for="netAmount" class="text-nowrap form-label mb-0">Net Amount</label>
+                    <label for="netAmount" class="text-nowrap form-label mb-0">Total Amount</label>
                     <input type="text" name="netAmount" id="netAmount" class="form-control ms-3" style="width: 230px !important;" value="{{$pos->total_price}}">
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-end mt-3">
+                <div class="d-flex align-items-center ">
+                    <label for="advance" class="text-nowrap form-label mb-0">Advance</label>
+                    <input type="text" name="advance" id="advance" class="form-control ms-3" style="width: 230px !important;" value="{{$pos->advance}}">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">

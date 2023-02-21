@@ -22,7 +22,7 @@
             @endphp
             
             <div class="col-md-4">
-                <label for="name" style="font-weight: 700" class="mb-2">Enter Customer Name:</label>
+                <label for="name" style="font-weight: 700" class="mb-2">Customer Name:</label>
                <div class="d-flex">
                 <select class="form-select" aria-label="Default select example" name="name" id="customer_name">
                     <option value="0"></option>
@@ -66,9 +66,21 @@
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <label for="address" style="font-weight: 700" class="mb-2">Enter Customer Address:</label>
+                <label for="address" style="font-weight: 700" class="mb-2">Customer Address:</label>
                 <textarea name="address" id="address" cols="30" rows="4" class="@error('address') is-invalid @enderror form-control" required></textarea>
                 @error('address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label for="description" style="font-weight: 700" class="mb-2">Description:</label>
+                <textarea name="description" id="description" cols="30" rows="4" class="@error('description') is-invalid @enderror form-control"></textarea>
+                @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -85,7 +97,6 @@
                           <th scope="col">Product</th>
                           <th scope="col">Quantity</th>
                           <th scope="col">Rate</th>
-                          {{-- <th scope="col">Discount</th> --}}
                           <th scope="col">Amount</th>
                           <th scope="col">
                             <button type="button" class="btn btn-outline-dark" id="add_row">+</button>
@@ -128,7 +139,7 @@
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="d-flex align-items-center ">
                     <button type="submit" class="btn btn-primary me-3">Create Pos</button>
-                    <button class="btn btn-primary">Back</button>
+                    <a href="{{ route('pos') }}" class="btn btn-primary">Back</a>
                 </div>
                 <div class="d-flex align-items-center ">
                     <label for="discount" class="text-nowrap form-label mb-0">Discount</label>
@@ -137,8 +148,14 @@
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">
                 <div class="d-flex align-items-center ">
-                    <label for="netAmount" class="text-nowrap form-label mb-0">Net Amount</label>
+                    <label for="netAmount" class="text-nowrap form-label mb-0">Total Amount</label>
                     <input type="text" name="netAmount" id="netAmount" class="form-control ms-3" style="width: 230px !important;">
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-end mt-3">
+                <div class="d-flex align-items-center ">
+                    <label for="advance" class="text-nowrap form-label mb-0">Advance</label>
+                    <input type="text" name="advance" id="advance" class="form-control ms-3" style="width: 230px !important;">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">
@@ -160,19 +177,25 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addCustomerLabel">Add Customer Form</h1>
+                        <h1 class="modal-title fs-5" id="addCustomerLabel">
+                            Add Customer Form
+                            <small class="font-weight-bold text-success ml-1 d-none" style="font-size: 16px" id="successMessage">
+                                <i class="bi bi-check-circle"></i>
+                                success!
+                            </small>
+                        </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="">
+                        <form action="{{ route("customer.add") }}" method="post" id="customerAddForm">
                             <input type="text" name="name" class="form-control py-1 my-2" placeholder = "Name" required>
                             <input type="text" name="ph_no" class="form-control py-1 my-2" placeholder = "Phone Number " required>
-                            <input type="text" name="address" class="form-control py-1 my-2" placeholder = "Address" required>  
+                            <textarea name="address" id="" cols="30" rows="5"  class="form-control py-1 my-2" placeholder="Address" required></textarea>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-primary" id="customerAddBtn" form="customerAddForm">Add</button>
                     </div>
                 </div>
             </div>
@@ -184,6 +207,67 @@
 @section('script')
 
 <script type="text/javascript">
+
+$(document).ready(function () {
+
+var customerAddForm = $("#customerAddForm");
+
+$("#customerAddBtn").click(function (e) {
+    e.preventDefault();
+
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    $.ajax({
+        url: customerAddForm.attr('action'),
+        type: customerAddForm.attr('method'),
+        _token : "{{ csrf_token() }}",
+        data: customerAddForm.serialize(),
+        dataType: 'json',
+        success:function(response) {
+
+            console.log(response);
+
+            if (response.status == 422){
+
+                // if (response.message.name){
+                //     $("#name").addClass("is-invalid")
+                //     $("#nameError").html(response.message.name)
+                // }
+
+                // if (response.message.email){
+                //     $("#email").addClass("is-invalid")
+                //     $("#emailError").html(response.message.email)
+                // }
+
+                // if (response.message.password){
+                //     $("#password").addClass("is-invalid")
+                //     $("#passwordError").html(response.message.password)
+                // }
+                console.log("fail");
+
+            }
+
+            if (response.status == 200){
+                $("#successMessage").removeClass("d-none")
+
+            }
+
+
+        },
+        error: function(e){
+            console.log(e.responseText);
+        }
+    });
+
+})
+
+})
+
+
     $(document).ready(function(){
         $('#customer_name').on('change', function() {
             var customer_id = $('#customer_name').val();
@@ -207,9 +291,9 @@
   	  $("#add_row").off('click').on('click', function() {
       var table = $("#product_info_table");
       var count_table_tbody_tr = $("#product_info_table tbody tr").length;
-      if(count_table_tbody_tr > 7){
+      if(count_table_tbody_tr > 9){
 
-          alert('Maximum rows 8');
+          alert('Maximum rows 10');
 
       }else{
 
