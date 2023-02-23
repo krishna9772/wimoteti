@@ -255,4 +255,9 @@ class PosController extends Controller
         $created_by = User::select('name')->where('id',$pos->created_by)->first();
         return view('dashboard.voucher.index',compact('pos','created_by'));
     }
+
+    public function voucherSearch(Request $request){
+        $voucherFilter = Pos::with('positem','customer')->where("voucher_no",$request->voucher_no)->first();
+        return view("dashboard.home.voucher",compact("voucherFilter"));
+    }
 }

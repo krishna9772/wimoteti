@@ -106,6 +106,7 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::get('/pos/get-created-customer', [PosController::class, 'getcreatedCustomer'])->name('get-created-customer');
      Route::get('/pos/{id}/get-product', [PosController::class, 'getProduct'])->name('get-product');
      Route::get('/pos/{id}/voucher', [PosController::class, 'voucher'])->name('pos.voucher');
+     Route::post('/pos/voucher', [PosController::class, 'voucherSearch'])->name('pos.voucher.search');
      // Pos end //
 
     //Return and Exchange Start //

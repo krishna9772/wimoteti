@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             
-            $table->tinyInteger('weight_type')->after('net_weight');
+            $table->boolean('product_in')->default(1);
     
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             
-            $table->tinyInteger('weight_type');
+            $table->boolean('product_in');
 
         });
     }

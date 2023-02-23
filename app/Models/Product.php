@@ -28,6 +28,7 @@ class Product extends Model
         'net_weight',
         'created_by',
         'status',
+        'product_in',
         'updated_by',
     ];
 
