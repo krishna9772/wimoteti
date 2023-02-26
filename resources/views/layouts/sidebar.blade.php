@@ -54,13 +54,13 @@
             </a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('setting') || request()->routeIs('setting.edit') ? '' : 'collapsed' }}"
                 href="{{ route('setting') }}">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
-        </li>
+        </li> --}}
         
 
         {{-- <li class="nav-item">
