@@ -63,7 +63,7 @@
                                                         <span style="padding-left: 4px">Edit</span>
                                                     </a>
                                                 </div>
-                                                {{-- <form action="{{ route('exchange-return.delete', ['id' => $product->id]) }}"
+                                                <form action="{{ route('exchange-return.delete', ['id' => $ereturn->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
@@ -72,7 +72,7 @@
                                                         <i class="bi bi-trash"></i>
                                                         <span style="padding-left: 4px">Delete</span>
                                                     </button>
-                                                </form> --}}
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

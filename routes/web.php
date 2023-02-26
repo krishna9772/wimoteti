@@ -82,6 +82,7 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
      Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
      Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+     Route::get('/product/{id}/detail', [ProductController::class, 'detail'])->name('product.detail');
      Route::put('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
      Route::delete('/product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete');
      // Product end //

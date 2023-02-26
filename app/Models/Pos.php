@@ -20,6 +20,7 @@ class Pos extends Model
         'created_by',
         'updated_by',
         'status',
+        'is_return',
     ];
 
     public function customer(){

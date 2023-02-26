@@ -2,11 +2,11 @@
 @section('title', 'Product Edit')
 @section('content')
     <div class="pagetitle">
-        <h1>Product Page</h1>
+        <h1>Product Edit Page</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('product') }}">Product</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('product') }}">Product Edit</a></li>
             </ol>
         </nav>
     </div>

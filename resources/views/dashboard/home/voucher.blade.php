@@ -5,12 +5,12 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('homepage')}}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
     </div>
-    
+    @if($voucherFilter)
     <div class="row">
         <div class="col-md-12">
                
@@ -203,4 +203,13 @@
 
         </div>
     </div>
+    @else
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <span class="text-muted">Voucher Not Found!!</span>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection

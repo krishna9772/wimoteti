@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -24,7 +25,9 @@ class ProductController extends Controller
         if (session('product-update')) {
             toast(Session::get('product-update'), "success");
         }
-        $products = Product::with('getCategory')->where('status', 1)->orderBy('id', 'desc')->get();
+        $products = Product::with('getCategory')
+        ->where("product_in",1)
+        ->where('status', 1)->orderBy('id', 'desc')->get();
         // return $products;
         return view('dashboard.products.index', compact('products'));
     }
@@ -85,6 +88,8 @@ class ProductController extends Controller
             $product->ad_gold_price = $request->ad_gold_price;
             $product->service_charges = $request->service_charges;
             $product->total_price = $request->total_price;
+            $product->created_at = Carbon::now()->format('Y-m-d H:i:s');
+            $product->updated_at = Carbon::now()->format('Y-m-d H:i:s');
             $product->created_by = $user_id;
             $product->updated_by = $user_id;
             $product->save();
@@ -147,6 +152,7 @@ class ProductController extends Controller
             'service_charges' => $request->service_charges,
             'total_price' => $request->total_price,
             'updated_by' => $user_id,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         return redirect()->route('product')->with("product-update", "Product has been updated successfully!");
@@ -156,5 +162,11 @@ class ProductController extends Controller
     {
         Product::find($id)->update(['status' => 0]);
         return redirect()->route('product')->with("product-delete", "Product has been deleted successfully!");
+    }
+
+    public function detail($id){
+        $product = Product::with("getCategory")->findorFail($id);
+        // return $product;
+        return view('dashboard.products.detail', compact('product'));
     }
 }

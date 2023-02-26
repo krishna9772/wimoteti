@@ -98,120 +98,63 @@
                                 <span class="fs-3">Today ({{$datenow}})</span>
                             </div>
                             <div class="card-body">
-                                <table class="table border">
-                                    <tr class="text-center">
-                                        <th class="border">No</th>
-                                        <th class="border">Products (IN)</th>
-                                        <th class="border">Products (OUT)</th>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="border">1</td>
-                                        <td class="border">R-2342342</td>
-                                        <td class="border">E-3243434</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="border">1</td>
-                                        <td class="border">R-2342342</td>
-                                        <td class="border">E-3243434</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="border">1</td>
-                                        <td class="border">R-2342342</td>
-                                        <td class="border">E-3243434</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="border">1</td>
-                                        <td class="border">R-2342342</td>
-                                        <td class="border">E-3243434</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="border">1</td>
-                                        <td class="border">R-2342342</td>
-                                        <td class="border">E-3243434</td>
-                                    </tr>
-                                    
-                                </table>
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <table class="table border">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th class="border">No</th>
+                                                    <th class="border">Products (IN)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = ($product_in->currentpage() - 1) * $product_in->perpage() + 1 ?>
+                                                @foreach($product_in as $p_in)
+                                                <tr class="text-center">
+                                                    <td class="border">{{$i++}}</td>
+                                                    <td class="border"><a href="{{route('product.detail',$p_in->id)}}">{{$p_in->code}}</a></td>  
+                                                </tr>
+                                                @endforeach
+                                                @if(count($product_in) == 0)
+                                                    <tr>
+                                                        <td colspan="2" class="text-center text-muted">No Product In Today</td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                        <div class="pagination justify-content-center">{{ $product_in->links() }}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table border">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th class="border">No</th>
+                                                    <th class="border">Products (OUT)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $o = ($product_out->currentpage() - 1) * $product_out->perpage() + 1 ?>
+                                                @foreach($product_out as $p_out)
+                                                <tr class="text-center">
+                                                    <td class="border">{{$o++}}</td>
+                                                    <td class="border"><a href="{{route('product.detail',$p_out->id)}}">{{$p_out->code}}</a></td>  
+                                                </tr>
+                                                @endforeach
+                                                @if(count($product_out) == 0)
+                                                    <tr>
+                                                        <td colspan="2" class="text-center text-muted">No Product Out Today</td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                        <div class="pagination justify-content-center">{{ $product_out->links() }}</div>
+                                    </div>
+                               </div>
                             </div>
                        </div>
                     </div>
 
-                    <!-- Revenue Card -->
-                    {{-- <div class="col-md-4">
-                        <div class="card info-card revenue-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-currency-dollar"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>$3,264</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> --}}
-                    <!-- End Revenue Card -->
-
-                    <!-- Customers Card -->
-                    {{-- <div class="col-xxl-4 col-xl-12">
-
-                        <div class="card info-card customers-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">decrease</span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div> --}}
-                    <!-- End Customers Card -->
+                    
 
               
         </div>

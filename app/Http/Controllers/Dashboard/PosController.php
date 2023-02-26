@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class PosController extends Controller
 {
@@ -27,7 +28,9 @@ class PosController extends Controller
         if (session('pos-update')) {
             toast(Session::get('pos-update'), "success");
         }
-        $pos = Pos::with('customer')->where('status',1)->orderBy('created_at', 'desc')->get();
+        $pos = Pos::with('customer')->where('status',1)
+        ->where("is_return",0)
+        ->orderBy('created_at', 'desc')->get();
         // return $pos;
         
         return view('dashboard.pos.index', compact('pos'));
@@ -36,7 +39,9 @@ class PosController extends Controller
     public function create()
     {
         $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
-        $products = Product::select('code','id')->where('status',1)->orderBy('id', 'desc')->get();
+        $products = Product::select('code','id')->where('status',1)
+        ->where("product_in",1)
+        ->orderBy('id', 'desc')->get();
         return view('dashboard.pos.create',compact('customers','products'));
     }
 
@@ -83,6 +88,8 @@ class PosController extends Controller
         $pos->description = $request->description;
         $pos->advance = $request->advance;
         $pos->balance = ($request->netAmount)-($request->advance);
+        $pos->created_at = Carbon::now()->format('Y-m-d H:i:s');
+        $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $pos->created_by = $user_id;
         $pos->updated_by = $user_id;
         $pos->save();
@@ -117,6 +124,13 @@ class PosController extends Controller
             $posItem->save();
             $num++;
         }
+
+        Product::whereIn("id",$product_id)->update(
+            [
+                "product_in" => 0 ,
+                "updated_at" => Carbon::now()->format('Y-m-d H:i:s'),
+            ]
+        );
 
         return redirect()->route('pos')->with("pos-create","Pos has been created successfully!");
     }
@@ -169,6 +183,7 @@ class PosController extends Controller
         $pos->advance = $request->advance;
         $pos->balance = ($request->netAmount)-($request->advance);
         $pos->updated_by = $user_id;
+        $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $pos->update();
 
 
@@ -258,6 +273,7 @@ class PosController extends Controller
 
     public function voucherSearch(Request $request){
         $voucherFilter = Pos::with('positem','customer')->where("voucher_no",$request->voucher_no)->first();
+        // return $voucherFilter;
         return view("dashboard.home.voucher",compact("voucherFilter"));
     }
 }
