@@ -49,11 +49,12 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="address" style="font-weight: 700">Address:</label>
-                                    <input type="text" name="address"
+                                    {{-- <input type="text" name="address"
                                         class="@error('address') is-invalid @enderror form-control py-1" required
-                                        value="{{ $customer->address }}">
+                                        value="{{ $customer->address }}"> --}}
+                                    <textarea name="address" id="" cols="30" rows="5" class="@error('address') is-invalid @enderror form-control py-1" required>{{ $customer->address }}</textarea>
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

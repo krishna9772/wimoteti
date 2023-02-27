@@ -27,11 +27,12 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="image" style="font-weight: 700">Image:</label><br>
                                     <label for="image">
-                                        <img id="blah" src="{{ asset('assets/img/images.jpg') }}"
-                                            class="rounded shadow-sm p-1"
-                                            style="transition: 0.4s; height: 100px; width: 100px" />
+                                        <div class="form-group" id="image">
+                                          
+                                        </div>
+                                     
                                     </label>
-                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" required onchange="previewImageFile(this);"  />
+                                    <input accept="image/*" name="image[]"  multiple="multiple" type='file' id="image" class="mx-2" required onchange="previewImageFile(event);"  />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
@@ -183,7 +184,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="total_price" style="font-weight: 700">Total Price:</label>
                                     <input type="text" name="total_price" id="total_price"
                                         class="@error('total_price') is-invalid @enderror form-control py-1" required
@@ -194,7 +195,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <label for="product_qty" style="font-weight: 700">Product Quantity:</label>
                                     <input type="number" name="product_qty" id="product_qty"  min="1" max="10" value="1"
                                         class="@error('product_qty') is-invalid @enderror form-control py-1" required
@@ -204,7 +205,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="row my-3">
@@ -255,12 +256,19 @@
         $("#gold_price").val(Math.round(gold_price_total));
         $("#ad_gold_price").val(Math.round(ad_gold_price_total));
     }
-    function previewImageFile(input){
-        var file = $("input[type=file]").get(0).files[0];
-        if(file){
-         $("#blah").attr("src",  URL.createObjectURL(file) );
-        }
-    }
+    // function previewImageFile(event){
+    //     var file = $("input[type=file]").get(0).files[0];
+    //     if(file){
+    //      $("#blah").attr("src",  URL.createObjectURL(file) );
+    //     }
+    // }
+    var previewImageFile = function(event) {
+            for(var i =0; i< event.target.files.length; i++){
+                var src = URL.createObjectURL(event.target.files[i]);
+                $("#image").append("<img id='myImg"+i+"'   src="+src+" class='rounded shadow-sm p-1' style='transition: 0.4s; height: 100px; width: 100px' style='margin:4px;width:100px;border-radius:5px;cursor:pointer;' alt='img' />");
+            }
+        };
 </script>
 
 @endsection
+ 

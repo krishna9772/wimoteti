@@ -9,39 +9,7 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        {{-- <li class="nav-heading">Pages</li> --}}
-        {{-- <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('category') || request()->routeIs('category.create') || request()->routeIs('category.edit') || request()->routeIs('brand') || request()->routeIs('brand.edit') || request()->routeIs('brand.create') || request()->routeIs('product') || request()->routeIs('product.edit') || request()->routeIs('product.show') || request()->routeIs('product.create') ? '' : 'collapsed' }}"
-                data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Catalog</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav"
-                class="nav-content {{ request()->routeIs('category') || request()->routeIs('category.create') || request()->routeIs('category.edit') || request()->routeIs('brand') || request()->routeIs('brand.edit') || request()->routeIs('brand.create') || request()->routeIs('product') || request()->routeIs('product.edit') || request()->routeIs('product.show') || request()->routeIs('list.attr') || request()->routeIs('add.attr') || request()->routeIs('edit.attr') ? '' : 'collapse' }} "
-                data-bs-parent="#sidebar-nav">
-
-                <li>
-                    <a href="{{ route('category') }}">
-                        <i class="bi bi-receipt" style="font-size: 20px"></i><span>Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('brand') }}">
-                        <i class="bi bi-type-bold" style="font-size: 20px"></i><span>Brands</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('product') }}">
-                        <i class="bi bi-tags" style="font-size: 20px"></i><span>Products</span>
-                    </a>
-                </li>
-                </li>
-                <li>
-                    <a href="{{ route('list.attr') }}">
-                        <i class="bi bi-tags" style="font-size: 20px"></i><span>Product Attributes</span>
-                    </a>
-                </li>
-            </ul>
-        </li> --}}
+      
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('user') || request()->routeIs('user.edit') ? '' : 'collapsed' }}"
                 href="{{ route('user') }}">
@@ -77,13 +45,22 @@
                 <span>Pos</span>
             </a>
         </li>
+
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('exchange-return') || request()->routeIs('exchange-return.edit') ? '' : 'collapsed' }}"
+                href="{{ route('exchange-return') }}">
+                <i class="bi bi-box-arrow-in-down-left"></i>
+                <span>Return</span>
+            </a>
+        </li>
+
+        {{-- <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('setting') || request()->routeIs('setting.edit') ? '' : 'collapsed' }}"
                 href="{{ route('setting') }}">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
-        </li>
+        </li> --}}
         
 
         {{-- <li class="nav-item">

@@ -14,8 +14,13 @@ class Pos extends Model
         'total_price',
         'discount',
         'payment_status',
+        'description',
+        'advance',
+        'balance',
         'created_by',
         'updated_by',
+        'status',
+        'is_return',
     ];
 
     public function customer(){

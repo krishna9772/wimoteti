@@ -2,11 +2,11 @@
 @section('title', 'Product Edit')
 @section('content')
     <div class="pagetitle">
-        <h1>Product Page</h1>
+        <h1>Product Edit Page</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('product') }}">Product</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('product') }}">Product Edit</a></li>
             </ol>
         </nav>
     </div>
@@ -174,7 +174,18 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 mb-3">
+                            {{-- <div class="col-md-4 mb-3">
+                                <label for="net_weight" style="font-weight: 700">Net Weight:</label>
+                                <input type="text" name="net_weight" id="net_weight"
+                                    class="@error('net_weight') is-invalid @enderror form-control py-1" required
+                                    value="{{ old('net_weight',$product->net_weight) }}">
+                                @error('net_weight')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div> --}}
+                            <div class="col-md-4 mb-3">
                                 <label for="service_charges" style="font-weight: 700">Service Charges:</label>
                                 <input type="text" name="service_charges" id="service_charges"
                                     class="@error('service_charges') is-invalid @enderror form-control py-1" required
@@ -185,7 +196,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label for="total_price" style="font-weight: 700">Total Price:</label>
                                 <input type="text" name="total_price" id="total_price"
                                     class="@error('total_price') is-invalid @enderror form-control py-1" required

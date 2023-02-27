@@ -88,4 +88,30 @@ class CustomerController extends Controller
         Customer::find($id)->update(['status' => 0]);
         return redirect()->route('customer')->with("customer-delete","Customer has been deleted successfully!");
     }
+
+
+    public function add(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            "name" => "required",
+            'ph_no' => 'required',
+            "address" => "required",
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["status"=>422,"message"=>$validator->errors()]);
+        };
+
+        $user_id = Auth::user()->id;
+        $customer = new Customer();
+        $customer->name = $request->name;
+        $customer->ph_no = $request->ph_no;
+        $customer->address = $request->address;
+        $customer->created_by = $user_id;
+        $customer->updated_by = $user_id;
+        $customer->save();
+
+        return response()->json(["status"=>200,"message"=>"New Customer : $request->name is successfully created !"]);
+
+    }
 }

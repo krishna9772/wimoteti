@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\GoldController;
 use App\Http\Controllers\Dashboard\PosController;
+use App\Http\Controllers\Dashboard\ExchangeReturnController;
 
 
 
@@ -55,6 +56,7 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
     Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::put('/customers/{id}/update', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/customers/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::post('/customers/add', [CustomerController::class, 'add'])->name('customer.add');
     // Customer end //
 
      // Category start //
@@ -66,23 +68,24 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
      // Category end //
 
-     // Category start //
+     // Setting start //
      Route::get('/setting', [SettingController::class, 'index'])->name('setting');
      Route::get('/setting/create', [SettingController::class, 'create'])->name('setting.create');
      Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
      Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
      Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
      Route::delete('/setting/{id}/delete', [SettingController::class, 'delete'])->name('setting.delete');
-     // Category end //
+     // Setting end //
 
-     // Category start //
+     // Product start //
      Route::get('/product', [ProductController::class, 'index'])->name('product');
      Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
      Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
      Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+     Route::get('/product/{id}/detail', [ProductController::class, 'detail'])->name('product.detail');
      Route::put('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
      Route::delete('/product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete');
-     // Category end //
+     // Product end //
 
      // Gold start //
      Route::get('/gold', [GoldController::class, 'index'])->name('gold');
@@ -101,7 +104,19 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::put('/pos/{id}/update', [PosController::class, 'update'])->name('pos.update');
      Route::delete('/pos/{id}/delete', [PosController::class, 'delete'])->name('pos.delete');
      Route::get('/pos/{id}/get-customer', [PosController::class, 'getCustomer'])->name('get-customer');
+     Route::get('/pos/get-created-customer', [PosController::class, 'getcreatedCustomer'])->name('get-created-customer');
      Route::get('/pos/{id}/get-product', [PosController::class, 'getProduct'])->name('get-product');
      Route::get('/pos/{id}/voucher', [PosController::class, 'voucher'])->name('pos.voucher');
+     Route::post('/pos/voucher', [PosController::class, 'voucherSearch'])->name('pos.voucher.search');
      // Pos end //
+
+    //Return and Exchange Start //
+     Route::get('/exchange-return', [ExchangeReturnController::class, 'index'])->name('exchange-return');
+     Route::get('/exchange-return/create', [ExchangeReturnController::class, 'create'])->name('exchange-return.create');
+     Route::post('/exchange-return/store', [ExchangeReturnController::class, 'store'])->name('exchange-return.store');
+     Route::get('/exchange-return/{id}/edit', [ExchangeReturnController::class, 'edit'])->name('exchange-return.edit');
+     Route::put('/exchange-return/{id}/update', [ExchangeReturnController::class, 'update'])->name('exchange-return.update');
+     Route::delete('/exchange-return/{id}/delete', [ExchangeReturnController::class, 'delete'])->name('exchange-return.delete');
+     Route::get('/exchange-return/{id}/get-pos', [ExchangeReturnController::class, 'getPos'])->name('get-pos');
+      //Return and Exchange End //
 });

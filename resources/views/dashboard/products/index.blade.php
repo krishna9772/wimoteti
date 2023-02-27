@@ -134,6 +134,13 @@
                                                             <span style="padding-left: 4px">Delete</span>
                                                         </button>
                                                     </form>
+                                                    <div class="edit-btn">
+                                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                            class="px-2">
+                                                            <i class="bi bi-info-square"></i>
+                                                            <span style="padding-left: 4px">Detail</span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
