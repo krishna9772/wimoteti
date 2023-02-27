@@ -58,43 +58,52 @@ class ProductController extends Controller
             return response()->json(["status" => 422, "message" => $validator->errors()]);
         };
 
-
-        $path = '';
-        if ($request->file()) {
-            $dir = public_path() . "/storage/product/";
-
-            $newName = uniqid() . "_" . $request->image->getClientOriginalName();
-            $request->file("image")->move($dir, $newName);
-            $path = "product/" . $newName;
-        }
-
         $user_id = Auth::user()->id;
         $code = $request->code;
-        for ($x = 0; $x < $request->product_qty; $x++) {
-            $product = new Product();
-            $product->image = $path;
-            $product->code =   $code;
-            $product->type = $request->type;
-            $product->gem_type = $request->gem_type;
-            $product->quantity = $request->quantity;
-            $product->weight = $request->weight;
-            $product->weight_type = $request->weight_type;
-            $product->price = $request->price;
-            $product->gold_quantity_p = $request->gold_quantity_p;
-            $product->gold_quantity_y = $request->gold_quantity_y;
-            $product->gold_price = $request->gold_price;
-            $product->ad_gold_quantity_p = $request->ad_gold_quantity_p;
-            $product->ad_gold_quantity_y = $request->ad_gold_quantity_y;
-            $product->ad_gold_price = $request->ad_gold_price;
-            $product->service_charges = $request->service_charges;
-            $product->total_price = $request->total_price;
-            $product->created_at = Carbon::now()->format('Y-m-d H:i:s');
-            $product->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-            $product->created_by = $user_id;
-            $product->updated_by = $user_id;
-            $product->save();
-            $code++;
-        }
+        
+       
+        // if ($request->file()) {
+        //     $dir = public_path() . "/storage/product/";
+
+        //     $newName = uniqid() . "_" . $request->image->getClientOriginalName();
+        //     $request->file("image")->move($dir, $newName);
+        //     $path = "product/" . $newName;
+        // }
+        if ($request->hasfile('image')) {
+        
+            foreach ($request->file('image') as $file) {
+                $path = '';
+                $dir = public_path() . "/storage/product/";
+                $newName = uniqid() . "_" . $file->getClientOriginalName();
+                $file->move($dir, $newName);
+                $path = "product/" . $newName;   
+
+                
+                $product = new Product();
+                $product->image = $path;
+                $product->code =   $code;
+                $product->type = $request->type;
+                $product->gem_type = $request->gem_type;
+                $product->quantity = $request->quantity;
+                $product->weight = $request->weight;
+                $product->weight_type = $request->weight_type;
+                $product->price = $request->price;
+                $product->gold_quantity_p = $request->gold_quantity_p;
+                $product->gold_quantity_y = $request->gold_quantity_y;
+                $product->gold_price = $request->gold_price;
+                $product->ad_gold_quantity_p = $request->ad_gold_quantity_p;
+                $product->ad_gold_quantity_y = $request->ad_gold_quantity_y;
+                $product->ad_gold_price = $request->ad_gold_price;
+                $product->service_charges = $request->service_charges;
+                $product->total_price = $request->total_price;
+                $product->created_at = Carbon::now()->format('Y-m-d H:i:s');
+                $product->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+                $product->created_by = $user_id;
+                $product->updated_by = $user_id;
+                $product->save();
+                $code++;
+            }
+        }  
         return redirect()->route('product')->with("product-create", "Product has been created successfully!");
     }
 
