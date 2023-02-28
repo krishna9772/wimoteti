@@ -140,7 +140,9 @@ class PosController extends Controller
     {
         $pos = Pos::with("positem")->with('customer')->find($id);
         $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
-        $products = Product::select('code','id')->where('status',1)->orderBy('id', 'desc')->get();
+        $products = Product::select('code','id')
+        // ->where("product_in",1)
+        ->where('status',1)->orderBy('id', 'desc')->get();
         // return $pos;
         
 
@@ -195,7 +197,7 @@ class PosController extends Controller
         foreach($posProduct as $product){
             
             $posItem = new PosItem();
-            $posItem->pos_id = $pos->id;
+            $posItem->pos_id = $id;
             $posItem->product_id = $product->id;
             $posItem->type = $product->getCategory->name;
             $posItem->code = $product->code;
@@ -215,6 +217,13 @@ class PosController extends Controller
             $posItem->save();
             $num++;
         }
+
+        Product::whereIn("id",$product_id)->update(
+            [
+                "product_in" => 0 ,
+                "updated_at" => Carbon::now()->format('Y-m-d H:i:s'),
+            ]
+        );
 
         return redirect()->route('pos')->with("pos-update","Pos has been updated successfully!");
     }

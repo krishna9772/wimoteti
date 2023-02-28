@@ -31,7 +31,7 @@
                                             class="rounded shadow-sm p-1"
                                             style="transition: 0.4s; height: 100px; width: 100px" />
                                     </label>
-                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" required onchange="previewImageFile(this);"  />
+                                    <input accept="image/*" name="image[]" type='file' id="image" class="mx-2" required onchange="previewImageFile(this);" multiple />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
@@ -194,7 +194,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <label for="product_qty" style="font-weight: 700">Product Quantity:</label>
                                     <input type="number" name="product_qty" id="product_qty"  min="1" max="10" value="1"
                                         class="@error('product_qty') is-invalid @enderror form-control py-1" required
@@ -204,7 +204,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="row my-3">
