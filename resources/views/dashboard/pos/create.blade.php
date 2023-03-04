@@ -253,6 +253,7 @@ $("#customerAddBtn").click(function (e) {
 
             if (response.status == 200){
                 $("#successMessage").removeClass("d-none")
+                location.reload();
 
             }
 

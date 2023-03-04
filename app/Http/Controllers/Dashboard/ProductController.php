@@ -40,7 +40,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
         $validator = Validator::make($request->all(), [
             "code" => "required",
             'type' => 'required',
