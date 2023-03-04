@@ -27,18 +27,16 @@ use App\Http\Controllers\Dashboard\ExchangeReturnController;
 |
 */
 
-Route::group(["middleware" => "admin"], function () {
-
-    Route::get('/', [HomeController::class, 'index'])->name('homepage');
-
-});
 
 Route::get('login', [AdminController::class, 'loginPage'])->name('login.page');
 Route::post('login', [AdminController::class, 'login'])->name('login');
 Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 
+Route::get('/', [HomeController::class, 'index'])->name('homepage')->middleware('auth');
+
 
 Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'], function () {
+
 
     // User start //
     Route::get('/users', [UserController::class, 'index'])->name('user');
