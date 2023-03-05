@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         $product_in = Product::select('id','code')
-        ->where("status",1)->where("product_in",1)
+        ->where("status",1)
         ->whereDate("created_at",now()->today())->paginate(3);
         $product_out = Product::select('id','code')
         ->where("status",1)->where("product_in",0)

@@ -54,6 +54,14 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('') ? '' : 'collapsed' }}"
+                href="{{ route('report') }}">
+                <i class="bi bi-card-list"></i>
+                <span>Report</span>
+            </a>
+        </li>
+
         {{-- <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('setting') || request()->routeIs('setting.edit') ? '' : 'collapsed' }}"
                 href="{{ route('setting') }}">

@@ -11,6 +11,8 @@ use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\GoldController;
 use App\Http\Controllers\Dashboard\PosController;
 use App\Http\Controllers\Dashboard\ExchangeReturnController;
+use App\Http\Controllers\Dashboard\ReportController;
+
 
 
 
@@ -117,4 +119,9 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::delete('/exchange-return/{id}/delete', [ExchangeReturnController::class, 'delete'])->name('exchange-return.delete');
      Route::get('/exchange-return/{id}/get-pos', [ExchangeReturnController::class, 'getPos'])->name('get-pos');
       //Return and Exchange End //
+
+    //Report Start //
+     Route::get('/report', [ReportController::class, 'index'])->name('report');
+     Route::post('/report-filter', [ReportController::class, 'filter'])->name('report.filter');
+    //Report End //
 });

@@ -28,7 +28,8 @@ class ProductController extends Controller
         $products = Product::with('getCategory')
         ->where("product_in",1)
         ->where('status', 1)->orderBy('id', 'desc')->get();
-        // return $products;
+        // return $products[0]->total_price;
+        // return substr($products[0]->total_price, -4);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -69,6 +70,8 @@ class ProductController extends Controller
         //     $request->file("image")->move($dir, $newName);
         //     $path = "product/" . $newName;
         // }
+
+        
         if ($request->hasfile('image')) {
         
             foreach ($request->file('image') as $file) {
@@ -95,7 +98,18 @@ class ProductController extends Controller
                 $product->ad_gold_quantity_y = $request->ad_gold_quantity_y;
                 $product->ad_gold_price = $request->ad_gold_price;
                 $product->service_charges = $request->service_charges;
-                $product->total_price = $request->total_price;
+
+                
+                $lastfourdigits = substr($request->total_price, -4);
+                $lastfournumber = intval($lastfourdigits);
+                if($lastfournumber >= 5000){
+                    $reducetotal = ($request->total_price) - $lastfournumber;
+                    $total_price = $reducetotal + 10000;
+                }elseif($lastfournumber < 5000){
+                    $reducetotal = ($request->total_price) - $lastfournumber;
+                    $total_price = $reducetotal;
+                }
+                $product->total_price = $total_price;
                 $product->created_at = Carbon::now()->format('Y-m-d H:i:s');
                 $product->updated_at = Carbon::now()->format('Y-m-d H:i:s');
                 $product->created_by = $user_id;
