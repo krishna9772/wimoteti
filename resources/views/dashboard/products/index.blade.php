@@ -111,7 +111,7 @@
                                             </td>
                                             <td>{{ $product->code }}</td>
                                             <td>{{ $product->getcategory->name }}</td>
-                                            <td>{{ $product->total_price }}</td>
+                                            <td>{{ number_format($product->total_price) }}</td>
                                             {{-- <td>{{ $product->type }}</td> --}}
                                             <td>{{ \Carbon\Carbon::create($product->created_at)->toFormattedDateString() }}
                                             </td>

@@ -10,7 +10,28 @@
             </ol>
         </nav>
     </div>
+
+    
     @if($voucherFilter)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Product Image</h5>
+                </div>
+                <div class="card-body my-2">
+                    <div class="row">
+                        @foreach ($voucherFilter->positem as $item)
+                        <div class="col-md-2">
+                            <img src="{{asset('/storage/'.$item->image)}}" alt="" class="w-100" style="height: 120px;">
+                            <div class="text-center fw-bold">Code: <span>{{$item->code}}</span></div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
                
@@ -75,13 +96,13 @@
                     <table style=" width: 100%;
                     border-collapse: collapse;">
                         <tr >
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:7%;">No</th>
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:19%;">Product Code</th>
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Gem Type</th>
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Gold Weight</th>
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:20%;">Quantity</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:7%;text-align:center;">No</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:19%;text-align:center;">Product Code</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;text-align:center;">Gem Type</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;text-align:center;">Gold Weight</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:20%;text-align:center;">Quantity</th>
                             {{-- <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:15%;">Net Weight</th> --}}
-                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;">Amount</th>
+                            <th style="border: 3px solid rgb(161, 82, 82);color:rgb(161, 82, 82);height: 50px;white-space: nowrap;width:18%;text-align:center;">Amount</th>
                         </tr>
                         @php 
                             $no = 1;
