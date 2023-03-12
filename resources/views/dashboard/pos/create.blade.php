@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <label for="name" style="font-weight: 700" class="mb-2">Customer Name:</label>
                <div class="d-flex">
-                <select class="form-select" aria-label="Default select example" name="name" id="customer_name">
+                <select class="form-select" aria-label="Default select example" name="name" id="customer_name" id="select-customer">
                     <option value="0"></option>
                     @foreach ($customers as $customer)
                         <option name="name" value="{{ $customer->id }}">{{ $customer->name }}
@@ -269,6 +269,7 @@ $("#customerAddBtn").click(function (e) {
 })
 
 
+
     $(document).ready(function(){
         $('#customer_name').on('change', function() {
             var customer_id = $('#customer_name').val();
@@ -286,6 +287,8 @@ $("#customerAddBtn").click(function (e) {
             });
   
         });
+
+       
 
 
 

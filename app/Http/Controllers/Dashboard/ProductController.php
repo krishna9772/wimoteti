@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+       
         if (session('product-create')) {
             toast(Session::get('product-create'), "success");
         }
@@ -25,9 +26,19 @@ class ProductController extends Controller
         if (session('product-update')) {
             toast(Session::get('product-update'), "success");
         }
-        $products = Product::with('getCategory')
-        ->where("product_in",1)
-        ->where('status', 1)->orderBy('id', 'desc')->get();
+
+        if($request->has('type')){
+            if($request->get('type') == 'out'){
+                $products = Product::with('getCategory')
+                ->where("product_in",0)
+                ->where('status', 1)->orderBy('id', 'desc')->get();
+            }
+        }else{
+            $products = Product::with('getCategory')
+            ->where("product_in",1)
+            ->where('status', 1)->orderBy('id', 'desc')->get();
+        }
+       
         // return $products[0]->total_price;
         // return substr($products[0]->total_price, -4);
         return view('dashboard.products.index', compact('products'));

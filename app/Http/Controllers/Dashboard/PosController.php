@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class PosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (session('pos-create')) {
             toast(Session::get('pos-create'), "success");
@@ -28,9 +28,20 @@ class PosController extends Controller
         if (session('pos-update')) {
             toast(Session::get('pos-update'), "success");
         }
-        $pos = Pos::with('customer')->where('status',1)
-        ->where("is_return",0)
-        ->orderBy('created_at', 'desc')->get();
+
+        if($request->has('type')){
+            if($request->get('type') == 'return'){
+                $pos = Pos::with('customer')->where('status',1)
+                ->where("is_return",1)
+                ->orderBy('created_at', 'desc')->get();
+            }
+        }else{
+            $pos = Pos::with('customer')->where('status',1)
+            ->where("is_return",0)
+            ->orderBy('created_at', 'desc')->get();
+        }
+
+        
         // return $pos;
         
         return view('dashboard.pos.index', compact('pos'));

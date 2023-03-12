@@ -80,9 +80,16 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Product List </h5>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Product List </h5>
+                            <select name="" id="" class="w-25 mt-3" style="height: 40px;" onchange="window.location.href=this.value;">
+                                <option value="{{url('/auth/product')}}" {{ request()->routeIs('product') ? '' : 'selected' }}>Product In</option>
+                                <option value="{{url('/auth/product?type=out')}}" @if(Request::get('type') == 'out') selected @endif>Product Out</option>
+                            </select>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-hover datatable" id="productTable">
+                                
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -199,6 +206,10 @@
         $('#myModal1').css({'display': 'none'});
 
     };
+
+
+
+
 
     </script>
 

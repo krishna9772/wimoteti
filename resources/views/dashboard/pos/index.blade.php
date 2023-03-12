@@ -22,7 +22,13 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Pos List </h5>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Pos List </h5>
+                            <select name="" id="" class="w-25 mt-3" style="height: 40px;" onchange="window.location.href=this.value;">
+                                <option value="{{url('/auth/pos')}}" {{ request()->routeIs('pos') ? '' : 'selected' }}>Pos</option>
+                                <option value="{{url('/auth/pos?type=return')}}" @if(Request::get('type') == 'return') selected @endif>Return Pos</option>
+                            </select>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-hover datatable" id="posTable">
                                 <thead>
