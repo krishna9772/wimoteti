@@ -17,9 +17,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
        
-        if (session('product-create')) {
-            toast(Session::get('product-create'), "success");
-        }
+       
         if (session('product-delete')) {
             toast(Session::get('product-delete'), "success");
         }
@@ -31,12 +29,12 @@ class ProductController extends Controller
             if($request->get('type') == 'out'){
                 $products = Product::with('getCategory')
                 ->where("product_in",0)
-                ->where('status', 1)->orderBy('id', 'desc')->get();
+                ->where('status', 1)->orderBy('updated_at', 'desc')->get();
             }
         }else{
             $products = Product::with('getCategory')
             ->where("product_in",1)
-            ->where('status', 1)->orderBy('id', 'desc')->get();
+            ->where('status', 1)->orderBy('created_at', 'desc')->get();
         }
        
         // return $products[0]->total_price;
@@ -46,6 +44,9 @@ class ProductController extends Controller
 
     public function create()
     {
+        if (session('product-create')) {
+            toast(Session::get('product-create'), "success");
+        }
         $categories = Category::all();
         return view('dashboard.products.create', compact('categories'));
     }
@@ -129,7 +130,7 @@ class ProductController extends Controller
                 $code++;
             }
         }  
-        return redirect()->route('product')->with("product-create", "Product has been created successfully!");
+        return redirect()->back()->with("product-create", "Product has been created successfully!");
     }
 
     public function edit($id)

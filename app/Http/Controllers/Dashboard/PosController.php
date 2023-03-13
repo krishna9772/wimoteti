@@ -19,9 +19,7 @@ class PosController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('pos-create')) {
-            toast(Session::get('pos-create'), "success");
-        }
+       
         if (session('pos-delete')) {
             toast(Session::get('pos-delete'), "success");
         }
@@ -49,6 +47,9 @@ class PosController extends Controller
 
     public function create()
     {
+        if (session('pos-create')) {
+            toast(Session::get('pos-create'), "success");
+        }
         $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
         $products = Product::select('code','id')->where('status',1)
         ->where("product_in",1)
@@ -143,7 +144,7 @@ class PosController extends Controller
             ]
         );
 
-        return redirect()->route('pos')->with("pos-create","Pos has been created successfully!");
+        return redirect()->back()->with("pos-create","Pos has been created successfully!");
     }
 
 

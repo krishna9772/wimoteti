@@ -12,9 +12,7 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('customer-create')) {
-            toast(Session::get('customer-create'), "success");
-        }
+        
         if (session('customer-delete')) {
             toast(Session::get('customer-delete'), "success");
         }
@@ -22,13 +20,16 @@ class CustomerController extends Controller
             toast(Session::get('customer-update'), "success");
         }
        
-        $customers = Customer::where('status',1)->get();
+        $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
         
         return view('dashboard.customers.index', compact('customers'));
     }
 
     public function create()
     {
+        if (session('customer-create')) {
+            toast(Session::get('customer-create'), "success");
+        }
         return view('dashboard.customers.create');
 
     }
@@ -53,7 +54,7 @@ class CustomerController extends Controller
         $customer->updated_by = $user_id;
         $customer->save();
 
-        return redirect()->route('customer')->with("customer-create","Customer has been created successfully!");
+        return redirect()->back()->with("customer-create","Customer has been created successfully!");
     }
     
 

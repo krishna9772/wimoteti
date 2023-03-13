@@ -18,9 +18,7 @@ class ExchangeReturnController extends Controller
 {
     public function index(){
 
-        if (session('exchange-return-create')) {
-            toast(Session::get('exchange-return-create'), "success");
-        }
+        
         if (session('exchange-return-delete')) {
             toast(Session::get('exchange-return-delete'), "success");
         }
@@ -36,6 +34,10 @@ class ExchangeReturnController extends Controller
 
 
     public function create(){
+
+        if (session('exchange-return-create')) {
+            toast(Session::get('exchange-return-create'), "success");
+        }
         $pos = Pos::select("id","voucher_no")->where("status",1)
         ->where("is_return",0)
         ->where("payment_status","paid")->get();
@@ -76,7 +78,7 @@ class ExchangeReturnController extends Controller
         ]);
         
 
-        return redirect()->route('exchange-return')->with("exchange-return-create","Exchange & return has been created successfully!");
+        return redirect()->back()->with("exchange-return-create","Exchange & return has been created successfully!");
     }
 
 

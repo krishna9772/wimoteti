@@ -24,13 +24,14 @@
             <div class="col-md-4">
                 <label for="name" style="font-weight: 700" class="mb-2">Customer Name:</label>
                <div class="d-flex">
-                <select class="form-select" aria-label="Default select example" name="name" id="customer_name" id="select-customer">
+                <select class="form-select"  name="name" id="customer_name">
                     <option value="0"></option>
                     @foreach ($customers as $customer)
                         <option name="name" value="{{ $customer->id }}">{{ $customer->name }}
                         </option>
                     @endforeach
                 </select>
+               
                 <button class="btn btn-outline-primary btn-sm ms-2" type="button" 
                     data-bs-toggle="modal" data-bs-target="#addCustomer">
                     <span class="px-1 py-0">+</span>
@@ -108,7 +109,7 @@
                         <tr id="row_1">
                             <th scope="row" id="num">1</th>
                             <td>
-                                <select class="form-select product"  name="code[]"  data-row-id="row_1" id="product_1" onchange="getProductData(1)" required>
+                                <select class="form-select product js-example-basic-single"  name="code[]"  data-row-id="row_1" id="product_1" onchange="getProductData(1)" required>
                                     <option value=""></option>
                                     @foreach ($products as $product)
                                         <option  value="{{ $product->id }}">{{ $product->code }}
@@ -207,6 +208,16 @@
 @section('script')
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#customer_name').select2();
+});
+
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+
+
 
 $(document).ready(function () {
 
