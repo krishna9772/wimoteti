@@ -29,6 +29,7 @@ class ExchangeReturnController extends Controller
         $exchange_return = ExchangeReturn::with('pos')->where("status",1)->get();
         // return $exchange_return;
 
+
         return view("dashboard.exchange-return.index",compact("exchange_return"));
     }
 

@@ -41,42 +41,44 @@
                                 @php
                                     $index = 1;
                                 @endphp
-                                @foreach ($exchange_return as $ereturn)
-                                    <tr>
-                                        <th scope="row"><a href="#">{{ $index++ }}</a></th>
-                                       
-                                      
-                                       <td>{{$ereturn->pos->voucher_no}}</td>
-                                       <td>{{$ereturn->pos->customer->name}}</td>
-                                       <td>{{$ereturn->type}}</td>
-                                       <td>{{$ereturn->extra_charges}}</td>
-                                       <td>{{$ereturn->final_amount}}</td>
-            
-                                        <td>{{ \Carbon\Carbon::create($ereturn->created_at)->toFormattedDateString() }}
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="edit-btn">
-                                                    <a href="{{ route('exchange-return.edit', ['id' => $ereturn->id]) }}"
-                                                        class="px-2">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                        <span style="padding-left: 4px">Edit</span>
-                                                    </a>
+                                @if(count($exchange_return) > 0)
+                                    @foreach ($exchange_return as $ereturn)
+                                        <tr>
+                                            <th scope="row"><a href="#">{{ $index++ }}</a></th>
+                                        
+                                        
+                                        <td>{{$ereturn->pos->voucher_no}}</td>
+                                        <td>{{$ereturn->pos->customer->name}}</td>
+                                        <td>{{$ereturn->type}}</td>
+                                        <td>{{$ereturn->extra_charges}}</td>
+                                        <td>{{$ereturn->final_amount}}</td>
+                
+                                            <td>{{ \Carbon\Carbon::create($ereturn->created_at)->toFormattedDateString() }}
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="edit-btn">
+                                                        <a href="{{ route('exchange-return.edit', ['id' => $ereturn->id]) }}"
+                                                            class="px-2">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            <span style="padding-left: 4px">Edit</span>
+                                                        </a>
+                                                    </div>
+                                                    <form action="{{ route('exchange-return.delete', ['id' => $ereturn->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="delete-btn mx-2  delete">
+                                                            <i class="bi bi-trash"></i>
+                                                            <span style="padding-left: 4px">Delete</span>
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                                <form action="{{ route('exchange-return.delete', ['id' => $ereturn->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="submit" class="delete-btn mx-2  delete">
-                                                        <i class="bi bi-trash"></i>
-                                                        <span style="padding-left: 4px">Delete</span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
 
                             </tbody>
                         </table>
