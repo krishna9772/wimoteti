@@ -17,20 +17,29 @@ use Carbon\Carbon;
 
 class PosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (session('pos-create')) {
-            toast(Session::get('pos-create'), "success");
-        }
+       
         if (session('pos-delete')) {
             toast(Session::get('pos-delete'), "success");
         }
         if (session('pos-update')) {
             toast(Session::get('pos-update'), "success");
         }
-        $pos = Pos::with('customer')->where('status',1)
-        ->where("is_return",0)
-        ->orderBy('created_at', 'desc')->get();
+
+        if($request->has('type')){
+            if($request->get('type') == 'return'){
+                $pos = Pos::with('customer')->where('status',1)
+                ->where("is_return",1)
+                ->orderBy('created_at', 'desc')->get();
+            }
+        }else{
+            $pos = Pos::with('customer')->where('status',1)
+            ->where("is_return",0)
+            ->orderBy('created_at', 'desc')->get();
+        }
+
+        
         // return $pos;
         
         return view('dashboard.pos.index', compact('pos'));
@@ -38,6 +47,9 @@ class PosController extends Controller
 
     public function create()
     {
+        if (session('pos-create')) {
+            toast(Session::get('pos-create'), "success");
+        }
         $customers = Customer::where('status',1)->orderBy('created_at','desc')->get();
         $products = Product::select('code','id')->where('status',1)
         ->where("product_in",1)
@@ -132,7 +144,7 @@ class PosController extends Controller
             ]
         );
 
-        return redirect()->route('pos')->with("pos-create","Pos has been created successfully!");
+        return redirect()->back()->with("pos-create","Pos has been created successfully!");
     }
 
 
