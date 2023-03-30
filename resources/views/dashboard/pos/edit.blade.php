@@ -170,7 +170,7 @@
             var customer_id = $('#customer_name').val();
             
             $.ajax({
-                url: "/auth/pos/" + customer_id + "/get-customer/",
+                url: "/wimoteti/public/auth/pos/" + customer_id + "/get-customer/",
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -265,7 +265,7 @@ function getProductData(row_id)
 
     } else {
         $.ajax({
-            url: "/auth/pos/" + product_id + "/get-product/",
+            url: "/wimoteti/public/auth/pos/" + product_id + "/get-product/",
             type: 'GET',
             dataType: 'json',
             success: function(data) {

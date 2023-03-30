@@ -56,7 +56,7 @@
                                             <tr>
                                                 <td class="border">{{$i++}}</td>
                                                 <td class="border">{{$p_in->code}}</td>
-                                                <td class="border">{{$p_in->price}}</td>
+                                                <td class="border">{{number_format($p_in->price)}}</td>
                                             </tr>
                                             @endforeach
                                             @if(count($product_in) == 0)
@@ -85,7 +85,7 @@
                                             <tr>
                                                 <td class="border">{{$o++}}</td>
                                                 <td class="border" >{{$p_out->code}}</td>
-                                                <td class="border">{{$p_out->price}}</td>
+                                                <td class="border">{{number_format($p_out->price)}}</td>
                                             </tr>
                                             @endforeach
                                             @if(count($product_out) == 0)

@@ -188,7 +188,7 @@ class PosController extends Controller
         }
         
         $user_id = Auth::user()->id;
-        $pos = Pos::find($id)->first();
+        $pos = Pos::findorfail($id);
         $pos->c_id = $request->name;
         $pos->total_price = $request->netAmount;
         $pos->discount = $request->discount;

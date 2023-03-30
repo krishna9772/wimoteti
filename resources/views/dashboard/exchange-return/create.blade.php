@@ -97,7 +97,7 @@
   
     
         $.ajax({
-            url: "/auth/exchange-return/" + pos_id + "/get-pos/",
+            url: pos_id + "/get-pos/",
             type: 'GET',
             dataType: 'json',
             success: function(data) {

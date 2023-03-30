@@ -56,15 +56,9 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             "code" => "required",
             'type' => 'required',
-            // "gold_quantity_p" => "required",
-            // "gold_quantity_y" => "required",
             "gold_price" => "required",
-            // "ad_gold_quantity_p" => "required",
-            // "ad_gold_quantity_y" => "required",
-            // "ad_gold_price" => "required",
             "total_price" => "required",
             "service_charges" => "required",
-            // "net_weight" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -73,17 +67,7 @@ class ProductController extends Controller
 
         $user_id = Auth::user()->id;
         $code = $request->code;
-        
-       
-        // if ($request->file()) {
-        //     $dir = public_path() . "/storage/product/";
 
-        //     $newName = uniqid() . "_" . $request->image->getClientOriginalName();
-        //     $request->file("image")->move($dir, $newName);
-        //     $path = "product/" . $newName;
-        // }
-
-        
         if ($request->hasfile('image')) {
         
             foreach ($request->file('image') as $file) {

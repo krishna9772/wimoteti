@@ -48,7 +48,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Gem Price</th>
-                                        <td>{{$product->price}}</td>
+                                        <td>{{number_format($product->price)}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Gold Quantity</th>
@@ -56,7 +56,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Gold Price</th>
-                                        <td>{{$product->gold_price}}</td>
+                                        <td>{{number_format($product->gold_price)}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">AD Gold Quantity</th>
@@ -64,7 +64,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">AD Gold Price</th>
-                                        <td>{{$product->ad_gold_price}}</td>
+                                        <td>{{number_format($product->ad_gold_price)}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Service Charges</th>
@@ -72,7 +72,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Total Price</th>
-                                        <td>{{$product->total_price}}</td>
+                                        <td>{{number_format($product->total_price)}}</td>
                                     </tr>
                                     
                                 </table>

@@ -50,8 +50,8 @@
                                         <td>{{$ereturn->pos->voucher_no}}</td>
                                         <td>{{$ereturn->pos->customer->name}}</td>
                                         <td>{{$ereturn->type}}</td>
-                                        <td>{{$ereturn->extra_charges}}</td>
-                                        <td>{{$ereturn->final_amount}}</td>
+                                        <td>{{number_format($ereturn->extra_charges)}}</td>
+                                        <td>{{number_format($ereturn->final_amount)}}</td>
                 
                                             <td>{{ \Carbon\Carbon::create($ereturn->created_at)->toFormattedDateString() }}
                                             </td>

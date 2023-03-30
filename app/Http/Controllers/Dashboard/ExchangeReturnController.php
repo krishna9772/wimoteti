@@ -104,7 +104,7 @@ class ExchangeReturnController extends Controller
         };
 
         $user_id = Auth::user()->id;
-        $exchange_return = ExchangeReturn::find($id)->first();
+        $exchange_return = ExchangeReturn::findorfail($id);
         $exchange_return->pos_id = $request->pos_id;
         $exchange_return->type = $request->type;
         $exchange_return->percentage = $request->percentage;
@@ -112,6 +112,7 @@ class ExchangeReturnController extends Controller
         $exchange_return->final_amount = $request->final_amount;
         $exchange_return->updated_by = $user_id;
         $exchange_return->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+
         $exchange_return->save();
 
         return redirect()->route('exchange-return')->with("exchange-return-update","Exchange & return has been updated successfully!");
