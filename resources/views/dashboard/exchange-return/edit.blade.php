@@ -26,7 +26,7 @@
                                
                                 <div class="col-md-4 mb-3">
                                     <label for="pos_id" style="font-weight: 700">Voucher No:</label>
-                                    <select class="form-select" aria-label="Default select example" name="pos_id" onchange="getPosData()" id="pos_id" disabled>
+                                    <select class="form-select" aria-label="Default select example" name="pos_id" onchange="getPosData()" id="pos_id" disabled required>
                                         <option value="">Select Voucher No</option>
                                         @foreach ($pos as $voucher)
                                             <option name="pos_id" value="{{ $voucher->id }}"  @if($voucher->id  == $exchange_return->pos_id) selected @endif>{{ $voucher->voucher_no }}
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="type" style="font-weight: 700">Type:</label>
-                                    <select class="form-select" aria-label="Default select example" name="type">
+                                    <select class="form-select" aria-label="Default select example" name="type" required>
                                         <option value="">Select Type</option>
                                         <option name="type" value="exchange" @if($exchange_return->type == "exchange") selected @endif>Exchange</option>
                                         <option name="type" value="full-return" @if($exchange_return->type == "full-return") selected @endif>Return</option>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="percentage" style="font-weight: 700">Percentage:</label>
-                                    <select class="form-select" aria-label="Default select example" name="percentage" id="percentage" onchange="getPercentage()">
+                                    <select class="form-select" aria-label="Default select example" name="percentage" id="percentage" onchange="getPercentage()" required>
                                         <option value="">Select Percentage</option>
                                         <option name="percentage" value="0" @if($exchange_return->percentage == 0) selected @endif>0 %</option>
                                         <option name="percentage" value="5" @if($exchange_return->percentage == 5) selected @endif>5 %</option>

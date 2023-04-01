@@ -47,18 +47,14 @@ class ExchangeReturnController extends Controller
 
 
     public function store(Request $request){
-        // return $request;
-        $validator = Validator::make($request->all(),[
+
+        $this->validate($request, [
             "pos_id" => "required",
             "extra_charges" => "required",
             "percentage" => "required",
             "type" => "required",
-            "final_amount" => "required",
+            "final_amount" => "required",       
         ]);
-
-        if($validator->fails()){
-            return response()->json(["status"=>422,"message"=>$validator->errors()]);
-        };
 
         $user_id = Auth::user()->id;
         $exchange_return = new ExchangeReturn();

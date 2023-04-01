@@ -25,7 +25,7 @@
                                 
                                 <div class="col-md-4 mb-3">
                                     <label for="pos_id" style="font-weight: 700">Voucher No:</label>
-                                    <select class="form-select" aria-label="Default select example" name="pos_id" onchange="getPosData()" id="pos_id">
+                                    <select class="form-select" aria-label="Default select example" name="pos_id" onchange="getPosData()" id="pos_id" required>
                                         <option value="">Select Voucher No</option>
                                         @foreach ($pos as $voucher)
                                             <option name="pos_id" value="{{ $voucher->id }}">{{ $voucher->voucher_no }}
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="type" style="font-weight: 700">Type:</label>
-                                    <select class="form-select" aria-label="Default select example" name="type">
+                                    <select class="form-select" aria-label="Default select example" name="type" required>
                                         <option value="">Select Type</option>
                                         <option name="type" value="exchange">Exchange</option>
                                         <option name="type" value="full-return">Return</option>
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="percentage" style="font-weight: 700">Percentage:</label>
-                                    <select class="form-select" aria-label="Default select example" name="percentage" id="percentage" onchange="getPercentage()">
+                                    <select class="form-select" aria-label="Default select example" name="percentage" id="percentage" onchange="getPercentage()" required>
                                         <option value="">Select Percentage</option>
                                         <option name="percentage" value="0">0 %</option>
                                         <option name="percentage" value="5">5 %</option>
@@ -54,7 +54,7 @@
                                     <label for="extra_charges" style="font-weight: 700">Extra Charges:</label>
                                     <input type="text" name="extra_charges"
                                         class="@error('extra_charges') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('extra_charges') }}" id="extra_charges">
+                                        value="{{ old('extra_charges') }}" id="extra_charges" required>
                                     @error('extra_charges')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
