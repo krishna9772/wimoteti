@@ -27,12 +27,24 @@
                                 <input type="hidden" name="" id="today_g_price" value="{{gold_price()}}">
                                 <div class="col-md-12 mb-3">
                                     <label for="image" style="font-weight: 700">Image:</label><br>
-                                    <label for="image">
-                                        <img id="blah" src="{{ asset("storage/".$product->image ? "storage/".$product->image : 'assets/img/images.jpg') }}"
-                                            class="rounded shadow-sm p-1"
-                                            style="transition: 0.4s; height: 100px; width: 100px" />
+                                    <label for="image"> 
+                                        @php
+                                            $images = explode("~%" , $product->image) ;
+                                        @endphp
+                                           <div class="form-group" id="images">
+                                        @foreach ($images as $img)
+                                            @if($img != "")
+                                         
+                                                <img id="image" src="{{ asset("storage/".$img ? "storage/".$img : 'assets/img/images.jpg') }}"
+                                                class="rounded shadow-sm p-1"
+                                                style="transition: 0.4s; height: 100px; width: 100px" />
+                                           
+                                            @endif
+                                        @endforeach    
+                                    </div>                                                                                      
                                     </label>
-                                    <input accept="image/*" name="image" type='file' id="image" class="mx-2" onchange="previewImageFile(this);" />
+                                    <input accept="image/*" name="image[]"  multiple="multiple" type='file' id="image" class="mx-2" required onchange="previewImageFile(event);"  />
+                                    {{-- <input accept="image/*" name="image" type='file' id="image" class="mx-2" onchange="previewImageFile(this);" /> --}}
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
@@ -259,12 +271,18 @@
         $("#gold_price").val(Math.round(gold_price_total));
         $("#ad_gold_price").val(Math.round(ad_gold_price_total));
     }
-    function previewImageFile(input){
-        var file = $("input[type=file]").get(0).files[0];
-        if(file){
-         $("#blah").attr("src",  URL.createObjectURL(file) );
-        }
-    }
+    // function previewImageFile(input){
+    //     var file = $("input[type=file]").get(0).files[0];
+    //     if(file){
+    //      $("#blah").attr("src",  URL.createObjectURL(file) );
+    //     }
+    // }
+    var previewImageFile = function(event) {
+            for(var i =0; i< event.target.files.length; i++){
+                var src = URL.createObjectURL(event.target.files[i]);
+                $("#images").append("<img id='myImg"+i+"'   src="+src+" class='rounded shadow-sm p-1' style='transition: 0.4s; height: 100px; width: 100px' style='margin:4px;width:100px;border-radius:5px;cursor:pointer;' alt='img' />");
+            }
+        };
 </script>
 
 @endsection

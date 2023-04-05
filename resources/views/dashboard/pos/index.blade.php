@@ -51,7 +51,7 @@
                                         <tr>
                                             <th scope="row"><a href="#">{{ $index++ }}</a></th>
                                             <td>{{ $item->voucher_no }}</td>
-                                            <td>{{ $item->customer->name }}</td>
+                                            <td>{{$item->customer == null ? "" :  $item->customer->name }}</td>
                                             <td>{{ number_format($item->discount) }}</td>
                                             <td>{{ number_format($item->total_price) }}</td>
                                             <td>{{ $item->payment_status }}</td>

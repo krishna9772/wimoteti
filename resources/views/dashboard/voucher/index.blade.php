@@ -108,12 +108,12 @@
             </tr>
         </table>
         <p>
-            <span style="font-size: 1.1rem;font-weight:bold;color:rgb(161, 82, 82);">ဝယ်သူအမည် - {{$pos->customer->name}}</span>
+            <span style="font-size: 1.1rem;font-weight:bold;color:rgb(161, 82, 82);">ဝယ်သူအမည် - {{$pos->customer != null ? $pos->customer->name : ""}}</span>
             <span style="font-size: 1.1rem;font-weight:bold;float: right;color:rgb(161, 82, 82);">နေ့စွဲ - {{date_format($pos->created_at,'d.m.y')}}</span>
         </p>
         <p>
-            <span style="font-size: 1.1rem;font-weight:bold;color:rgb(161, 82, 82);">နေရပ်လိပ်စာ - {{$pos->customer->address}}</span>
-            <span style="font-size: 1.1rem;font-weight:bold;float: right;color:rgb(161, 82, 82);">ဖုန်းနံပါတ် - {{$pos->customer->ph_no}}</span>
+            <span style="font-size: 1.1rem;font-weight:bold;color:rgb(161, 82, 82);">နေရပ်လိပ်စာ - {{$pos->customer != null ? $pos->customer->address: ""}}</span>
+            <span style="font-size: 1.1rem;font-weight:bold;float: right;color:rgb(161, 82, 82);">ဖုန်းနံပါတ် - {{$pos->customer != null ?  $pos->customer->ph_no: ""}}</span>
         </p>
         <table style=" width: 100%;
         border-collapse: collapse;">

@@ -67,17 +67,17 @@ class ProductController extends Controller
 
         $user_id = Auth::user()->id;
         $code = $request->code;
-
+        $path = '';
         if ($request->hasfile('image')) {
-        
+         
             foreach ($request->file('image') as $file) {
-                $path = '';
+               
                 $dir = public_path() . "/storage/product/";
                 $newName = uniqid() . "_" . $file->getClientOriginalName();
                 $file->move($dir, $newName);
-                $path = "product/" . $newName;   
-
-                
+                $path .= "product/" . $newName . "~%";                         
+            }
+        }   
                 $product = new Product();
                 $product->image = $path;
                 $product->code =   $code;
@@ -111,9 +111,7 @@ class ProductController extends Controller
                 $product->created_by = $user_id;
                 $product->updated_by = $user_id;
                 $product->save();
-                $code++;
-            }
-        }  
+ 
         return redirect()->back()->with("product-create", "Product has been created successfully!");
     }
 
@@ -143,13 +141,17 @@ class ProductController extends Controller
 
 
         $old_image = Product::select('image')->find($id);
-        $path = $old_image->image;
-        if ($request->file()) {
+        $path = $old_image->image . "~%";;
+        if ($request->hasfile('image')) {
+
+            foreach ($request->file('image') as $file) {
             $dir = public_path() . "/storage/product/";
 
-            $newName = uniqid() . "_" . $request->image->getClientOriginalName();
-            $request->file("image")->move($dir, $newName);
-            $path = "product/" . $newName;
+            $newName = uniqid() . "_" . $file->getClientOriginalName();
+            $file->move($dir, $newName);
+            $path .= "product/" . $newName . "~%";
+
+            }
         }
 
         $user_id = Auth::user()->id;

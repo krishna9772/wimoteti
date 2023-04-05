@@ -22,10 +22,22 @@
                 <div class="card-body my-2">
                     <div class="row">
                         @foreach ($voucherFilter->positem as $item)
-                        <div class="col-md-2">
-                            <img src="{{asset('/storage/'.$item->image)}}" alt="" class="w-100" style="height: 120px;">
-                            <div class="text-center fw-bold">Code: <span>{{$item->code}}</span></div>
+                        <div class="col-md-12">
+                        <div  class="row" for="image"> 
+                            @php
+                                $images = explode("~%" , $item->image) ;
+                            @endphp
+                            @foreach ($images as $img)
+                                @if($img != "")
+                                <div class="col-md-2">
+                                <img src="{{asset('/storage/'. $img)}}" alt=""  style="width: 120px; height: 120px;">
+                                </div>
+                                @endif
+                            @endforeach
                         </div>
+                     
+                        <div class=" fw-bold">Code: <span>{{$item->code}}</span></div> 
+                    </div>
                         @endforeach
                     </div>
                 </div>
