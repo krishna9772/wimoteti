@@ -24,8 +24,8 @@
             <div class="col-md-4">
                 <label for="name" style="font-weight: 700" class="mb-2">Customer Name:</label>
                <div class="d-flex">
-                <select class="form-select"  name="name" id="customer_name">
-                    <option value="0"></option>
+                <select class="form-select"  name="name" id="customer_name" required>
+                    <option value="0" disabled>-- Customers --</option>
                     @foreach ($customers as $customer)
                         <option name="name" value="{{ $customer->id }}">{{ $customer->name }}
                         </option>
@@ -110,7 +110,7 @@
                             <th scope="row" id="num">1</th>
                             <td>
                                 <select class="form-select product js-example-basic-single"  name="code[]"  data-row-id="row_1" id="product_1" onchange="getProductData(1)" required>
-                                    <option value=""></option>
+                                    <option value="" disabled>-- Products --</option>
                                     @foreach ($products as $product)
                                         <option  value="{{ $product->id }}">{{ $product->code }}
                                         </option>
@@ -190,7 +190,7 @@
                     <div class="modal-body">
                         <form action="{{ route("customer.add") }}" method="post" id="customerAddForm">
                             <input type="text" name="name" class="form-control py-1 my-2" placeholder = "Name" required>
-                            <input type="text" name="ph_no" class="form-control py-1 my-2" placeholder = "Phone Number " required>
+                            <input type="text" name="ph_no" class="form-control py-1 my-2" placeholder = "Phone Number" required>
                             <textarea name="address" id="" cols="30" rows="5"  class="form-control py-1 my-2" placeholder="Address" required></textarea>
                         </form>
                     </div>
