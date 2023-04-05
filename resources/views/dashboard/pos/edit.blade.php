@@ -24,8 +24,8 @@
             
             <div class="col-md-4">
                 <label for="name" style="font-weight: 700" class="mb-2">Enter Customer Name:</label>
-                <select class="form-select" aria-label="Default select example" name="name" id="customer_name">
-                    <option value="0"></option>
+                <select class="form-select" aria-label="Default select example" name="name" id="customer_name" required>
+                    <option value="0" disabled>-- Customers --</option>
                     @foreach ($customers as $customer)
                         <option name="name" value="{{$customer->id}}" @if($customer->id  == $pos->customer->id) selected @endif>{{ $customer->name }}
                         </option>
@@ -92,8 +92,8 @@
                         <tr id="row_{{$no}}">
                             <th scope="row" id="num">{{$no}}</th>
                             <td>
-                                <select class="form-select product"  name="code[]"  data-row-id="row_{{$no}}" id="product_{{$no}}" onchange="getProductData({{$no}})" required>
-                                    <option value=""></option>
+                                <select class="form-select product product-selection"  name="code[]"  data-row-id="row_{{$no}}" id="product_{{$no}}" onchange="getProductData({{$no}})" required>
+                                    <option value="" disabled>-- Products --</option>
                                     @foreach ($products as $product)
                                         <option  value="{{$product->id}}" @if($product->id  == $positem->product_id) selected @endif>{{ $product->code }}
                                         </option>
@@ -165,12 +165,13 @@
 @section('script')
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         $('#customer_name').on('change', function() {
             var customer_id = $('#customer_name').val();
             
             $.ajax({
-                url: "/auth/pos/" + customer_id + "/get-customer/",
+                url: "/wimoteti/public/auth/pos/" + customer_id + "/get-customer/",
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -233,9 +234,11 @@
 
     });
 
+    $('#customer_name').select2();
+
+    $('.product-selection').select2();
 
 
-   
     });
 
     function removeRow(tr_id)
@@ -265,12 +268,11 @@ function getProductData(row_id)
 
     } else {
         $.ajax({
-            url: "/auth/pos/" + product_id + "/get-product/",
+            url: "/wimoteti/public/auth/pos/" + product_id + "/get-product/",
             type: 'GET',
             dataType: 'json',
             success: function(data) {
                 
-                console.log(data);
                 $("#price_"+row_id).val(data.price);
                 var quantity = Number($("#quantity_"+row_id).val());
                 var price = data.price;

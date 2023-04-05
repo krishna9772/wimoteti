@@ -113,7 +113,7 @@
                                                 alt="" width="60px" height="60px">
                                             </td> --}}
                                             
-                                            <td><img src="{{ asset("storage/".$product->image) }}"
+                                            <td><img src="{{ asset("storage/".explode("~%",  $product->image)[0]) }}"
                                                 alt="" width="60px" height="60px" onclick="clickImage(this)">
                                             </td>
                                             <td>{{ $product->code }}</td>

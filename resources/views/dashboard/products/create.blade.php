@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type" style="font-weight: 700">Category:</label>
-                                    <select class="form-select" aria-label="Default select example" name="type">
+                                    <select class="form-select" aria-label="Default select example" name="type" required>
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option name="type" value="{{ $category->id }}">{{ $category->name }}

@@ -11,14 +11,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
     {{-- <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon"> --}}
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/vendor/font.css')}}">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -29,21 +26,19 @@
     <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{asset('assets/vendor/datatable/datatable.css')}}">
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- Summer Note start --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    {{-- Summer Note end --}}
+    <script src="{{asset('assets/vendor/sweet-alert/sweet-alert.js')}}"></script>
+    
+    <script src="{{asset('assets/vendor/jquery-slim/jquery-slim.js')}}"></script>
+    
+    <link rel="stylesheet" href="{{asset('assets/vendor/summernote/summernote.css')}}">
+    <script src="{{asset('assets/vendor/summernote/summernote-lite.min.js')}}"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/select2/select2.min.css')}}">
     <style>
         /* For summernote override unordered and order list */
         .note-editable ul {
@@ -100,7 +95,7 @@
 
                 <li class="nav-item dropdown me-3">
                     <a class="nav-link" href="#" data-bs-toggle="dropdown">
-                        <p class="fw-bold mb-0">Today gold price: <span class="text-success">{{gold_price()}}</span></p> 
+                        <p class="fw-bold mb-0">Today gold price: <span class="text-success">{{number_format(gold_price())}}</span></p> 
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
@@ -192,10 +187,12 @@
     <!-- Template Main JS File -->
   
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/datatable/datatable.min.js')}}"></script>
+    <script src={{ asset('assets/vendor/moment/moment.js') }}></script>
+    <script src={{asset('assets/vendor/daterangepicker/daterangepicker.js')}}></script>
+    <script src={{asset('assets/vendor/select2/select2.min.js')}}></script>
+
     @yield('script')
 </body>
 
