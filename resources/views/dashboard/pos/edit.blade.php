@@ -93,7 +93,7 @@
                             <th scope="row" id="num">{{$no}}</th>
                             <td>
                                 <select class="form-select product product-selection"  name="code[]"  data-row-id="row_{{$no}}" id="product_{{$no}}" onchange="getProductData({{$no}})" required>
-                                    <option value=""></option>
+                                    <option value="" disabled>-- Products --</option>
                                     @foreach ($products as $product)
                                         <option  value="{{$product->id}}" @if($product->id  == $positem->product_id) selected @endif>{{ $product->code }}
                                         </option>
