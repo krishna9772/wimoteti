@@ -297,4 +297,15 @@ class PosController extends Controller
         // return $voucherFilter;
         return view("dashboard.home.voucher",compact("voucherFilter"));
     }
+
+
+    public function voucherBlank(Request $request){
+       
+        if($request->get('type') == 1){
+            return view("dashboard.home.voucher-blank-1");
+        }elseif($request->get('type') == 2){
+            return view("dashboard.home.voucher-blank-2");
+        }
+        
+    }
 }
