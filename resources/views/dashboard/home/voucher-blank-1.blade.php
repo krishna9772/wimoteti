@@ -52,7 +52,7 @@
 </head>
 <body>
     <div class="headContainer">
-        <a href="{{route('pos')}}" class="backbtn">Back</a>
+        <a href="{{route('homepage')}}" class="backbtn">Back</a>
         <button class="printbtn" onclick="printDivContent()">Print</button>
     </div>
     <hr>
@@ -66,9 +66,9 @@
                         border:3px solid #EEEEEE;padding:0px 5px;font-weight:700;
                         color:#EEEEEE;">V</span>
                     </td>
-                    @if($pos->payment_status == 'paid')
+                   
                     <span style="border:3px solid #EEEEEE;;padding:15px 30px;font-size:25px;font-weight:bold;color:#EFBC4F;float: right;">PAID</span>
-                    @endif
+                   
                     <td>
                         <span style="vertical-align: middle;font-size: 2rem;font-weight:700;margin: 0px 5px;color:#EEEEEE;">ဝိမုတ္တိခေတ်</span>
                         <span style="vertical-align: middle;font-size: 1.4rem;font-weight:700;color:#EEEEEE;">စိန်ရတနာဆိုင်</span>
@@ -103,17 +103,17 @@
                         <td style="font-weight: bold;font-size:1.3rem;">INVOICE</td>
                     </tr>
                     <tr>
-                        <td><span style="font-weight: bold;font-size:1.3rem;">Name: </span>{{$pos->customer != null ? $pos->customer->name : ""}}</td>
-                        <td><span style="font-weight: bold;font-size:1.3rem;">Voucher No: </span>{{$pos->voucher_no}}</td>
+                        <td><span style="font-weight: bold;font-size:1.3rem;">Name: </span></td>
+                        <td><span style="font-weight: bold;font-size:1.3rem;">Voucher No: </span></td>
                     </tr>
 
                     <tr>
-                        <td><span style="font-weight: bold;font-size:1.3rem;">Address: </span>{{$pos->customer != null ? $pos->customer->address : ""}}</td>
-                        <td><span style="font-weight: bold;font-size:1.3rem;">Date: </span>{{date_format($pos->created_at,'d/M/Y')}}</td>
+                        <td><span style="font-weight: bold;font-size:1.3rem;">Address: </span></td>
+                        <td><span style="font-weight: bold;font-size:1.3rem;">Date: </span></td>
                     </tr>
 
                     <tr>
-                        <td><span style="font-weight: bold;font-size:1.3rem;">Phone: </span>{{$pos->customer != null ? $pos->customer->ph_no : ""}}</td>
+                        <td><span style="font-weight: bold;font-size:1.3rem;">Phone: </span></td>
                         
                     </tr>
                 </table>
@@ -129,25 +129,25 @@
                     <th style="background: #333134;color:#EEEEEE;">TOTAL</th>
                 </tr>
                 <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Product Code : {{$pos->positem[0]->code}}</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->positem[0]->total_price)}}</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[0]->quantity}}</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->total_price)}}</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
                 </tr>
                 <tr style="background:#D0D1D3;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gem Type : {{$pos->positem[0]->gem_type}}</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                 </tr>
                 <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gem Weight : 0.29 Carat</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                 </tr>
                 <tr style="background:#D0D1D3;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold Quantity : 2 pal 3 yway</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">.</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
@@ -162,7 +162,7 @@
         </div>
         <div style="display:flex;">
             <div style="width: 55%;">
-                @if($pos->is_can_return == 1)
+              
                 <ul>
                     <li>
                         မည်သည့်လက်ဝတ်ရတနာထည်များကိုမဆိုလဲလှယ်/
@@ -186,7 +186,7 @@
                         (အော်ဒါအပ်ထည်မပါဝင်ပါ)။
                     </li>
                 </ul>
-                @endif
+               
             </div>
             <div style="width: 15%;"></div>
             <div style="width: 30%;">
@@ -195,7 +195,7 @@
                         Sub Total : 
                     </div>
                     <div>
-                        {{number_format($pos->total_price)}}
+                       .
                     </div>
                 </div>
 
@@ -204,14 +204,14 @@
                         Grand Total : 
                     </div>
                     <div>
-                        {{number_format($pos->total_price)}}
+                        .
                     </div>
                 </div>
         
             </div>
         </div>
 
-        <div style="display: flex;justify-content:space-between;@if($pos->is_can_return == 1) margin-top:50px; @else margin-top:100px; @endif">
+        <div style="display: flex;justify-content:space-between;margin-top:50px;">
             <div>
                 <span style="padding: 0px 20px;">* ဝယ်ယူအားပေးမှုကို ကျေးဇူးတင်ပါသည်။ *</span>
             </div>

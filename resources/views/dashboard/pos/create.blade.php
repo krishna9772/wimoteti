@@ -169,6 +169,16 @@
                     </select>
                 </div>
             </div>
+            <div class="col-md-12 d-flex justify-content-end mt-3">
+                <div class="d-flex align-items-center">
+                    <label for="is_can_return" class="text-nowrap form-label">Return Status</label>
+                    <select class="form-select ms-3"  name="is_can_return" id="is_can_return" style="width: 230px !important;" required>
+                        <option value="">-- Select --</option>
+                        <option  value="1">Can Return</option>
+                        <option  value="0">Can't Return</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </form>
        
