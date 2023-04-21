@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Pos;
 
+use Carbon\Carbon;
+
+
+
 class HomeController extends Controller
 {
     public function index()
@@ -26,5 +30,14 @@ class HomeController extends Controller
         // return $total_sale_price;
 
         return view('dashboard.home.index',compact("product_in","product_out","total_sale_count","total_sale_price"));
+    }
+
+    public function handle()
+    {
+        $filename = "backup-" . Carbon::now()->format('Y-m-d') . ".gz";
+        $command = "mysqldump --user=" . env('DB_USERNAME') ." --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  | gzip > D:/backups/Vimukti_Uga/" . $filename;
+        $returnVar = NULL;
+        $output  = NULL;
+        exec($command, $output, $returnVar);
     }
 }

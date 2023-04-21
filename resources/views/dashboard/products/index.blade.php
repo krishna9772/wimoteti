@@ -166,7 +166,7 @@
             <span class="close" id="close">&times;</span>
             <img class="modal-content" id="modal-content">
            
-          </div>
+        </div>
     </section>
 @endsection
 @section('script')
@@ -206,10 +206,6 @@
         $('#myModal1').css({'display': 'none'});
 
     };
-
-
-
-
 
     </script>
 

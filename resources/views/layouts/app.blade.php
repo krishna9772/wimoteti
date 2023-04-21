@@ -147,6 +147,10 @@
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('backup-database') }}">
+                                <i class="bi bi-database"></i>
+                                <span>Backup Database</span>
+                            </a>
                         </li>
 
                     </ul><!-- End Profile Dropdown Items -->

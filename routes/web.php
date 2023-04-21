@@ -125,4 +125,5 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::get('/report', [ReportController::class, 'index'])->name('report');
      Route::post('/report-filter', [ReportController::class, 'filter'])->name('report.filter');
     //Report End //
+     Route::get('/backup',[HomeController::class,'handle'])->name('backup-database');
 });
