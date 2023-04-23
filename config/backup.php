@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
+                   // base_path(),
                 ],
 
                 /*
@@ -169,8 +169,8 @@ return [
             'to' => 'aryalkrishna642@gmail.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'name' => env('MAIL_FROM_NAME'),
+                'address' => env('MAIL_FROM_ADDRESS'),
             ],
         ],
 

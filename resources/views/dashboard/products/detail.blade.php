@@ -112,7 +112,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Gem Weight</th>
-                                        <td>{{$product->gem_weight}} @if($product->weight_type == 0) Carat  @else Ratti @endif</td>
+                                        <td>{{$product->weight}} @if($product->weight_type == 1) Carat  @else Ratti @endif</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Gem Price</th>

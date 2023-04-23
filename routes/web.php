@@ -125,5 +125,11 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::get('/report', [ReportController::class, 'index'])->name('report');
      Route::post('/report-filter', [ReportController::class, 'filter'])->name('report.filter');
     //Report End //
-     Route::get('/backup',[HomeController::class,'handle'])->name('backup-database');
-});
+      Route::get('/backup', function () {
+
+          \Illuminate\Support\Facades\Artisan::call('backup:run');
+      
+          return 'Successful backup!';
+      
+      })->name('backup-database');
+  });
