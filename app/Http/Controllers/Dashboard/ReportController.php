@@ -10,9 +10,9 @@ class ReportController extends Controller
 {
     public function index(Request $request){
 
-        $product_in = Product::select('id','code','price')
+        $product_in = Product::select('id','code','price','total_price')
         ->where("status",1)->paginate(3);
-        $product_out = Product::select('id','code','price')
+        $product_out = Product::select('id','code','price','total_price')
         ->where("status",1)->where("product_in",0)->paginate(3);
         
         return view('dashboard.report.index',compact("product_in","product_out"));
