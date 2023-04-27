@@ -32,12 +32,12 @@
                                         </div>
                                      
                                     </label>
-                                    <input accept="image/*" name="image[]"  multiple="multiple" type='file' id="image" class="mx-2" required onchange="previewImageFile(event);"  />
+                                    <input accept="image/*" name="image[]"  multiple="multiple" type='file' id="image" class="mx-2"  onchange="previewImageFile(event);"  />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="code" style="font-weight: 700">Code:</label>
                                     <input type="text" name="code"
-                                        class="@error('code') is-invalid @enderror form-control py-1" required
+                                        class="@error('code') is-invalid @enderror form-control py-1" 
                                         value="{{ old('code') }}">
                                     @error('code')
                                         <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type" style="font-weight: 700">Category:</label>
-                                    <select class="form-select" aria-label="Default select example" name="type" required>
+                                    <select class="form-select" aria-label="Default select example" name="type" >
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option name="type" value="{{ $category->id }}">{{ $category->name }}
@@ -55,53 +55,72 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="gem_type" style="font-weight: 700">Gem type:</label>
-                                    <input type="text" name="gem_type"
-                                        class="@error('gem_type') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('gem_type') }}">
-                                    @error('gem_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                <div id="gem-section">
+                                    <div class="row border mx-1 my-2 py-2 gem-row" id="row_1">
+                                        <div class="col-md-2 mb-3">
+                                            <label for="gem_type" style="font-weight: 700">Gem type:</label>
+                                            <input type="text" name="gem_type[]"
+                                                class="@error('gem_type') is-invalid @enderror form-control py-1" 
+                                                value="{{ old('gem_type') }}">
+                                            @error('gem_type')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="quantity" style="font-weight: 700">Gem Quantity:</label>
+                                            <input type="text" name="quantity[]" id="quantity_1"
+                                                class="@error('quantity') is-invalid @enderror form-control py-1" 
+                                                value="{{ old('quantity') }}">
+                                            @error('quantity')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="weight" style="font-weight: 700">Gem weight:</label>
+                                            <input type="text" name="weight[]" id="weight_1"
+                                                class="@error('weight') is-invalid @enderror form-control py-1" 
+                                                value="{{ old('weight') }}">
+                                            @error('weight')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="weight_type" style="font-weight: 700"></label>
+                                            <select class="form-select" onchange="calculation()" name="weight_type[]" id="weight_type_1" name="weight_type[]">
+                                                <option  name="weight_type[]" value=1>Carat</option>
+                                                <option  name="weight_type[]" value=2>Ratti</option>
+                                            </select>    
+                                        </div>
+                                    
+                                        <div class="col-md-4 mb-3">
+                                            <label for="price" style="font-weight: 700">Gem price:</label>
+                                            <div class="d-flex">
+                                                <input type="text" name="price[]" id="price_1"
+                                                class="@error('price') is-invalid @enderror form-control py-1" 
+                                                value="{{ old('price') }}">
+                                                <button class="ms-3 btn btn-secondary" id="add_new_gem_section" type="button">+</button>
+                                                <button class="ms-3 btn btn-danger" type="button" onclick="removeGemSection()">X</button>
+                                            </div>
+                                            @error('price')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="quantity" style="font-weight: 700">Gem Quantity:</label>
-                                    <input type="text" name="quantity" id="quantity"
-                                        class="@error('quantity') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('quantity') }}">
-                                    @error('quantity')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="weight" style="font-weight: 700">Gem weight:</label>
-                                    <input type="text" name="weight" id="weight"
-                                        class="@error('weight') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('weight') }}">
-                                    @error('weight')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                    <label for="weight_type" style="font-weight: 700"></label>
-                                    <select class="form-select" onchange="calculation()" name="weight_type" id="weight_type" name="weight_type">
-                                        <option  name="weight_type" value=1>Carat</option>
-                                        <option  name="weight_type" value=2>Ratti</option>
-                                    </select>    
-                                </div>
-                            
-                                <div class="col-md-6 mb-3">
-                                    <label for="price" style="font-weight: 700">Gem price:</label>
-                                    <input type="text" name="price" id="price"
-                                        class="@error('price') is-invalid @enderror form-control py-1" required
-                                        value="{{ old('price') }}">
-                                    @error('price')
+                                <div class="col-md-3 mb-3">
+                                    <label for="gold_quantity_k" style="font-weight: 700">Gold Quantity(K):</label>
+                                    <input type="text" name="gold_quantity_k" id="gold_quantity_k"
+                                        class="@error('gold_quantity_k') is-invalid @enderror form-control py-1" 
+                                        value="{{ old('gold_quantity_k') }}">
+                                    @error('gold_quantity_k')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -110,7 +129,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="gold_quantity_p" style="font-weight: 700">Gold Quantity(P):</label>
                                     <input type="text" name="gold_quantity_p" id="gold_quantity_p"
-                                        class="@error('gold_quantity_p') is-invalid @enderror form-control py-1" required
+                                        class="@error('gold_quantity_p') is-invalid @enderror form-control py-1" 
                                         value="{{ old('gold_quantity_p') }}">
                                     @error('gold_quantity_p')
                                         <span class="invalid-feedback" role="alert">
@@ -121,7 +140,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="gold_quantity_y" style="font-weight: 700">Gold Quantity(Y):</label>
                                     <input type="text" name="gold_quantity_y" id="gold_quantity_y"
-                                        class="@error('gold_quantity_y') is-invalid @enderror form-control py-1" required
+                                        class="@error('gold_quantity_y') is-invalid @enderror form-control py-1" 
                                         value="{{ old('gold_quantity_y') }}">
                                     @error('gold_quantity_y')
                                         <span class="invalid-feedback" role="alert">
@@ -129,12 +148,23 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="gold_price" style="font-weight: 700">Gold Price:</label>
                                     <input type="text" name="gold_price" id="gold_price"
-                                        class="@error('gold_price') is-invalid @enderror form-control py-1" required
+                                        class="@error('gold_price') is-invalid @enderror form-control py-1" 
                                         value="{{ old('gold_price') }}">
                                     @error('gold_price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="ad_gold_quantity_k" style="font-weight: 700">AD Gold Quantity(K):</label>
+                                    <input type="text" name="ad_gold_quantity_k" id="ad_gold_quantity_k"
+                                        class="@error('ad_gold_quantity_k') is-invalid @enderror form-control py-1" 
+                                        value="{{ old('ad_gold_quantity_k') }}">
+                                    @error('ad_gold_quantity_k')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -162,10 +192,10 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="ad_gold_price" style="font-weight: 700">AD Gold Price:</label>
                                     <input type="text" name="ad_gold_price" id="ad_gold_price"
-                                        class="@error('ad_gold_price') is-invalid @enderror form-control py-1" required
+                                        class="@error('ad_gold_price') is-invalid @enderror form-control py-1" 
                                         value="{{ old('ad_gold_price') }}">
                                     @error('ad_gold_price')
                                         <span class="invalid-feedback" role="alert">
@@ -173,10 +203,21 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="net_weight" style="font-weight: 700">Net Weight:</label>
+                                    <input type="text" name="net_weight" id="net_weight"
+                                        class="@error('net_weight') is-invalid @enderror form-control py-1" 
+                                        value="{{ old('net_weight') }}">
+                                    @error('net_weight')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label for="service_charges" style="font-weight: 700">Service Charges (%):</label>
                                     <input type="text" name="service_charges" id="service_charges"
-                                        class="@error('service_charges') is-invalid @enderror form-control py-1" required
+                                        class="@error('service_charges') is-invalid @enderror form-control py-1" 
                                         value="{{ old('service_charges') }}">
                                     @error('service_charges')
                                         <span class="invalid-feedback" role="alert">
@@ -187,7 +228,7 @@
                                 <div class="col-md-4 mb-3">
                                     <label for="total_price" style="font-weight: 700">Total Price:</label>
                                     <input type="text" name="total_price" id="total_price"
-                                        class="@error('total_price') is-invalid @enderror form-control py-1" required
+                                        class="@error('total_price') is-invalid @enderror form-control py-1" 
                                         value="{{ old('total_price') }}">
                                     @error('total_price')
                                         <span class="invalid-feedback" role="alert">
@@ -198,7 +239,7 @@
                                 {{-- <div class="col-md-6 mb-3">
                                     <label for="product_qty" style="font-weight: 700">Product Quantity:</label>
                                     <input type="number" name="product_qty" id="product_qty"  min="1" max="10" value="1"
-                                        class="@error('product_qty') is-invalid @enderror form-control py-1" required
+                                        class="@error('product_qty') is-invalid @enderror form-control py-1" 
                                         value="{{ old('product_qty') }}">
                                     @error('product_qty')
                                         <span class="invalid-feedback" role="alert">
@@ -228,28 +269,57 @@
 
 @section('script')
 <script>
+     $("#quantity_2,#price_2,#weight_2").keyup(function(){
+        var quantity_2 = Number($('#row_2 #quantity_2').val());
+        console.log(quantity_2);
+        
+        //  var total = $("#total_price").val();
+        //  var c_total = total + total_gem_price_2;
+        //  $("#total_price").val(Math.round(c_total));
+
+     
+    }); 
     $(document).ready(function(){
-    $("#quantity,#price,#weight,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
+    $("#quantity_1,#price_1,#weight_1,#quantity_2,#price_2,#weight_2,#gold_quantity_k,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_k ,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
         calculation();
+        
      });
+    
     });
     function calculation(){
     var today_g_price = Number($("#today_g_price").val());
-     var quantity = Number($("#quantity").val());
+     var quantity_1 = Number($("#quantity_1").val());
+     
      var service_charges = Number($("#service_charges").val());
      var ad_gold_price = Number($("#ad_gold_price").val());
      var gold_price = Number($("#gold_price").val());
-     var price = Number($("#price").val());
-      var weight = Number($("#weight").val());
+     var price_1 = Number($("#price_1").val());
+     
+      var weight_1 = Number($("#weight_1").val());
+
+      var quantity_2 = Number($("#quantity_2").val());
+        var price_2 = Number($("#price_2").val());
+         var weight_2 = Number($("#weight_2").val());
+         
+         
+         console.log(total_gem_price_2);
+     
+      var gold_quantity_k = Number($("#gold_quantity_k").val());
      var gold_quantity_p = Number($("#gold_quantity_p").val());
      var gold_quantity_y = Number($("#gold_quantity_y").val());
+     var ad_gold_quantity_k = Number($("#ad_gold_quantity_k").val());
      var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
      var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total =  (gold_quantity_y/8 + gold_quantity_p)/16  * today_g_price;
-     var ad_gold_price_total =  (ad_gold_quantity_y/8 + ad_gold_quantity_p)/16  * today_g_price;
-     var weight_type = $("#weight_type").val();
-     var total_gem_price = weight_type == 1?  (price * weight) :   (price * weight) * 1.1;
-     var total =total_gem_price +
+     var gold_price_total =  (gold_quantity_k + gold_quantity_y/8 + gold_quantity_p/16) * today_g_price;
+     var ad_gold_price_total =  (ad_gold_quantity_k + ad_gold_quantity_y/8 + ad_gold_quantity_p/16)  * today_g_price;
+     var weight_type_1 = $("#weight_type_1").val();
+     var weight_type_2 = $("#weight_type_2").val();
+   
+     
+     var total_gem_price_1 = weight_type_1 == 1?  (price_1 * weight_1) :   (price_1 * weight_1) * 1.1;
+     var total_gem_price_2 = weight_type_2 == 1?  (price_2 * weight_2) :   (price_2 * weight_2) * 1.1;
+     
+     var total = total_gem_price_1 + (isNaN(total_gem_price_2) ? 0 : total_gem_price_2) +
      gold_price_total + ad_gold_price_total;
      total = total + ( (service_charges / 100) * total);
         $("#total_price").val(Math.round(total));
@@ -268,7 +338,96 @@
                 $("#image").append("<img id='myImg"+i+"'   src="+src+" class='rounded shadow-sm p-1' style='transition: 0.4s; height: 100px; width: 100px' style='margin:4px;width:100px;border-radius:5px;cursor:pointer;' alt='img' />");
             }
         };
+
+
+        $("#add_new_gem_section").off('click').on('click', function() {
+            var count_gem_row = $("#gem-section .gem-row").length;
+            var row_id = count_gem_row + 1;
+            // console.log(count_gem_row);
+
+            var html = '<div class="row border mx-1 my-2 py-2 gem-row" id="row_' + row_id + '">' +
+                        '<div class="col-md-2 mb-3">' +
+                        '<label for="gem_type" style="font-weight: 700">Gem type:</label>'+
+                        '<input type="text" name="gem_type[]" class="@error("gem_type") is-invalid @enderror form-control py-1"  value="{{ old("gem_type") }}">' +
+                        '@error("gem_type")'+
+                        '<span class="invalid-feedback" role="alert">' +
+                        '<strong>{{ $message }}</strong>' + 
+                        ' </span>' +
+                        '@enderror' +
+                        '</div>' +
+                        '<div class="col-md-2 mb-3">' +
+                        '<label for="quantity" style="font-weight: 700">Gem Quantity:</label>' +
+                        '<input type="text" name="quantity[]" id="quantity_' +row_id + '" class="@error("quantity") is-invalid @enderror form-control py-1"  value="{{ old("quantity") }}">' +
+                        '@error("quantity")'+
+                        '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>'+
+                        '@enderror'+
+                        '</div>'+
+                        '<div class="col-md-2 mb-3">' +
+                        '<label for="weight" style="font-weight: 700">Gem weight:</label>'+
+                        '<input type="text" name="weight[]" id="weight_' + row_id + '" class="@error("weight") is-invalid @enderror form-control py-1"  value="{{ old("weight") }}">' +
+                        '@error("weight")'+
+                        '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>' +              
+                        '@enderror'+
+                        '</div>'+
+                        '<div class="col-md-2 mb-3">' +
+                        '<label for="weight_type" style="font-weight: 700"></label>' +
+                        '<select class="form-select" onchange="calculation()" name="weight_type[]" id="weight_type_'+row_id + '" name="weight_type[]">' +
+                        '<option  name="weight_type[]" value=1>Carat</option>' +
+                        '<option  name="weight_type[]" value=2>Ratti</option>' +
+                        '</select>'+  
+                        '</div>' +
+                        '<div class="col-md-4 mb-3">'+
+                        '<label for="price" style="font-weight: 700">Gem price:</label>'+
+                        '<div class="d-flex">'+
+                         '<input type="text" name="price[]" id="price_' + row_id + '" class="@error("price") is-invalid @enderror form-control py-1"  value="{{ old("price") }}">'+
+                         '</div>'+
+                        '@error("price")'+
+                        '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>'+           
+                        '@enderror'+
+                        '</div>'+
+                        '</div>';
+
+
+             $("#gem-section .gem-row:last").after(html);
+             
+            });
+
+            function removeGemSection(){
+                var count_gem_row = $("#gem-section .gem-row").length;
+                if(count_gem_row > 1){
+                    $("#gem-section .gem-row:last").remove();
+                    calculation();
+                }
+};
 </script>
 
 @endsection
+                                                
+                                                
+                                                
+                                                
+
+                                                    
+                                                
+            
+
+
+
+
+                                               
+                                                    
+                                               
+                                            
+                                        
+                                        
+                                            
+                                                
+                                           
+                                        
+                                            
+                                            
+                                           
+                                       
+                                    
+
  

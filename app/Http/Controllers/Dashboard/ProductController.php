@@ -53,6 +53,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
+        // return $request;
         $validator = Validator::make($request->all(), [
             "code" => "required",
             'type' => 'required',
@@ -82,18 +84,21 @@ class ProductController extends Controller
                 $product->image = $path;
                 $product->code =   $code;
                 $product->type = $request->type;
-                $product->gem_type = $request->gem_type;
-                $product->quantity = $request->quantity;
-                $product->weight = $request->weight;
-                $product->weight_type = $request->weight_type;
-                $product->price = $request->price;
+                $product->gem_type = json_encode($request->gem_type);
+                $product->quantity = json_encode($request->quantity);
+                $product->weight = json_encode($request->weight);
+                $product->weight_type = json_encode($request->weight_type);
+                $product->price = json_encode($request->price);
+                $product->gold_quantity_k = $request->gold_quantity_k;
                 $product->gold_quantity_p = $request->gold_quantity_p;
                 $product->gold_quantity_y = $request->gold_quantity_y;
                 $product->gold_price = $request->gold_price;
+                $product->ad_gold_quantity_k = $request->ad_gold_quantity_k;
                 $product->ad_gold_quantity_p = $request->ad_gold_quantity_p;
                 $product->ad_gold_quantity_y = $request->ad_gold_quantity_y;
                 $product->ad_gold_price = $request->ad_gold_price;
                 $product->service_charges = $request->service_charges;
+                $product->net_weight = $request->net_weight;
 
                 
                 $lastfourdigits = substr($request->total_price, -4);

@@ -46,7 +46,7 @@
         background: #EFBC4F;
         color: white;
         }
-
+       
     </style>
     
 </head>
@@ -134,26 +134,30 @@
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[0]->quantity}}</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->total_price)}}</td>
                 </tr>
-                <tr style="background:#D0D1D3;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gem Type : {{$pos->positem[0]->gem_type}}</td>
+                @php
+                    $gem_weight = json_decode($pos->positem[0]->weight);
+                    $gem_type = json_decode($pos->positem[0]->gem_type);
+                    $gem_quantity = json_decode($pos->positem[0]->gem_quantity);
+                    $weight_type = json_decode($pos->positem[0]->weight_type);
+                    $length = count($gem_type);
+                @endphp
+                @for($i = 0 ; $i < count($gem_type); $i++)
+                <tr style="background:#EEEEEE;">
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                </tr>
+                @endfor
+                
+                <tr style="background:#EEEEEE;">
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} k @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} p @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} y @endif</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                 </tr>
                 <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gem Weight : 0.29 Carat</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                <tr style="background:#D0D1D3;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold Quantity : 2 pal 3 yway</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;color:#EEEEEE;">.</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Nw-{{$pos->positem[0]->net_weight}}]</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>

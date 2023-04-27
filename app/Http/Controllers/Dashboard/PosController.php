@@ -99,6 +99,7 @@ class PosController extends Controller
         $pos->payment_status = $request->paid_status;
         $pos->description = $request->description;
         $pos->advance = $request->advance;
+        $pos->is_can_return = $request->is_can_return;
         $pos->balance = ($request->netAmount)-($request->advance);
         $pos->created_at = Carbon::now()->format('Y-m-d H:i:s');
         $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
@@ -123,14 +124,19 @@ class PosController extends Controller
             $posItem->image = $product->image;
             $posItem->gem_type = $product->gem_type;
             $posItem->quantity = $quantity[$num];
+            $posItem->gem_quantity = $product->quantity;
             $posItem->weight = $product->weight;
+            $posItem->weight_type = $product->weight_type;
             $posItem->price = $product->price;
+            $posItem->gold_quantity_k = $product->gold_quantity_k;
             $posItem->gold_quantity_p = $product->gold_quantity_p;
             $posItem->gold_quantity_y = $product->gold_quantity_y;
             $posItem->gold_price = $product->gold_price;
+            $posItem->ad_gold_quantity_k = $product->ad_gold_quantity_k;
             $posItem->ad_gold_quantity_p = $product->ad_gold_quantity_p;
             $posItem->ad_gold_quantity_y = $product->ad_gold_quantity_y;
             $posItem->ad_gold_price = $product->ad_gold_price;
+            $posItem->net_weight = $product->net_weight;
             $posItem->service_charges = $product->service_charges;
             $posItem->total_price = $product->total_price;
             $posItem->save();
@@ -195,6 +201,7 @@ class PosController extends Controller
         $pos->payment_status = $request->paid_status;
         $pos->description = $request->description;
         $pos->advance = $request->advance;
+        $pos->is_can_return = $request->is_can_return;
         $pos->balance = ($request->netAmount)-($request->advance);
         $pos->updated_by = $user_id;
         $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
