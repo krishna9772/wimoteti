@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             
-            $table->tinyInteger('weight_type')->after('net_weight');
+            
     
         });
     }
@@ -27,9 +27,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('products', function($table) {
             
-            $table->tinyInteger('weight_type');
+            
 
         });
     }
