@@ -20,6 +20,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Report List </h5>
+                        <div class="float-right">
+                            <?php echo '<div class="float-right font-weight-bold" style="float:right;"> <strong>Product In:  </strong>  '.number_format($product_in_total_price).'</div>';?><br/>
+                            <?php echo '<div class="float-right font-weight-bold" style="float:right;"> <strong>Product Out:  </strong>  '.number_format($product_out_total_price).'</div>';?>
+
+                        </div>
                         <div class="row">
                             <div class="col-lg-12 my-3">
                                 
@@ -56,7 +61,7 @@
                                             <tr>
                                                 <td class="border">{{$i++}}</td>
                                                 <td class="border">{{$p_in->code}}</td>
-                                                <td class="border">{{number_format($p_in->price)}}</td>
+                                                <td class="border">{{number_format($p_in->total_price)}}</td>
                                             </tr>
                                             @endforeach
                                             @if(count($product_in) == 0)
@@ -66,6 +71,7 @@
                                             @endif
                                         </tbody>
                                     </table>
+
                                     <div class="pagination justify-content-center">{{ $product_in->links() }}</div>
                                 </div>
                             </div>
@@ -81,13 +87,20 @@
                                         </thead>
                                         <tbody>
                                             <?php $o = ($product_out->currentpage() - 1) * $product_out->perpage() + 1 ?>
+                                            <?php $total = 0 ;?>
+
                                             @foreach($product_out as $p_out)
+
                                             <tr>
                                                 <td class="border">{{$o++}}</td>
                                                 <td class="border" >{{$p_out->code}}</td>
-                                                <td class="border">{{number_format($p_out->price)}}</td>
+                                                <td class="border">{{number_format($p_out->total_price)}}</td>
+                                                <?php $total += $p_out->total_price; ?>
+
                                             </tr>
                                             @endforeach
+
+
                                             @if(count($product_out) == 0)
                                                 <tr>
                                                     <td colspan="3" class="text-center text-muted">No product out these days.</td>
@@ -96,6 +109,8 @@
                                         </tbody>
                                         
                                     </table>
+
+
                                     <div class="pagination justify-content-center">{{ $product_out->links() }}</div>
                                 </div>
                             </div>

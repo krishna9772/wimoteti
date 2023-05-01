@@ -105,6 +105,7 @@ class PosController extends Controller
         $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $pos->created_by = $user_id;
         $pos->updated_by = $user_id;
+        $pos->is_can_return = $request->is_can_return;
         $pos->save();
 
 
@@ -205,6 +206,7 @@ class PosController extends Controller
         $pos->balance = ($request->netAmount)-($request->advance);
         $pos->updated_by = $user_id;
         $pos->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        $pos->is_can_return = $request->is_can_return;
         $pos->update();
 
 

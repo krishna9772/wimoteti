@@ -25,7 +25,7 @@
                 <label for="name" style="font-weight: 700" class="mb-2">Customer Name:</label>
                <div class="d-flex">
                 <select class="form-select"  name="name" id="customer_name" required>
-                    <option value="0" disabled>-- Customers --</option>
+                    <option value="0" disabled selected>-- Customers --</option>
                     @foreach ($customers as $customer)
                         <option name="name" value="{{ $customer->id }}">{{ $customer->name }}
                         </option>
@@ -110,7 +110,7 @@
                             <th scope="row" id="num">1</th>
                             <td>
                                 <select class="form-select product js-example-basic-single"  name="code[]"  data-row-id="row_1" id="product_1" onchange="getProductData(1)" required>
-                                    <option value="" disabled>-- Products --</option>
+                                    <option value="" disabled selected>-- Products --</option>
                                     @foreach ($products as $product)
                                         <option  value="{{ $product->id }}">{{ $product->code }}
                                         </option>
@@ -174,8 +174,8 @@
                     <label for="is_can_return" class="text-nowrap form-label">Return Status</label>
                     <select class="form-select ms-3"  name="is_can_return" id="is_can_return" style="width: 230px !important;" required>
                         <option value="">-- Select --</option>
-                        <option  value="1">Can Return</option>
-                        <option  value="0">Can't Return</option>
+                        <option  value="1">On</option>
+                        <option  value="0">Off</option>
                     </select>
                 </div>
             </div>

@@ -12,8 +12,8 @@
             </nav>
         </div>
         <div>
-            <a href="{{url('/auth/voucher/blank?type=1')}}" class="btn btn-outline-primary">vocher 1</a>
-            <a href="{{url('/auth/voucher/blank?type=2')}}" class="btn btn-outline-secondary">vocher 2</a>
+            <a href="{{url('/auth/voucher/blank?type=1')}}" class="btn btn-outline-primary">voucher 1</a>
+            <a href="{{url('/auth/voucher/blank?type=2')}}" class="btn btn-outline-secondary">voucher 2</a>
         </div>
     </div>
     <section class="section dashboard">

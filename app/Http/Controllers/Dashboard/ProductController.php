@@ -161,6 +161,16 @@ class ProductController extends Controller
             }
         }
 
+        $lastfourdigits = substr($request->total_price, -4);
+        $lastfournumber = intval($lastfourdigits);
+        if($lastfournumber >= 5000){
+            $reducetotal = ($request->total_price) - $lastfournumber;
+            $total_price = $reducetotal + 10000;
+        }elseif($lastfournumber < 5000){
+            $reducetotal = ($request->total_price) - $lastfournumber;
+            $total_price = $reducetotal;
+        }
+
         $user_id = Auth::user()->id;
         Product::find($id)->update([
             'image' => $path,
@@ -180,7 +190,7 @@ class ProductController extends Controller
             'ad_gold_quantity_y' => $request->ad_gold_quantity_y,
             'ad_gold_price' => $request->ad_gold_price,
             'service_charges' => $request->service_charges,
-            'total_price' => $request->total_price,
+            'total_price' => $total_price,
             'updated_by' => $user_id,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);

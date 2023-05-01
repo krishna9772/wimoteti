@@ -44,6 +44,7 @@
                                     </div>                                                                                      
                                     </label>
                                     <input accept="image/*" name="image[]"  multiple="multiple" type='file' id="image" class="mx-2"  onchange="previewImageFile(event);"  />
+
                                     {{-- <input accept="image/*" name="image" type='file' id="image" class="mx-2" onchange="previewImageFile(this);" /> --}}
                                 </div>
                                 <div class="col-md-6 mb-3">
