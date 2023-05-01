@@ -269,18 +269,9 @@
 
 @section('script')
 <script>
-     $("#quantity_2,#price_2,#weight_2").keyup(function(){
-        var quantity_2 = Number($('#row_2 #quantity_2').val());
-        console.log(quantity_2);
-        
-        //  var total = $("#total_price").val();
-        //  var c_total = total + total_gem_price_2;
-        //  $("#total_price").val(Math.round(c_total));
-
      
-    }); 
     $(document).ready(function(){
-    $("#quantity_1,#price_1,#weight_1,#quantity_2,#price_2,#weight_2,#gold_quantity_k,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_k ,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
+    $("#quantity_1,#price_1,#weight_1,#quantity_2,#price_2,#weight_2,#quantity_3,#price_3,#weight_3,#quantity_4,#price_4,#weight_4,#quantity_5,#price_5,#weight_5,#gold_quantity_k,#gold_quantity_p,#gold_quantity_y,#ad_gold_quantity_k ,#ad_gold_quantity_p , #ad_gold_quantity_y,#service_charges").keyup(function(){
         calculation();
         
      });
@@ -289,20 +280,38 @@
     function calculation(){
     var today_g_price = Number($("#today_g_price").val());
      var quantity_1 = Number($("#quantity_1").val());
-     
+     var quantity_2 = Number($("#quantity_2").val());
+     var quantity_3 = Number($("#quantity_3").val());
+     var quantity_4 = Number($("#quantity_4").val());
+     var quantity_5 = Number($("#quantity_5").val());
+
+     var price_1 = Number($("#price_1").val());
+     var price_2 = Number($("#price_2").val());
+     var price_3 = Number($("#price_3").val());
+     var price_4 = Number($("#price_4").val());
+     var price_5 = Number($("#price_5").val());
+
+     var weight_1 = Number($("#weight_1").val());
+     var weight_2 = Number($("#weight_2").val());
+     var weight_3 = Number($("#weight_3").val());
+     var weight_4 = Number($("#weight_4").val());
+     var weight_5 = Number($("#weight_5").val());
+
      var service_charges = Number($("#service_charges").val());
      var ad_gold_price = Number($("#ad_gold_price").val());
      var gold_price = Number($("#gold_price").val());
-     var price_1 = Number($("#price_1").val());
-     
-      var weight_1 = Number($("#weight_1").val());
 
-      var quantity_2 = Number($("#quantity_2").val());
-        var price_2 = Number($("#price_2").val());
-         var weight_2 = Number($("#weight_2").val());
-         
-         
-         console.log(total_gem_price_2);
+     var weight_type_1 = $("#weight_type_1").val();
+     var weight_type_2 = $("#weight_type_2").val();
+     var weight_type_3 = $("#weight_type_3").val();
+     var weight_type_4 = $("#weight_type_4").val();
+     var weight_type_5 = $("#weight_type_5").val();
+
+     var total_gem_price_1 = weight_type_1 == 1?  (price_1 * weight_1) :   (price_1 * weight_1) * 1.1;
+     var total_gem_price_2 = weight_type_2 == 1?  (price_2 * weight_2) :   (price_2 * weight_2) * 1.1;
+     var total_gem_price_3 = weight_type_3 == 1?  (price_3 * weight_3) :   (price_3 * weight_3) * 1.1;
+     var total_gem_price_4 = weight_type_4 == 1?  (price_4 * weight_4) :   (price_4 * weight_4) * 1.1;
+     var total_gem_price_5 = weight_type_5 == 1?  (price_5 * weight_5) :   (price_5 * weight_5) * 1.1;
      
       var gold_quantity_k = Number($("#gold_quantity_k").val());
      var gold_quantity_p = Number($("#gold_quantity_p").val());
@@ -312,14 +321,15 @@
      var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
      var gold_price_total =  (gold_quantity_k + gold_quantity_y/8 + gold_quantity_p/16) * today_g_price;
      var ad_gold_price_total =  (ad_gold_quantity_k + ad_gold_quantity_y/8 + ad_gold_quantity_p/16)  * today_g_price;
-     var weight_type_1 = $("#weight_type_1").val();
-     var weight_type_2 = $("#weight_type_2").val();
+     
    
      
-     var total_gem_price_1 = weight_type_1 == 1?  (price_1 * weight_1) :   (price_1 * weight_1) * 1.1;
-     var total_gem_price_2 = weight_type_2 == 1?  (price_2 * weight_2) :   (price_2 * weight_2) * 1.1;
+     
      
      var total = total_gem_price_1 + (isNaN(total_gem_price_2) ? 0 : total_gem_price_2) +
+     (isNaN(total_gem_price_3) ? 0 : total_gem_price_3) +
+     (isNaN(total_gem_price_4) ? 0 : total_gem_price_4) +
+     (isNaN(total_gem_price_5) ? 0 : total_gem_price_5) +
      gold_price_total + ad_gold_price_total;
      total = total + ( (service_charges / 100) * total);
         $("#total_price").val(Math.round(total));
@@ -341,6 +351,7 @@
 
 
         $("#add_new_gem_section").off('click').on('click', function() {
+           
             var count_gem_row = $("#gem-section .gem-row").length;
             var row_id = count_gem_row + 1;
             // console.log(count_gem_row);
@@ -379,7 +390,7 @@
                         '<div class="col-md-4 mb-3">'+
                         '<label for="price" style="font-weight: 700">Gem price:</label>'+
                         '<div class="d-flex">'+
-                         '<input type="text" name="price[]" id="price_' + row_id + '" class="@error("price") is-invalid @enderror form-control py-1"  value="{{ old("price") }}">'+
+                         '<input type="text" name="price[]" id="price_' + row_id + '" class="@error("price") is-invalid @enderror form-control py-1"  value="{{ old("price") }}" onkeyup="calculation()">'+
                          '</div>'+
                         '@error("price")'+
                         '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>'+           

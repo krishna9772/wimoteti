@@ -59,7 +59,35 @@
    
     <div id="divCon">
         <div style="background: #333134;padding:30px;">
-            <table>
+            <div style="display: flex;justify-content:space-between;">
+                <div style="margin: auto;display: flex;">
+                    <div style="margin-right: 10px;">
+                        <span style="font-size: 5rem;vertical-align: middle;
+                            border:3px solid #EEEEEE;padding:0px 5px;font-weight:700;
+                            color:#EEEEEE;">V</span>
+                    </div>
+                    <div>
+                        <span style="vertical-align: middle;font-size: 2rem;font-weight:700;margin: 0px 5px;color:#EEEEEE;">ဝိမုတ္တိခေတ်</span>
+                        <span style="vertical-align: middle;font-size: 1.4rem;font-weight:700;color:#EEEEEE;">စိန်ရတနာဆိုင်</span>
+                        <br>
+                        <span style="font-size: 1.4rem;font-weight:700;margin:0px 5px;color:#EEEEEE;">Vimukti Uga </span>
+                        <span style="font-size:1.3rem;color:#EEEEEE;">Jewellery</span>
+                    </div>
+                </div>
+                @if($pos->payment_status == 'paid')
+                <div style="">
+                    <span style="border:3px solid #EEEEEE;;padding:15px 30px;font-size:25px;font-weight:bold;color:#EFBC4F;float: right;">PAID</span>
+                </div>
+                @endif
+            </div>
+            <div style="display:flex;justify-content:center;margin-top: 20px;">
+                <span style="font-size:1.3rem; font-weight: bold;color:#EEEEEE;">( C - ၂၁၆ / ၂၁၇ / ၂၁၈ ) ပထမထပ် ၊ Time City ၊ ကျွန်းတောလမ်း ၊ ရန်ကုန် ။</span>
+            </div>
+            <div style="display:flex;justify-content:center;">
+                <span style="font-size:1.3rem;font-weight:bold;color:#EEEEEE;">09 795372480 [ Shop ] , 09 250357584 [ Shop ] , 09 4500 26751 [ Online Order ]</span>
+            </div>
+            
+            {{-- <table>
                 <tr>
                     <td rowspan="2">
                         <span style="font-size: 5rem;vertical-align: middle;
@@ -80,8 +108,8 @@
                         <span style="font-size:1.3rem;color:#EEEEEE;">Jewellery</span>
                     </td>
                 </tr>
-            </table>
-            <table style="margin-top: 10px;">
+            </table> --}}
+            {{-- <table style="margin-top: 10px;">
                 <tr>
                     <td>
                         <span style="font-size:1.3rem; font-weight: bold;color:#EEEEEE;">( C - ၂၁၆ / ၂၁၇ / ၂၁၈ ) ပထမထပ် ၊ Time City ၊ ကျွန်းတောလမ်း ၊ ရန်ကုန် ။</span>
@@ -92,7 +120,7 @@
                         <span style="font-size:1.3rem;font-weight:bold;color:#EEEEEE;">09 795372480 [ Shop ] , 09 250357584 [ Shop ] , 09 4500 26751 [ Online Order ]</span>
                     </td>
                 </tr>
-            </table>
+            </table> --}}
         </div>
 
         <div style="width: 100%;background:#EEEEEE;">
@@ -194,6 +222,22 @@
             </div>
             <div style="width: 15%;"></div>
             <div style="width: 30%;">
+                <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
+                    <div >
+                        Discount : 
+                    </div>
+                    <div>
+                        {{number_format($pos->discount)}}
+                    </div>
+                </div>
+                <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
+                    <div >
+                        Service Charges : 
+                    </div>
+                    <div>
+                        {{$pos->positem[0]->service_charges}}%
+                    </div>
+                </div>
                 <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
                     <div >
                         Sub Total : 
