@@ -118,12 +118,12 @@
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($voucherFilter->total_price)}}</td>
                         </tr>
                         @php
-                    $gem_weight = json_decode($voucherFilter->positem[0]->weight);
-                    $gem_type = json_decode($voucherFilter->positem[0]->gem_type);
-                    $gem_quantity = json_decode($voucherFilter->positem[0]->gem_quantity);
-                    $weight_type = json_decode($voucherFilter->positem[0]->weight_type);
-                    $length = count($gem_type);
-                @endphp
+                            $gem_weight = json_decode($voucherFilter->positem[0]->weight);
+                            $gem_type = json_decode($voucherFilter->positem[0]->gem_type);
+                            $gem_quantity = json_decode($voucherFilter->positem[0]->gem_quantity);
+                            $weight_type = json_decode($voucherFilter->positem[0]->weight_type);
+                            $length = count($gem_type);
+                        @endphp
                 @for($i = 0 ; $i < count($gem_type); $i++)
                 <tr style="background:#EEEEEE;">
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
@@ -140,7 +140,7 @@
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                 </tr>
                 <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Nw-{{$voucherFilter->positem[0]->net_weight}}]</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight -{{$voucherFilter->positem[0]->net_weight}}]</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>

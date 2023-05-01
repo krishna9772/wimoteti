@@ -116,7 +116,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Gem Price</th>
-                                        <td>{{number_format($product->price)}}</td>
+                                        <td>{{$product->price}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Gold Quantity</th>

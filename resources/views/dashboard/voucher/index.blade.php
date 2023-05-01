@@ -167,29 +167,65 @@
                     $gem_type = json_decode($pos->positem[0]->gem_type);
                     $gem_quantity = json_decode($pos->positem[0]->gem_quantity);
                     $weight_type = json_decode($pos->positem[0]->weight_type);
-                    $length = count($gem_type);
                 @endphp
-                @for($i = 0 ; $i < count($gem_type); $i++)
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                @endfor
+                @if(gettype($gem_type) == 'array')
+                    @for($i = 0 ; $i < count($gem_type); $i++)
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                    @endfor
+
+                    <tr style="background:#EEEEEE;">
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} k @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} p @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} y @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    </tr>
+                    <tr style="background:#EEEEEE;">
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight-{{$pos->positem[0]->net_weight}}]</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    </tr>
+                   
+                @else
+                    @php 
+                    $no = 1;
+                    $count = count($pos->positem);
                 
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} k @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} p @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} y @endif</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Nw-{{$pos->positem[0]->net_weight}}]</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
+                    @endphp
+
+                    @for ($x = 0; $x < $count; $x++)
+                    {{-- <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$no++}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->code}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gem_type}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gold_quantity_p}}.{{$pos->positem[$x]->gold_quantity_y}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->quantity}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->net_weight}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->positem[$x]->total_price)}}</td>
+                        </tr> --}}
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[$x]->gold_quantity_k}} k @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_p}} p @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_y}} y @endif</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Net-weight - {{$pos->positem[$x]->net_weight}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                    @endfor
+                @endif
+
+                
+                
+                
             </table>
         </div>
         <div style="display:flex;">
