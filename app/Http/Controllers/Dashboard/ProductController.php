@@ -130,6 +130,8 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        // return $request;
         $validator = Validator::make($request->all(), [
             "code" => "required",
             'type' => 'required',
@@ -179,9 +181,11 @@ class ProductController extends Controller
             'weight' => $request->weight,
             'weight_type' =>  $request->weight_type,
             'price' => $request->price,
+            'gold_quantity_k' => $request->gold_quantity_k,
             'gold_quantity_p' => $request->gold_quantity_p,
             'gold_quantity_y' => $request->gold_quantity_y,
             'gold_price' => $request->gold_price,
+            'ad_gold_quantity_k' => $request->ad_gold_quantity_k,
             'ad_gold_quantity_p' => $request->ad_gold_quantity_p,
             'ad_gold_quantity_y' => $request->ad_gold_quantity_y,
             'ad_gold_price' => $request->ad_gold_price,
