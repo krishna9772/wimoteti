@@ -185,7 +185,7 @@
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                     </tr>
                     <tr style="background:#EEEEEE;">
-                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight-{{$pos->positem[0]->net_weight}}]</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight-{{$pos->positem[0]->net_weight }} g] </td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>

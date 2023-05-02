@@ -139,7 +139,7 @@ class ProductController extends Controller
             "ad_gold_price" => "required",
             "total_price" => "required",
             "service_charges" => "required",
-            // "net_weight" => "required",
+            "net_weight" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -189,6 +189,7 @@ class ProductController extends Controller
             'ad_gold_quantity_p' => $request->ad_gold_quantity_p,
             'ad_gold_quantity_y' => $request->ad_gold_quantity_y,
             'ad_gold_price' => $request->ad_gold_price,
+            'net_weight' => $request->net_weight,
             'service_charges' => $request->service_charges,
             'total_price' => $total_price,
             'updated_by' => $user_id,

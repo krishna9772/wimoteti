@@ -297,7 +297,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label for="net_weight" style="font-weight: 700">Net Weight:</label>
                                 <input type="text" name="net_weight" id="net_weight"
                                     class="@error('net_weight') is-invalid @enderror form-control py-1" required
@@ -307,7 +307,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div> --}}
+                            </div>
                             <div class="col-md-4 mb-3">
                                 <label for="service_charges" style="font-weight: 700">Service Charges:</label>
                                 <input type="text" name="service_charges" id="service_charges"
@@ -400,10 +400,6 @@
      var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
      var gold_price_total =  (gold_quantity_k + gold_quantity_y/8 + gold_quantity_p/16) * today_g_price;
      var ad_gold_price_total =  (ad_gold_quantity_k + ad_gold_quantity_y/8 + ad_gold_quantity_p/16)  * today_g_price;
-     
-   
-     
-     
      
      var total = total_gem_price_1 + (isNaN(total_gem_price_2) ? 0 : total_gem_price_2) +
      (isNaN(total_gem_price_3) ? 0 : total_gem_price_3) +

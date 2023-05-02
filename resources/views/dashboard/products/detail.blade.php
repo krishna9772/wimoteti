@@ -135,6 +135,10 @@
                                         <td>{{number_format($product->ad_gold_price)}}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row">Net weight</th>
+                                        <td>{{$product->net_weight}} g</td>
+                                    </tr>
+                                    <tr>
                                         <th scope="row">Service Charges</th>
                                         <td>{{$product->service_charges}}</td>
                                     </tr>
