@@ -175,7 +175,7 @@
                                             {{$product->weight}}
                                         </td>
                                         <td>
-                                            {{$product->price}}
+                                            {{number_format($product->price)}}
                                         </td>
                                     </tr>
                                 @endif
