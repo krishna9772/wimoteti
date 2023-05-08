@@ -8,6 +8,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use DB;
+
 class CategoryController extends Controller
 {
     public function index()
@@ -21,7 +23,8 @@ class CategoryController extends Controller
         if (session('category-update')) {
             toast(Session::get('category-update'), "success");
         }
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::with('product')->orderBy('id', 'desc')->get();
+        ;
         return view('dashboard.category.index', compact('categories'));
     }
 

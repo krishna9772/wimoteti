@@ -179,7 +179,7 @@
                     @endfor
 
                     <tr style="background:#EEEEEE;">
-                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} k @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} p @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} y @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} ပဲ @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} ရွှေး @endif</td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
@@ -199,17 +199,15 @@
                     @endphp
 
                     @for ($x = 0; $x < $count; $x++)
-                    {{-- <tr style="background:#EEEEEE;">
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$no++}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->code}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gem_type}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gold_quantity_p}}.{{$pos->positem[$x]->gold_quantity_y}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->quantity}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->net_weight}}</td>
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->positem[$x]->total_price)}}</td>
-                        </tr> --}}
                         <tr style="background:#EEEEEE;">
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[$x]->gold_quantity_k}} k @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_p}} p @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_y}} y @endif</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gem_type}}  ( {{$pos->positem[$x]->weight}} @if($pos->positem[$x]->weight_type == 1) Carat @else Ratti @endif)</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                        
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[$x]->gold_quantity_k){{$pos->positem[$x]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_p}} ပဲ @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_y}} ရွှေး @endif</td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
@@ -242,12 +240,12 @@
                         နောက်တစ်ရွက်တောင်းယူပါ။
                     </li>
                     <li>
-                        ရောင်း/လဲဲလိုပါက ဘောက်ချာနှင့်တကွ
+                        ရောင်း/ လဲလိုပါက ဘောက်ချာနှင့်တကွ
                     ယူဆောင်လာပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။
                     </li>
                     <li>
                         ဘောက်ချာမပါပါကပြန်လည်ဝယ်ယူ/
-                        လဲဲလှယ်ပေးမည်မဟုတ်ပါ။
+                        လဲလှယ်ပေးမည်မဟုတ်ပါ။
                     </li>
                     <li>
                         တစ်ပတ်အတွင်းအခမဲ့လဲလှယ်ပေးသည်။
@@ -266,14 +264,14 @@
                         {{number_format($pos->discount)}}
                     </div>
                 </div>
-                <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
+                {{-- <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
                     <div >
                         Service Charges : 
                     </div>
                     <div>
                         {{$pos->positem[0]->service_charges}}%
                     </div>
-                </div>
+                </div> --}}
                 <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
                     <div >
                         Sub Total : 

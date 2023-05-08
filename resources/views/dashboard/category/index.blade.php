@@ -30,6 +30,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">NAME</th>
                                         <th scope="col">CREATED AT</th>
+                                        <th scope="col">Amount</th>
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
@@ -37,12 +38,15 @@
                                     @php
                                         $index = 1;
                                     @endphp
+                                    
                                     @foreach ($categories as $category)
                                         <tr>
                                             <th scope="row"><a href="#">{{ $index++ }}</a></th>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ \Carbon\Carbon::create($category->created_at)->toFormattedDateString() }}
                                             </td>
+                                            <td>@php echo number_format(DB::table('products')->join('categories', 'products.type', '=', 'categories.id')->where('categories.id',$category->id)->where('products.product_in',1)
+                                                ->sum('products.total_price')) @endphp</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="edit-btn">

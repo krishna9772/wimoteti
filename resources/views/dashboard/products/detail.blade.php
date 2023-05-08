@@ -102,22 +102,7 @@
                                         <th scope="row">Cateogry</th>
                                         <td>{{$product->getCategory->name}}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">Gem Type</th>
-                                        <td>{{$product->gem_type}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gem Quantity</th>
-                                        <td>{{$product->quantity}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gem Weight</th>
-                                        <td>{{$product->weight}} @if($product->weight_type == 1) Carat  @else Ratti @endif</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gem Price</th>
-                                        <td>{{$product->price}}</td>
-                                    </tr>
+                                    
                                     <tr>
                                         <th scope="row">Gold Quantity</th>
                                         <td>{{$product->gold_quantity_p}}.{{$product->gold_quantity_y}}</td>
@@ -136,7 +121,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Net weight</th>
-                                        <td>{{$product->net_weight}} g</td>
+                                        <td>{{$product->net_weight ? $product->net_weight : '-'}} g</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Service Charges</th>
@@ -146,9 +131,57 @@
                                         <th scope="row">Total Price</th>
                                         <td>{{number_format($product->total_price)}}</td>
                                     </tr>
-                                    
                                 </table>
+                                    
                             </div>
+                            <div class="col-lg-4">
+                                @php
+                                    $gem_weight = json_decode($product->weight);
+                                    $gem_type = json_decode($product->gem_type);
+                                    $gem_quantity = json_decode($product->quantity);
+                                    $weight_type = json_decode($product->weight_type);
+                                    $gem_price = json_decode($product->price);
+                                @endphp
+                                <table class="table table-striped border">
+                                    <th scope="row">Type</th>
+                                    <th scope="row">Quantity</th>
+                                    <th scope="row">Weight</th>
+                                    <th scope="row">Price</th>
+                                    
+
+                                @if(gettype($gem_type) == 'array')
+                                    @for($i = 0 ; $i < count($gem_type); $i++)
+                                    <tr>
+
+                                            <td>{{$gem_type[$i]}}</td>
+                                       
+                                            <td>{{$gem_quantity[$i]}}</td>
+                                       
+                                            <td>{{$gem_weight[$i]}} @if($gem_weight[$i] == 1) Carat  @else Ratti @endif</td>
+                                        
+                                            <td>{{number_format($gem_price[$i])}}</td>
+                                        </tr>
+
+                                    @endfor
+                                @else
+                                    <tr>
+                                        <td>
+                                            {{$product->gem_type}}
+                                        </td>
+                                        <td>
+                                            {{$product->quantity}}
+                                        </td>
+                                        <td>
+                                            {{$product->weight}}
+                                        </td>
+                                        <td>
+                                            {{$product->price}}
+                                        </td>
+                                    </tr>
+                                @endif
+                            </div>
+                        </table>
+
                         </div>
                     </div>
                 </div>
