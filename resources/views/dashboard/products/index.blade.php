@@ -98,6 +98,7 @@
                                         <th scope="col">Type</th>
                                         <th scope="col">Total Price</th>
                                         <th scope="col">CREATED AT</th>
+                                        <th scope="col">Last Modified At</th>
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
@@ -120,7 +121,9 @@
                                             <td>{{ $product->getcategory->name }}</td>
                                             <td>{{ number_format($product->total_price) }}</td>
                                             {{-- <td>{{ $product->type }}</td> --}}
-                                            <td>{{ \Carbon\Carbon::create($product->created_at)->toFormattedDateString() }}
+                                            <td>{{ \Carbon\Carbon::create($product->created_at)->toFormattedDateString() }}</td>
+
+                                            <td>{{ \Carbon\Carbon::create($product->updated_at)->toFormattedDateString() }}
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">

@@ -55,68 +55,73 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div id="gem-section">
-                                    <div class="row border mx-1 my-2 py-2 gem-row" id="row_1">
-                                        <div class="col-md-2 mb-3">
-                                            <label for="gem_type" style="font-weight: 700">Gem type:</label>
-                                            <input type="text" name="gem_type[]"
-                                                class="@error('gem_type') is-invalid @enderror form-control py-1" 
-                                                value="{{ old('gem_type') }}">
-                                            @error('gem_type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                               
+                                        <div id="gem-section">
+                                            <label for="gem_section" style="font-weight: 700;">Gem section</label>
+
+                                            <fieldset class="scheduler-border">
+                                                <div class="row border mx-1 my-2 py-2 gem-row" id="row_1">
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="gem_type" style="font-weight: 700">Type:</label>
+                                                        <input type="text" name="gem_type[]"
+                                                            class="@error('gem_type') is-invalid @enderror form-control py-1" 
+                                                            value="{{ old('gem_type') }}">
+                                                        @error('gem_type')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="quantity" style="font-weight: 700">Quantity:</label>
+                                                        <input type="text" name="quantity[]" id="quantity_1"
+                                                            class="@error('quantity') is-invalid @enderror form-control py-1" 
+                                                            value="{{ old('quantity') }}">
+                                                        @error('quantity')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="weight" style="font-weight: 700">Weight:</label>
+                                                        <input type="text" name="weight[]" id="weight_1"
+                                                            class="@error('weight') is-invalid @enderror form-control py-1" 
+                                                            value="{{ old('weight') }}">
+                                                        @error('weight')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="weight_type" style="font-weight: 700"></label>
+                                                        <select class="form-select" onchange="calculation()" name="weight_type[]" id="weight_type_1" name="weight_type[]">
+                                                            <option  name="weight_type[]" value=1>Carat</option>
+                                                            <option  name="weight_type[]" value=2>Ratti</option>
+                                                        </select>    
+                                                    </div>
+                                                
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="price" style="font-weight: 700">Price:</label>
+                                                        <div class="d-flex">
+                                                            <input type="text" name="price[]" id="price_1"
+                                                            class="@error('price') is-invalid @enderror form-control py-1" 
+                                                            value="{{ old('price') }}">
+                                                            <button class="ms-3 btn btn-secondary" id="add_new_gem_section" type="button">+</button>
+                                                            <button class="ms-3 btn btn-danger" type="button" onclick="removeGemSection()">X</button>
+                                                        </div>
+                                                        @error('price')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </div>
-                                        <div class="col-md-2 mb-3">
-                                            <label for="quantity" style="font-weight: 700">Gem Quantity:</label>
-                                            <input type="text" name="quantity[]" id="quantity_1"
-                                                class="@error('quantity') is-invalid @enderror form-control py-1" 
-                                                value="{{ old('quantity') }}">
-                                            @error('quantity')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-2 mb-3">
-                                            <label for="weight" style="font-weight: 700">Gem weight:</label>
-                                            <input type="text" name="weight[]" id="weight_1"
-                                                class="@error('weight') is-invalid @enderror form-control py-1" 
-                                                value="{{ old('weight') }}">
-                                            @error('weight')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-2 mb-3">
-                                            <label for="weight_type" style="font-weight: 700"></label>
-                                            <select class="form-select" onchange="calculation()" name="weight_type[]" id="weight_type_1" name="weight_type[]">
-                                                <option  name="weight_type[]" value=1>Carat</option>
-                                                <option  name="weight_type[]" value=2>Ratti</option>
-                                            </select>    
-                                        </div>
-                                    
-                                        <div class="col-md-4 mb-3">
-                                            <label for="price" style="font-weight: 700">Gem price:</label>
-                                            <div class="d-flex">
-                                                <input type="text" name="price[]" id="price_1"
-                                                class="@error('price') is-invalid @enderror form-control py-1" 
-                                                value="{{ old('price') }}">
-                                                <button class="ms-3 btn btn-secondary" id="add_new_gem_section" type="button">+</button>
-                                                <button class="ms-3 btn btn-danger" type="button" onclick="removeGemSection()">X</button>
-                                            </div>
-                                            @error('price')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-md-3 mb-3">
-                                    <label for="gold_quantity_k" style="font-weight: 700">Gold Quantity(K):</label>
+                                    <label for="gold_quantity_k" style="font-weight: 700;">Gold Quantity(K):</label>
                                     <input type="text" name="gold_quantity_k" id="gold_quantity_k"
                                         class="@error('gold_quantity_k') is-invalid @enderror form-control py-1" 
                                         value="{{ old('gold_quantity_k') }}">
@@ -127,7 +132,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <label for="gold_quantity_p" style="font-weight: 700">Gold Quantity(P):</label>
+                                    <label for="gold_quantity_p" style="font-weight: 700;">Gold Quantity(P):</label>
                                     <input type="text" name="gold_quantity_p" id="gold_quantity_p"
                                         class="@error('gold_quantity_p') is-invalid @enderror form-control py-1" 
                                         value="{{ old('gold_quantity_p') }}">
@@ -358,7 +363,7 @@
 
             var html = '<div class="row border mx-1 my-2 py-2 gem-row" id="row_' + row_id + '">' +
                         '<div class="col-md-2 mb-3">' +
-                        '<label for="gem_type" style="font-weight: 700">Gem type:</label>'+
+                        '<label for="gem_type" style="font-weight: 700">Type:</label>'+
                         '<input type="text" name="gem_type[]" class="@error("gem_type") is-invalid @enderror form-control py-1"  value="{{ old("gem_type") }}">' +
                         '@error("gem_type")'+
                         '<span class="invalid-feedback" role="alert">' +
@@ -367,14 +372,14 @@
                         '@enderror' +
                         '</div>' +
                         '<div class="col-md-2 mb-3">' +
-                        '<label for="quantity" style="font-weight: 700">Gem Quantity:</label>' +
+                        '<label for="quantity" style="font-weight: 700">Quantity:</label>' +
                         '<input type="text" name="quantity[]" id="quantity_' +row_id + '" class="@error("quantity") is-invalid @enderror form-control py-1"  value="{{ old("quantity") }}">' +
                         '@error("quantity")'+
                         '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>'+
                         '@enderror'+
                         '</div>'+
                         '<div class="col-md-2 mb-3">' +
-                        '<label for="weight" style="font-weight: 700">Gem weight:</label>'+
+                        '<label for="weight" style="font-weight: 700">Weight:</label>'+
                         '<input type="text" name="weight[]" id="weight_' + row_id + '" class="@error("weight") is-invalid @enderror form-control py-1"  value="{{ old("weight") }}">' +
                         '@error("weight")'+
                         '<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>' +              
@@ -388,7 +393,7 @@
                         '</select>'+  
                         '</div>' +
                         '<div class="col-md-4 mb-3">'+
-                        '<label for="price" style="font-weight: 700">Gem price:</label>'+
+                        '<label for="price" style="font-weight: 700">Price:</label>'+
                         '<div class="d-flex">'+
                          '<input type="text" name="price[]" id="price_' + row_id + '" class="@error("price") is-invalid @enderror form-control py-1"  value="{{ old("price") }}" onkeyup="calculation()">'+
                          '</div>'+

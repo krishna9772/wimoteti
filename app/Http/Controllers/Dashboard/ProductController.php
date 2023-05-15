@@ -17,7 +17,6 @@ class ProductController extends Controller
     public function index(Request $request)
     {
        
-       
         if (session('product-delete')) {
             toast(Session::get('product-delete'), "success");
         }

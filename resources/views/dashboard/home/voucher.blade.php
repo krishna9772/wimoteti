@@ -122,29 +122,59 @@
                             $gem_type = json_decode($voucherFilter->positem[0]->gem_type);
                             $gem_quantity = json_decode($voucherFilter->positem[0]->gem_quantity);
                             $weight_type = json_decode($voucherFilter->positem[0]->weight_type);
-                            $length = count($gem_type);
                         @endphp
-                @for($i = 0 ; $i < count($gem_type); $i++)
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                @endfor
+                @if(gettype($gem_type) == 'array')
+                    @for($i = 0 ; $i < count($gem_type); $i++)
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                    @endfor
+
+                    <tr style="background:#EEEEEE;">
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_k}} ကျပ် @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_p}} ပဲ @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_y}} ရွေး @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    </tr>
+                    <tr style="background:#EEEEEE;">
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight-{{$voucherFilter->positem[0]->net_weight }} g] </td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                    </tr>
+                   
+                @else
+                    @php 
+                    $no = 1;
+                    $count = count($voucherFilter->positem);
                 
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_k}} k @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_p}} p @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_y}} y @endif</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
-                <tr style="background:#EEEEEE;">
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">[Net-weight -{{$voucherFilter->positem[0]->net_weight}}]</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
-                </tr>
+                    @endphp
+
+                    @for ($x = 0; $x < $count; $x++)
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$voucherFilter->positem[$x]->gem_type}}  ( {{$voucherFilter->positem[$x]->weight}} @if($voucherFilter->positem[$x]->weight_type == 1) Carat @else Ratti @endif [ {{$voucherFilter->positem[$x]->product->quantity}}-pcs ] )</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                        
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($voucherFilter->positem[$x]->gold_quantity_k){{$voucherFilter->positem[$x]->gold_quantity_k}} ကျပ် @endif @if($voucherFilter->positem[$x]->gold_quantity_p){{$voucherFilter->positem[$x]->gold_quantity_p}} ပဲ @endif @if($voucherFilter->positem[$x]->gold_quantity_p){{$voucherFilter->positem[$x]->gold_quantity_y}} ရွေး @endif</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                        <tr style="background:#EEEEEE;">
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Net-weight - {{$voucherFilter->positem[$x]->net_weight}}</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
+                        </tr>
+                    @endfor
+                @endif
                     </table>
                 </div>
                 <div style="display:flex;">

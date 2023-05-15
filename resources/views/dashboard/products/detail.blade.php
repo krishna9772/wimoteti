@@ -105,7 +105,7 @@
                                     
                                     <tr>
                                         <th scope="row">Gold Quantity</th>
-                                        <td>{{$product->gold_quantity_p}}.{{$product->gold_quantity_y}}</td>
+                                        <td>{{$product->gold_quantity_k ? $product->gold_quantity_k. ' ကျပ် ': ''}}{{$product->gold_quantity_p}} ပဲ {{$product->gold_quantity_y}} ရွေး</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Gold Price</th>
@@ -113,7 +113,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">AD Gold Quantity</th>
-                                        <td>{{$product->ad_gold_quantity_p}}.{{$product->ad_gold_quantity_y}}</td>
+                                        <td>{{$product->ad_gold_quantity_k ? $product->gold_quantity_k. ' ကျပ် ': ''}}{{$product->ad_gold_quantity_p}} ပဲ {{$product->ad_gold_quantity_y}} ရွေး </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">AD Gold Price</th>
@@ -125,7 +125,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Service Charges</th>
-                                        <td>{{$product->service_charges}}</td>
+                                        <td>{{$product->service_charges}} %</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total Price</th>
@@ -151,13 +151,13 @@
 
                                 @if(gettype($gem_type) == 'array')
                                     @for($i = 0 ; $i < count($gem_type); $i++)
-                                    <tr>
+                                        <tr>
 
                                             <td>{{$gem_type[$i]}}</td>
-                                       
+                                        
                                             <td>{{$gem_quantity[$i]}}</td>
-                                       
-                                            <td>{{$gem_weight[$i]}} @if($gem_weight[$i] == 1) Carat  @else Ratti @endif</td>
+                                        
+                                            <td>{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat  @else Ratti @endif</td>
                                         
                                             <td>{{number_format($gem_price[$i])}}</td>
                                         </tr>
@@ -172,7 +172,7 @@
                                             {{$product->quantity}}
                                         </td>
                                         <td>
-                                            {{$product->weight}}
+                                            {{$product->weight}} {{$product->weight_type == 1 ? 'Carat' : 'Ratti'}}
                                         </td>
                                         <td>
                                             {{number_format($product->price)}}

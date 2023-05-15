@@ -183,7 +183,7 @@
                     @endfor
 
                     <tr style="background:#EEEEEE;">
-                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} ပဲ @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} ရွှေး @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} ပဲ @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} ရွေး @endif</td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
@@ -204,14 +204,14 @@
 
                     @for ($x = 0; $x < $count; $x++)
                         <tr style="background:#EEEEEE;">
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gem_type}}  ( {{$pos->positem[$x]->weight}} @if($pos->positem[$x]->weight_type == 1) Carat @else Ratti @endif)</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[$x]->gem_type}}  ( {{$pos->positem[$x]->weight}} @if($pos->positem[$x]->weight_type == 1) Carat @else Ratti @endif [ {{$pos->positem[$x]->product->quantity}}-pcs ] )</td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         </tr>
                         
                         <tr style="background:#EEEEEE;">
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[$x]->gold_quantity_k){{$pos->positem[$x]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_p}} ပဲ @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_y}} ရွှေး @endif</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[$x]->gold_quantity_k){{$pos->positem[$x]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_p}} ပဲ @endif @if($pos->positem[$x]->gold_quantity_p){{$pos->positem[$x]->gold_quantity_y}} ရွေး @endif</td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>

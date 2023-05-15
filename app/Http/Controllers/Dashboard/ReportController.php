@@ -26,12 +26,12 @@ class ReportController extends Controller
 
         $product_in = Product::select('id','code','price')
         ->where("status",1)->where("product_in",1)
-        ->whereBetween('created_at',[$request->from_date, $request->to_date])
+        ->whereBetween('updated_at',[$request->from_date, $request->to_date])
         ->paginate(3);
 
         $product_out = Product::select('id','code','price')
         ->where("status",1)->where("product_in",0)
-        ->whereBetween('created_at',[$request->from_date, $request->to_date])
+        ->whereBetween('updated_at',[$request->from_date, $request->to_date])
         ->paginate(3);
 
         $product_in_total_price = Product::where('status',1)->where('product_in',1)->sum('total_price');

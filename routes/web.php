@@ -123,7 +123,7 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
 
     //Report Start //
      Route::get('/report', [ReportController::class, 'index'])->name('report');
-     Route::post('/report-filter', [ReportController::class, 'filter'])->name('report.filter');
+     Route::any('/report-filter', [ReportController::class, 'filter'])->name('report.filter');
     //Report End //
       Route::get('/backup', function () {
 

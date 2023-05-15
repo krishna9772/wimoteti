@@ -32,11 +32,11 @@
                                     @csrf
                                         <div class="col-lg-4">
                                             <label for="from_date" style="font-weight: 700" class="mb-2">Date (From)</label>
-                                            <input type="date" class="form-control" name="from_date">
+                                            <input type="date" class="form-control" name="from_date" value="{{old('from_date')}}"> 
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="to_date" style="font-weight: 700" class="mb-2">Date (To)</label>
-                                            <input type="date" class="form-control" name="to_date">
+                                            <input type="date" class="form-control" name="to_date" value="{{old('to_date')}}">
                                         </div>
                                         <div class="col-lg-4" style="margin-top: 30px;">
                                             <button class="btn btn-primary" type="submit">Filter</button>
