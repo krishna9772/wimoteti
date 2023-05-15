@@ -76,7 +76,11 @@
                 </div>
                 @if($pos->payment_status == 'paid')
                 <div style="">
-                    <span style="border:3px solid #EEEEEE;;padding:15px 30px;font-size:25px;font-weight:bold;color:#EFBC4F;float: right;">PAID</span>
+                    <span style="border:3px solid #EEEEEE;;padding:15px 30px;font-size:25px;font-weight:bold;color:#1df016;float: right;">PAID</span>
+                </div>
+                @else
+                <div style="">
+                    <span style="border:3px solid #EEEEEE;;padding:15px 30px;font-size:25px;font-weight:bold;color:#e61e1e;float: right;">UNPAID</span>
                 </div>
                 @endif
             </div>

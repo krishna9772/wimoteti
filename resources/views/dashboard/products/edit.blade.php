@@ -398,8 +398,8 @@
      var ad_gold_quantity_k = Number($("#ad_gold_quantity_k").val());
      var ad_gold_quantity_p = Number($("#ad_gold_quantity_p").val());
      var ad_gold_quantity_y = Number($("#ad_gold_quantity_y").val());
-     var gold_price_total =  (gold_quantity_k + gold_quantity_y/8 + gold_quantity_p/16) * today_g_price;
-     var ad_gold_price_total =  (ad_gold_quantity_k + ad_gold_quantity_y/8 + ad_gold_quantity_p/16)  * today_g_price;
+     var gold_price_total =  (gold_quantity_k + gold_quantity_y/128 + gold_quantity_p/16) * today_g_price;
+     var ad_gold_price_total =  (ad_gold_quantity_k + ad_gold_quantity_y/128 + ad_gold_quantity_p/16)  * today_g_price;
      
      var total = total_gem_price_1 + (isNaN(total_gem_price_2) ? 0 : total_gem_price_2) +
      (isNaN(total_gem_price_3) ? 0 : total_gem_price_3) +
