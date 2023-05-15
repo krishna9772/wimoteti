@@ -60,7 +60,7 @@
                                             @foreach($product_in as $p_in)
                                             <tr>
                                                 <td class="border">{{$i++}}</td>
-                                                <td class="border">{{$p_in->code}}</td>
+                                                <td class="border"><a href="{{ route('product.detail', ['id' => $p_in->id]) }}">{{$p_in->code}}</a></td>
                                                 <td class="border">{{number_format($p_in->total_price)}}</td>
                                             </tr>
                                             @endforeach
@@ -93,7 +93,7 @@
 
                                             <tr>
                                                 <td class="border">{{$o++}}</td>
-                                                <td class="border" >{{$p_out->code}}</td>
+                                                <td class="border" ><a href="{{ route('product.detail', ['id' => $p_out->id]) }}">{{$p_out->code}}</a></td>
                                                 <td class="border">{{number_format($p_out->total_price)}}</td>
                                                 <?php $total += $p_out->total_price; ?>
 
