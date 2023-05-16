@@ -183,7 +183,11 @@
                     @endfor
 
                     <tr style="background:#EEEEEE;">
-                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} ကျပ် @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_p}} ပဲ @endif @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_y}} ရွေး @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - 
+                            @if($pos->positem[0]->gold_quantity_k){{$pos->positem[0]->gold_quantity_k}} ကျပ် @endif 
+                            @if($pos->positem[0]->gold_quantity_p){{$pos->positem[0]->gold_quantity_p}} ပဲ @endif
+                             @if($pos->positem[0]->gold_quantity_y){{$pos->positem[0]->gold_quantity_y}} ရွေး @endif
+                        </td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
