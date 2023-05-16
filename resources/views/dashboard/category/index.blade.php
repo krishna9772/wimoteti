@@ -45,7 +45,7 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ \Carbon\Carbon::create($category->created_at)->toFormattedDateString() }}
                                             </td>
-                                            <td>@php echo number_format(DB::table('products')->join('categories', 'products.type', '=', 'categories.id')->where('categories.id',$category->id)->where('products.product_in',1)
+                                            <td>@php echo number_format(DB::table('products')->join('categories', 'products.type', '=', 'categories.id')->where('categories.id',$category->id)->where('products.product_in',1)->where('products.status' , 1)
                                                 ->sum('products.total_price')) @endphp</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
