@@ -24,20 +24,24 @@ class ReportController extends Controller
     public function filter(Request $request){
 
 
-        $product_in = Product::select('id','code','price')
+        $product_in = Product::select('id','code','total_price')
         ->where("status",1)->where("product_in",1)
         ->whereBetween('updated_at',[$request->from_date, $request->to_date])
         ->paginate(10);
 
-        $product_out = Product::select('id','code','price')
+        $product_out = Product::select('id','code','total_price')
         ->where("status",1)->where("product_in",0)
         ->whereBetween('updated_at',[$request->from_date, $request->to_date])
         ->paginate(10);
 
-        $product_in_total_price = Product::where('status',1)->where('product_in',1)->sum('total_price');
-        $product_out_total_price = Product::where('status',1)->where('product_in',0)->sum('total_price');
 
-         
-        return view('dashboard.report.index',compact("product_in","product_out",'product_in_total_price','product_out_total_price'));
+
+        $product_in_total_price = Product::where('status',1)->where('product_in',1)->whereBetween('updated_at',[$request->from_date, $request->to_date])->sum('total_price');
+        $product_out_total_price = Product::where('status',1)->whereBetween('updated_at',[$request->from_date, $request->to_date])->where('product_in',0)->sum('total_price');
+
+        $from_date = $request->from_date ? $request->from_date : '' ;
+        $to_date = $request->to_date ? $request->to_date : '';
+
+        return view('dashboard.report.index',compact("product_in","product_out",'product_in_total_price','product_out_total_price','from_date','to_date'));
     }
 }

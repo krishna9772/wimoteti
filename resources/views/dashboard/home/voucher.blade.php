@@ -134,7 +134,7 @@
                     @endfor
 
                     <tr style="background:#EEEEEE;">
-                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_k}} ကျပ် @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_p}} ပဲ @endif @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_y}} ရွေး @endif</td>
+                        <td style="padding:20px 0px;text-align:center;font-weight:bold;">Gold - @if($voucherFilter->positem[0]->gold_quantity_k){{$voucherFilter->positem[0]->gold_quantity_k}} ကျပ် @endif @if($voucherFilter->positem[0]->gold_quantity_p){{$voucherFilter->positem[0]->gold_quantity_p}} ပဲ @endif @if($voucherFilter->positem[0]->gold_quantity_y){{$voucherFilter->positem[0]->gold_quantity_y}} ရွေး @endif</td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                         <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
