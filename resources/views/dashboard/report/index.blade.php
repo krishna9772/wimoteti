@@ -72,7 +72,7 @@
                                         </tbody>
                                     </table>
 
-                                    <div class="pagination justify-content-center">{{ $product_in->links() }}</div>
+                                    <div class="pagination justify-content-center">{{ $product_in->appends(request()->query())->links() }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
