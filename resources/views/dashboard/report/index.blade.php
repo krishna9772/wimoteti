@@ -111,7 +111,7 @@
                                     </table>
 
 
-                                    <div class="pagination justify-content-center">{{ $product_out->links() }}</div>
+                                    <div class="pagination justify-content-center">{{ $product_out->appends(request()->query())->links() }}</div>
                                 </div>
                             </div>
                         </div>
