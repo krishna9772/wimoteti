@@ -430,11 +430,11 @@ function getTotal(row = null) {
       count = count.substring(4);
 
       totalSubAmount = Number(totalSubAmount) + Number($("#amount_"+count).val());
-      if(discount == 100){
-        alert('Discount Percentage Should be less than 100 !!');
-        $("#discount").val("");
-      };
-      if(discount < 100){
+    //   if(discount == 100){
+    //     alert('Discount Percentage Should be less than 100 !!');
+    //     $("#discount").val("");
+    //   };
+      if(discount <= 100){
         lastTotal = Number(totalSubAmount) - (Number(totalSubAmount)/100)*discount;
       }else{
         lastTotal = totalSubAmount - discount;

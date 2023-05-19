@@ -164,7 +164,7 @@
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">Product Code : {{$pos->positem[0]->code}}</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->positem[0]->total_price)}}</td>
                     <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$pos->positem[0]->quantity}}</td>
-                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->total_price)}}</td>
+                    <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{number_format($pos->positem[0]->total_price * $pos->positem[0]->quantity)}}</td>
                 </tr>
                 @php
                     $gem_weight = json_decode($pos->positem[0]->weight);
@@ -175,7 +175,7 @@
                 @if(gettype($gem_type) == 'array')
                     @for($i = 0 ; $i < count($gem_type); $i++)
                         <tr style="background:#EEEEEE;">
-                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type[$i] == 1) Carat @else Ratti @endif [{{$gem_quantity[$i]}}-pcs]</td>
+                            <td style="padding:20px 0px;text-align:center;font-weight:bold;">{{$gem_type[$i]}}-{{$gem_weight[$i]}} @if($weight_type != null && $weight_type[$i] == 1) Carat @else Ratti @endif  {{$gem_quantity == null ? ""  : "[".$gem_quantity[$i]."-pcs]"}}</td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
                             <td style="padding:20px 0px;text-align:center;font-weight:bold;"></td>
@@ -269,7 +269,7 @@
                         Discount : 
                     </div>
                     <div>
-                        {{number_format($pos->discount)}}
+                        {{$pos->discount > 100 ?  number_format($pos->discount) ." Ks": number_format($pos->discount) . "%"}}
                     </div>
                 </div>
                 {{-- <div style="padding:20px 20px;font-weight:bold;display:flex;justify-content:space-between;">
@@ -285,7 +285,7 @@
                         Sub Total : 
                     </div>
                     <div>
-                        {{number_format($pos->total_price)}}
+                        {{number_format($pos->total_price)." Ks"}}
                     </div>
                 </div>
 
@@ -294,7 +294,7 @@
                         Grand Total : 
                     </div>
                     <div>
-                        {{number_format($pos->total_price)}}
+                        {{number_format($pos->total_price)." Ks"}}
                     </div>
                 </div>
         
