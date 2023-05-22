@@ -69,6 +69,9 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+        <a href="{{ route('product.history') }}" class="d-flex align-items-center btn btn-primary">
+            <i class="bi bi-journal-text"></i>&nbsp;History
+        </a>
         <a href="{{ route('product.create') }}" class="d-flex align-items-center btn btn-primary">
             <i class="bi bi-plus-lg"></i>Add
         </a>

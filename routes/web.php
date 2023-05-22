@@ -85,6 +85,8 @@ Route::group(['namespace' => "Auth", 'prefix' => 'auth/', 'middleware' => 'auth'
      Route::get('/product/{id}/detail', [ProductController::class, 'detail'])->name('product.detail');
      Route::put('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
      Route::delete('/product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete');
+
+     Route::get('/product/history', [ProductController::class, 'history'])->name('product.history');
      // Product end //
 
      // Gold start //

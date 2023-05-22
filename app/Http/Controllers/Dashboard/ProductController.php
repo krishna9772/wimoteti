@@ -209,4 +209,10 @@ class ProductController extends Controller
         // return $product;
         return view('dashboard.products.detail', compact('product'));
     }
+    
+    public function history(Request $request)
+    {
+        $products = Product::with('getCategory')->where('status', 1)->orderBy('created_at', 'desc')->get();          
+        return view('dashboard.products.history', compact('products'));
+    }
 }
