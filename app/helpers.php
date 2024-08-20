@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Crypt;
             }else{
                 $goldPrice = "";
             }
-            return number_format($goldPrice);
+            return $goldPrice;
         }
     }
 
